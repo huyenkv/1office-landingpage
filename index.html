@@ -1,0 +1,2845 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>1Office — Số hóa và tự động hóa quy trình với No-code/Low-code & AI</title>
+<meta name="description" content="Thiết kế quy trình kéo-thả, tự động luân chuyển, ký số trên một nền tảng duy nhất — tích hợp AI hỗ trợ tối ưu vận hành. Được 6.000+ doanh nghiệp Việt tin dùng." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  /* =========================================================
+     DESIGN TOKENS
+     ========================================================= */
+  :root {
+    /* 1Office Brand Orange Palette (matching official LP) */
+    --orange-50:  #FFF1EB;
+    --orange-100: #FFE0CF;
+    --orange-200: #FFC4A0;
+    --orange-300: #FF9339;
+    --orange-500: #F0500A;   /* main brand orange */
+    --orange-600: #D04408;   /* hover */
+    --orange-700: #A63606;   /* active */
+
+    --coral-500:  #F36E36;   /* button gradient accent */
+    --cream-100:  #FDE298;   /* soft highlight bg */
+
+    --ink-900: #020E25;      /* deep navy (brand text) */
+    --ink-800: #1A1F28;
+    --ink-700: #202020;
+    --ink-500: #5E5E5E;
+    --ink-300: #8D8D8D;
+    --ink-100: #EEEEEE;
+    --ink-50:  #F3F4F5;
+    --white:   #FFFFFF;
+
+    --green-500: #10B981;
+    --red-500:   #EF4444;
+
+    --radius:    14px;
+    --radius-lg: 22px;
+    --radius-xl: 32px;
+
+    --shadow-sm: 0 1px 2px rgba(2,14,37,.04), 0 2px 6px rgba(2,14,37,.04);
+    --shadow:    0 4px 14px rgba(2,14,37,.06), 0 12px 40px rgba(2,14,37,.06);
+    --shadow-lg: 0 20px 60px rgba(240,80,10,.18), 0 8px 24px rgba(2,14,37,.08);
+
+    --font-display: 'Montserrat', system-ui, sans-serif;
+    --font-body:    'Inter', system-ui, sans-serif;
+
+    --container: 1200px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-body);
+    color: var(--ink-900);
+    background: var(--white);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+  img, svg { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; }
+  input, select, textarea { font-family: inherit; font-size: inherit; }
+  ::selection { background: var(--orange-500); color: #fff; }
+
+  .container {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: var(--ink-900);
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--orange-600);
+    padding: 7px 14px;
+    background: var(--orange-50);
+    border-radius: 999px;
+    margin-bottom: 20px;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--orange-500);
+    box-shadow: 0 0 0 4px rgba(240,80,10,.18);
+  }
+  .section-title {
+    font-size: clamp(30px, 4vw, 50px);
+    margin-bottom: 16px;
+  }
+  .section-subtitle {
+    font-size: 18px;
+    color: var(--ink-500);
+    max-width: 720px;
+  }
+  .section-head {
+    text-align: center;
+    margin-bottom: 64px;
+  }
+  .section-head .section-subtitle { margin: 0 auto; }
+  .accent { color: var(--orange-500); }
+
+  /* =========================================================
+     BUTTONS
+     ========================================================= */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 15px;
+    padding: 14px 26px;
+    border-radius: 12px;
+    transition: transform .2s, box-shadow .2s, background .2s, border-color .2s;
+    white-space: nowrap;
+  }
+  .btn-primary {
+    background: var(--orange-500);
+    color: #fff;
+    box-shadow: 0 6px 20px rgba(240,80,10,.35);
+  }
+  .btn-primary:hover {
+    background: var(--orange-600);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(240,80,10,.45);
+  }
+  .btn-ghost {
+    background: #fff;
+    color: var(--ink-900);
+    border: 1.5px solid var(--ink-100);
+  }
+  .btn-ghost:hover { border-color: var(--orange-500); color: var(--orange-600); }
+  .btn-lg { padding: 17px 30px; font-size: 16px; border-radius: 14px; }
+
+  /* =========================================================
+     NAVBAR
+     ========================================================= */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255,255,255,.88);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(14,17,22,.06);
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+  }
+  .logo {
+    display: flex; align-items: center;
+    line-height: 0;
+  }
+  .logo img {
+    height: 38px;
+    width: auto;
+    display: block;
+  }
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 14.5px;
+    font-weight: 500;
+    color: var(--ink-700);
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--orange-600); }
+  .nav-cta { display: flex; gap: 10px; align-items: center; }
+  .nav-cta .btn { padding: 10px 20px; font-size: 14px; }
+
+  @media (max-width: 980px) { .nav-links { display: none; } }
+  @media (max-width: 580px) { .nav-cta .btn-ghost { display: none; } }
+
+  /* =========================================================
+     HERO
+     ========================================================= */
+  .hero {
+    position: relative;
+    padding: 72px 0 100px;
+    overflow: hidden;
+    background:
+      radial-gradient(60% 60% at 92% 10%, rgba(240,80,10,.08), transparent 70%),
+      radial-gradient(40% 50% at 5% 85%, rgba(255,168,114,.12), transparent 70%),
+      var(--white);
+  }
+  .hero-grid-lines {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(to right, rgba(14,17,22,.025) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(14,17,22,.025) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, #000, transparent 80%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, #000, transparent 80%);
+    pointer-events: none;
+  }
+  .hero-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+    gap: 50px;
+    align-items: center;
+    position: relative;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 8px 8px 16px;
+    background: #fff;
+    border: 1px solid var(--ink-100);
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink-700);
+    margin-bottom: 28px;
+    box-shadow: var(--shadow-sm);
+  }
+  .hero-badge strong { color: var(--orange-600); font-weight: 700; }
+  .hero-badge .pill {
+    background: var(--orange-500);
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+  .hero h1 {
+    font-size: clamp(36px, 5.2vw, 60px);
+    line-height: 1.08;
+    margin-bottom: 22px;
+    letter-spacing: -0.025em;
+  }
+  .hero h1 .break { display: block; }
+  .hero-sub {
+    font-size: 18.5px;
+    color: var(--ink-500);
+    max-width: 560px;
+    margin-bottom: 32px;
+    line-height: 1.6;
+  }
+  .hero-bullets {
+    list-style: none;
+    margin-bottom: 36px;
+  }
+  .hero-bullets li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 7px 0;
+    font-size: 15px;
+    color: var(--ink-700);
+    font-weight: 500;
+  }
+  .hero-bullets li::before {
+    content: "";
+    flex-shrink: 0;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--orange-50);
+    margin-top: 1px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23F0500A' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><polyline points='20 6 9 17 4 12'/></svg>");
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  .hero-ctas {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+  }
+  .hero-trust-card {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 18px;
+    background: #fff;
+    border: 1px solid var(--ink-100);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+  }
+  .trust-avatars {
+    display: flex;
+  }
+  .trust-avatars span {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    border: 2.5px solid #fff;
+    margin-left: -10px;
+    display: grid; place-items: center;
+    color: #fff;
+    font-weight: 700;
+    font-size: 11.5px;
+    font-family: var(--font-display);
+  }
+  .trust-avatars span:first-child { margin-left: 0; background: var(--orange-500); }
+  .trust-avatars span:nth-child(2) { background: #1F4DD6; }
+  .trust-avatars span:nth-child(3) { background: #0E9384; }
+  .trust-avatars span:nth-child(4) { background: #8B5CF6; }
+  .trust-avatars span:nth-child(5) {
+    background: var(--ink-50);
+    color: var(--ink-700);
+    font-size: 10.5px;
+  }
+  .trust-text { font-size: 13px; color: var(--ink-500); line-height: 1.4; }
+  .trust-text strong { color: var(--ink-900); display: block; font-size: 14px; font-weight: 700; }
+
+  /* Hero visual */
+  .hero-visual {
+    position: relative;
+    aspect-ratio: 1 / 0.95;
+    max-width: 760px;
+    width: 100%;
+    margin-left: auto;
+    background:
+      radial-gradient(70% 70% at 50% 50%, rgba(240,80,10,.08), transparent 70%);
+    border-radius: var(--radius-xl);
+    padding: 20px;
+  }
+  .hero-visual svg { width: 100%; height: 100%; overflow: visible; }
+
+  .float-card {
+    position: absolute;
+    background: #fff;
+    border: 1px solid var(--ink-100);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+    animation: float 6s ease-in-out infinite;
+  }
+  .float-card-1 { top: 10%; left: -4%; animation-delay: 0s; }
+  .float-card-2 { bottom: 18%; right: -6%; animation-delay: 2s; }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-10px); }
+  }
+  .float-card .dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--green-500);
+    box-shadow: 0 0 0 4px rgba(16,185,129,.2);
+  }
+  .float-card .dot.orange { background: var(--orange-500); box-shadow: 0 0 0 4px rgba(240,80,10,.2); }
+  .float-card strong { font-weight: 600; }
+  .float-card small { display: block; color: var(--ink-500); font-size: 11.5px; margin-top: 2px; }
+
+  @media (max-width: 980px) {
+    .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+    .hero-visual { max-width: 620px; margin: 0 auto; }
+  }
+
+  /* =========================================================
+     LOGO MARQUEE
+     ========================================================= */
+  .logos {
+    padding: 40px 0 56px;
+    border-bottom: 1px solid var(--ink-100);
+    overflow: hidden;
+  }
+  .logos-label {
+    text-align: center;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink-500);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+  .logos-label strong { color: var(--ink-900); font-weight: 700; }
+
+  .marquee {
+    position: relative;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%);
+            mask-image: linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%);
+  }
+  .marquee-track {
+    display: flex;
+    gap: 56px;
+    width: max-content;
+    animation: scroll-x 32s linear infinite;
+    will-change: transform;
+  }
+  .marquee:hover .marquee-track { animation-play-state: paused; }
+  @keyframes scroll-x {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  .logo-item {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--ink-300);
+    letter-spacing: -0.01em;
+    padding: 14px 20px;
+    transition: color .25s, opacity .25s, filter .25s;
+    filter: grayscale(1);
+    opacity: .7;
+    white-space: nowrap;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .logo-item:hover { color: var(--orange-600); filter: none; opacity: 1; }
+  .logo-item .sep {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--ink-300);
+    opacity: .5;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track { animation: none; }
+  }
+
+  /* =========================================================
+     PAIN CONTRAST — "Trước đây" vs "Với 1Office"
+     ========================================================= */
+  .pain-contrast {
+    padding: 120px 0;
+    background: var(--white);
+  }
+  .contrast-grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 32px;
+    align-items: stretch;
+  }
+  .contrast-col {
+    padding: 40px;
+    border-radius: var(--radius-xl);
+    border: 1.5px solid;
+  }
+  .contrast-col.before {
+    background: #FEF2F2;
+    border-color: #FECACA;
+  }
+  .contrast-col.after {
+    background: linear-gradient(135deg, #FFF1EB 0%, #FFFBF7 100%);
+    border-color: var(--orange-200);
+  }
+  .contrast-col-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px dashed currentColor;
+    opacity: .9;
+  }
+  .contrast-col.before .contrast-col-title { color: #DC2626; }
+  .contrast-col.after .contrast-col-title { color: var(--orange-700); }
+  .contrast-col-title::before {
+    content: "";
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+    flex-shrink: 0;
+  }
+  .contrast-col.before .contrast-col-title::before {
+    background-color: #FEE2E2;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23DC2626' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><line x1='18' y1='6' x2='6' y2='18'/><line x1='6' y1='6' x2='18' y2='18'/></svg>");
+  }
+  .contrast-col.after .contrast-col-title::before {
+    background-color: var(--orange-100);
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23C94400' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><polyline points='20 6 9 17 4 12'/></svg>");
+  }
+  .contrast-list { list-style: none; }
+  .contrast-list li {
+    padding: 14px 0;
+    display: flex;
+    gap: 12px;
+    font-size: 15px;
+    line-height: 1.5;
+    border-bottom: 1px solid rgba(0,0,0,.04);
+  }
+  .contrast-list li:last-child { border-bottom: none; }
+  .contrast-col.before .contrast-list li { color: #7F1D1D; }
+  .contrast-col.after .contrast-list li { color: var(--ink-900); font-weight: 500; }
+  .contrast-list li::before {
+    content: "";
+    flex-shrink: 0;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    margin-top: 1px;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  .contrast-col.before .contrast-list li::before {
+    background-color: #FEE2E2;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%23DC2626' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><line x1='18' y1='6' x2='6' y2='18'/><line x1='6' y1='6' x2='18' y2='18'/></svg>");
+  }
+  .contrast-col.after .contrast-list li::before {
+    background-color: var(--orange-500);
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><polyline points='20 6 9 17 4 12'/></svg>");
+  }
+
+  .contrast-arrow {
+    display: grid; place-items: center;
+    width: 56px;
+  }
+  .contrast-arrow svg {
+    width: 40px;
+    color: var(--orange-500);
+    animation: nudge 2s ease-in-out infinite;
+  }
+  @keyframes nudge {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(6px); }
+  }
+
+  @media (max-width: 900px) {
+    .contrast-grid { grid-template-columns: 1fr; }
+    .contrast-arrow { transform: rotate(90deg); margin: -8px auto; }
+    .contrast-col { padding: 28px; }
+  }
+
+  /* =========================================================
+     STATS — 4 numbers
+     ========================================================= */
+  .stats {
+    padding: 100px 0;
+    background: var(--ink-900);
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  .stats::before {
+    content: "";
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(240,80,10,.18), transparent 70%);
+    pointer-events: none;
+  }
+  .stats::after {
+    content: "";
+    position: absolute;
+    bottom: -150px; left: -150px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(240,80,10,.12), transparent 70%);
+    pointer-events: none;
+  }
+  .stats .section-head {
+    position: relative;
+    margin-bottom: 56px;
+  }
+  .stats .section-title { color: #fff; }
+  .stats .eyebrow { background: rgba(240,80,10,.18); color: var(--orange-300); }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    position: relative;
+  }
+  .stat-card {
+    padding: 36px 28px;
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+    transition: transform .3s, border-color .3s;
+  }
+  .stat-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(240,80,10,.4);
+  }
+  .stat-card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--orange-500), transparent);
+  }
+  .stat-number {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(44px, 6vw, 68px);
+    line-height: 1;
+    background: linear-gradient(135deg, var(--orange-300), var(--orange-500));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 12px;
+    letter-spacing: -0.03em;
+  }
+  .stat-label {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 15px;
+    color: #fff;
+  }
+  .stats-footnote {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 12.5px;
+    color: var(--ink-300);
+    font-style: italic;
+    max-width: 720px;
+    margin-left: auto; margin-right: auto;
+    position: relative;
+  }
+
+  @media (max-width: 900px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 500px) { .stats-grid { grid-template-columns: 1fr; } }
+
+  /* =========================================================
+     HOW IT WORKS — 5 steps (core feature showcase)
+     ========================================================= */
+  .how {
+    padding: 120px 0;
+    background: var(--ink-50);
+    position: relative;
+    overflow: hidden;
+  }
+  .how::before {
+    content: "";
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(240,80,10,.08), transparent 70%);
+    pointer-events: none;
+  }
+
+  .how-steps {
+    max-width: 1080px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .how-step {
+    display: grid;
+    grid-template-columns: 60px minmax(0, 1fr) minmax(0, 1fr);
+    gap: 32px;
+    padding: 48px 0;
+    position: relative;
+    align-items: center;
+  }
+  .how-step:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    left: 29px; top: 120px; bottom: -20px;
+    width: 2px;
+    background: repeating-linear-gradient(to bottom, var(--orange-300) 0 6px, transparent 6px 12px);
+  }
+  .how-step-num {
+    width: 60px; height: 60px;
+    background: #fff;
+    border: 2px solid var(--orange-500);
+    color: var(--orange-500);
+    border-radius: 50%;
+    display: grid; place-items: center;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 22px;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 8px 24px rgba(240,80,10,.2);
+    transition: background .3s, color .3s;
+  }
+  .how-step:hover .how-step-num {
+    background: var(--orange-500);
+    color: #fff;
+  }
+
+  .how-step-content h3 {
+    font-size: 24px;
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+  .how-step-content p {
+    color: var(--ink-500);
+    font-size: 15px;
+    margin-bottom: 18px;
+    line-height: 1.65;
+  }
+  .how-step-compare {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 18px;
+    background: var(--orange-50);
+    border-radius: var(--radius);
+    font-size: 13.5px;
+    flex-wrap: wrap;
+    border: 1px solid var(--orange-100);
+  }
+  .how-compare-before {
+    color: var(--ink-500);
+    text-decoration: line-through;
+    text-decoration-color: var(--orange-300);
+  }
+  .how-compare-after {
+    color: var(--orange-700);
+    font-weight: 700;
+  }
+  .how-compare-arrow { color: var(--orange-500); font-weight: 700; }
+
+  .how-step-visual {
+    background: #fff;
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--ink-100);
+    min-height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .how-step-visual svg { width: 100%; height: auto; max-height: 220px; }
+
+  @media (max-width: 900px) {
+    .how-step {
+      grid-template-columns: 60px 1fr;
+      gap: 20px;
+      padding: 32px 0;
+    }
+    .how-step-visual { grid-column: 2; }
+  }
+
+  /* =========================================================
+     DEPARTMENTS — Tab Switcher
+     ========================================================= */
+  .departments {
+    padding: 120px 0;
+    background: var(--white);
+  }
+  .tabs-nav {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 48px;
+    flex-wrap: wrap;
+  }
+  .tab-btn {
+    padding: 12px 22px;
+    background: #fff;
+    border: 1.5px solid var(--ink-100);
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 14.5px;
+    color: var(--ink-700);
+    transition: all .25s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .tab-btn:hover { border-color: var(--orange-300); color: var(--orange-600); }
+  .tab-btn.active {
+    background: var(--orange-500);
+    color: #fff;
+    border-color: var(--orange-500);
+    box-shadow: 0 4px 14px rgba(240,80,10,.3);
+  }
+  .tab-btn .tab-icon { font-size: 16px; }
+
+  .tab-panel {
+    display: none;
+    background: var(--ink-50);
+    border-radius: var(--radius-xl);
+    padding: 48px;
+    border: 1px solid var(--ink-100);
+  }
+  .tab-panel.active {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 56px;
+    align-items: center;
+    animation: fadeIn .4s ease;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .tab-content h3 {
+    font-size: 26px;
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+  .tab-content .tab-subtitle {
+    color: var(--orange-600);
+    font-weight: 600;
+    font-size: 13px;
+    margin-bottom: 18px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .tab-content p {
+    color: var(--ink-500);
+    font-size: 15px;
+    margin-bottom: 24px;
+    line-height: 1.7;
+  }
+  .tab-results {
+    list-style: none;
+  }
+  .tab-results li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 0;
+    font-size: 14.5px;
+    color: var(--ink-700);
+  }
+  .tab-results li::before {
+    content: "";
+    flex-shrink: 0;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: var(--orange-50);
+    margin-top: 2px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23F0500A' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><polyline points='20 6 9 17 4 12'/></svg>");
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .dept-flow {
+    background: #fff;
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    border: 1px solid var(--ink-100);
+  }
+  .dept-flow-title {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--ink-500);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .dept-flow-title::before {
+    content: "";
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--orange-500);
+    box-shadow: 0 0 0 3px rgba(240,80,10,.2);
+  }
+  .dept-nodes {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .dept-node {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 16px;
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid var(--ink-100);
+    font-size: 13.5px;
+    font-weight: 500;
+  }
+  .dept-node.branch {
+    background: var(--orange-50);
+    border-color: var(--orange-200);
+    color: var(--orange-700);
+    font-weight: 600;
+  }
+  .dept-node::before {
+    content: "";
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--orange-500);
+    flex-shrink: 0;
+  }
+  .dept-node.branch::before { background: var(--ink-900); }
+  .dept-connector {
+    width: 2px; height: 12px;
+    background: var(--orange-300);
+    margin-left: 20px;
+  }
+
+  @media (max-width: 900px) {
+    .tab-panel.active { grid-template-columns: 1fr; gap: 32px; }
+    .tab-panel { padding: 32px; }
+  }
+
+  /* =========================================================
+     AI ADD-ON — compact, clearly labeled as add-on
+     ========================================================= */
+  .ai-addon {
+    padding: 100px 0;
+    background: linear-gradient(180deg, var(--ink-900) 0%, var(--ink-800) 100%);
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  .ai-addon::before {
+    content: "";
+    position: absolute;
+    top: 10%; left: 50%;
+    transform: translateX(-50%);
+    width: 700px; height: 400px;
+    background: radial-gradient(ellipse, rgba(240,80,10,.2), transparent 70%);
+    pointer-events: none;
+  }
+  .ai-addon-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 56px;
+    align-items: center;
+    position: relative;
+  }
+  .ai-addon-text .eyebrow {
+    background: rgba(240,80,10,.18);
+    color: var(--orange-300);
+  }
+  .ai-addon h2 {
+    color: #fff;
+    font-size: clamp(28px, 3.4vw, 42px);
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .ai-addon-lead {
+    color: var(--ink-300);
+    font-size: 16.5px;
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+  .ai-addon-features {
+    list-style: none;
+    margin-bottom: 28px;
+  }
+  .ai-addon-features li {
+    display: flex;
+    gap: 12px;
+    padding: 10px 0;
+    font-size: 14.5px;
+    color: #D9DDE3;
+  }
+  .ai-addon-features li::before {
+    content: "";
+    flex-shrink: 0;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: var(--orange-500);
+    margin-top: 2px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><polyline points='20 6 9 17 4 12'/></svg>");
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  .ai-tag-inline {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    background: var(--orange-500);
+    color: #fff;
+    border-radius: 999px;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    margin-bottom: 16px;
+  }
+
+  .ai-chat-mini {
+    background: #fff;
+    border-radius: 20px;
+    padding: 22px;
+    box-shadow: 0 40px 100px rgba(0,0,0,.4);
+    color: var(--ink-900);
+  }
+  .ai-chat-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--ink-100);
+    margin-bottom: 16px;
+  }
+  .ai-chat-header .ai-avatar {
+    width: 32px; height: 32px;
+    background: linear-gradient(135deg, var(--orange-500), #FF8E4D);
+    border-radius: 50%;
+    display: grid; place-items: center;
+    color: #fff;
+    font-weight: 800;
+    font-size: 12px;
+  }
+  .ai-chat-header strong {
+    font-family: var(--font-display);
+    font-size: 14px;
+  }
+  .ai-chat-header .status {
+    margin-left: auto;
+    display: flex; align-items: center; gap: 6px;
+    font-size: 11px;
+    color: var(--green-500);
+    font-weight: 600;
+  }
+  .ai-chat-header .status::before {
+    content: "";
+    width: 6px; height: 6px;
+    background: var(--green-500);
+    border-radius: 50%;
+  }
+  .chat-msg {
+    padding: 11px 14px;
+    max-width: 88%;
+    font-size: 13px;
+    line-height: 1.5;
+    border-radius: 14px;
+    margin-bottom: 8px;
+  }
+  .chat-msg.user {
+    background: var(--ink-50);
+    margin-left: auto;
+    border-bottom-right-radius: 4px;
+  }
+  .chat-msg.ai {
+    background: var(--orange-50);
+    border-bottom-left-radius: 4px;
+  }
+  .chat-msg.ai strong { color: var(--orange-700); }
+  .chat-flow-mini {
+    background: var(--ink-50);
+    border-radius: 10px;
+    padding: 10px 12px;
+    margin-top: 6px;
+    font-family: 'Monaco', monospace;
+    font-size: 11px;
+    color: var(--ink-700);
+  }
+  .chat-flow-mini div {
+    display: flex; align-items: center; gap: 6px;
+    padding: 3px 0;
+  }
+  .chat-flow-mini div::before { content: "●"; color: var(--orange-500); }
+
+  @media (max-width: 900px) {
+    .ai-addon-inner { grid-template-columns: 1fr; gap: 40px; }
+  }
+
+  /* =========================================================
+     WHY CHOOSE — Competitive differentiation (not features)
+     ========================================================= */
+  .caps {
+    padding: 120px 0;
+    background: var(--white);
+  }
+  .caps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .caps-card {
+    padding: 28px;
+    background: #fff;
+    border-radius: var(--radius-lg);
+    border: 1.5px solid var(--ink-100);
+    transition: transform .3s, box-shadow .3s, border-color .3s;
+    position: relative;
+  }
+  .caps-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow);
+    border-color: var(--orange-200);
+  }
+  .caps-num {
+    position: absolute;
+    top: 24px; right: 24px;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 14px;
+    color: var(--orange-200);
+    letter-spacing: 0.05em;
+  }
+  .caps-icon {
+    width: 48px; height: 48px;
+    border-radius: 12px;
+    background: var(--orange-50);
+    display: grid; place-items: center;
+    margin-bottom: 18px;
+    color: var(--orange-500);
+  }
+  .caps-card h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    line-height: 1.3;
+    padding-right: 28px;
+  }
+  .caps-card p {
+    color: var(--ink-500);
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 14px;
+  }
+  .caps-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .caps-tag {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 9px;
+    background: var(--ink-50);
+    color: var(--ink-700);
+    border-radius: 999px;
+  }
+  @media (max-width: 900px) { .caps-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .caps-grid { grid-template-columns: 1fr; } }
+
+  /* =========================================================
+     CASE STUDIES — process-focused with numbers
+     ========================================================= */
+  .cases {
+    padding: 120px 0;
+    background: var(--ink-50);
+  }
+  .cases-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .case-card {
+    background: #fff;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1.5px solid var(--ink-100);
+    transition: transform .3s, box-shadow .3s, border-color .3s;
+    display: flex;
+    flex-direction: column;
+  }
+  .case-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--orange-200);
+    box-shadow: var(--shadow);
+  }
+  .case-header {
+    padding: 28px 28px 20px;
+    border-bottom: 1px solid var(--ink-100);
+  }
+  .case-industry {
+    display: inline-block;
+    padding: 4px 10px;
+    background: var(--orange-50);
+    color: var(--orange-700);
+    border-radius: 999px;
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .case-company {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--ink-900);
+    margin-bottom: 6px;
+  }
+  .case-scale {
+    font-size: 13px;
+    color: var(--ink-500);
+  }
+  .case-body {
+    padding: 24px 28px 28px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .case-quote {
+    font-size: 14.5px;
+    color: var(--ink-700);
+    line-height: 1.65;
+    font-style: italic;
+    flex-grow: 1;
+  }
+  .case-metric {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background: var(--orange-50);
+    border-radius: var(--radius);
+    border: 1px dashed var(--orange-200);
+  }
+  .case-metric-label {
+    font-size: 11.5px;
+    color: var(--orange-700);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .case-metric-before {
+    font-size: 13px;
+    color: var(--ink-500);
+    text-decoration: line-through;
+  }
+  .case-metric-arrow {
+    color: var(--orange-500);
+    font-weight: 700;
+    margin: 0 8px;
+  }
+  .case-metric-after {
+    font-family: var(--font-display);
+    font-size: 18px;
+    color: var(--orange-700);
+    font-weight: 800;
+  }
+  .case-metric-value {
+    text-align: right;
+  }
+  .case-person {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-top: 16px;
+    border-top: 1px solid var(--ink-100);
+  }
+  .case-avatar {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    display: grid; place-items: center;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 14px;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .case-avatar.a { background: linear-gradient(135deg, #F0500A, #D04408); }
+  .case-avatar.b { background: linear-gradient(135deg, #1F4DD6, #0E3BB0); }
+  .case-avatar.c { background: linear-gradient(135deg, #0E9384, #047857); }
+  .case-person strong {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .case-person span {
+    font-size: 12.5px;
+    color: var(--ink-500);
+  }
+
+  @media (max-width: 900px) { .cases-grid { grid-template-columns: 1fr; } }
+
+  /* =========================================================
+     FAQ
+     ========================================================= */
+  .faq {
+    padding: 120px 0;
+    background: var(--white);
+  }
+  .faq-list {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  .faq-item {
+    background: #fff;
+    border-radius: var(--radius);
+    margin-bottom: 14px;
+    border: 1.5px solid var(--ink-100);
+    overflow: hidden;
+    transition: border-color .3s, box-shadow .3s;
+  }
+  .faq-item[open] {
+    border-color: var(--orange-300);
+    box-shadow: var(--shadow-sm);
+  }
+  .faq-item summary {
+    padding: 22px 28px;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 16.5px;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    color: var(--ink-900);
+    transition: color .2s;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary:hover { color: var(--orange-600); }
+  .faq-item summary::after {
+    content: "";
+    flex-shrink: 0;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--orange-50);
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23F0500A' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: transform .3s;
+  }
+  .faq-item[open] summary::after { transform: rotate(180deg); }
+  .faq-answer {
+    padding: 0 28px 26px;
+    font-size: 15px;
+    color: var(--ink-500);
+    line-height: 1.7;
+  }
+  .faq-answer strong { color: var(--ink-900); font-weight: 600; }
+
+  /* =========================================================
+     FINAL CTA + FORM
+     ========================================================= */
+  .final-cta {
+    padding: 120px 0 80px;
+    background:
+      radial-gradient(50% 70% at 80% 30%, rgba(240,80,10,.1), transparent 70%),
+      radial-gradient(40% 60% at 10% 90%, rgba(240,80,10,.07), transparent 70%),
+      var(--ink-50);
+  }
+  .cta-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 60px;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .cta-text h2 {
+    font-size: clamp(30px, 4vw, 46px);
+    margin-bottom: 20px;
+  }
+  .cta-text > p {
+    font-size: 17px;
+    color: var(--ink-500);
+    margin-bottom: 28px;
+  }
+
+  .cta-bullets {
+    list-style: none;
+    margin-bottom: 8px;
+  }
+  .cta-bullets li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 9px 0;
+    font-size: 15px;
+    color: var(--ink-700);
+    font-weight: 500;
+    line-height: 1.5;
+  }
+  .cta-bullets li::before {
+    content: "";
+    flex-shrink: 0;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--orange-500);
+    margin-top: 1px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><polyline points='20 6 9 17 4 12'/></svg>");
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .form-card {
+    background: #fff;
+    padding: 36px;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--ink-100);
+  }
+  .form-card h3 {
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+  .form-card > p {
+    font-size: 14.5px;
+    color: var(--ink-500);
+    margin-bottom: 24px;
+  }
+  .form-group { margin-bottom: 16px; }
+  .form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--ink-700);
+  }
+  .form-group input,
+  .form-group select {
+    width: 100%;
+    padding: 13px 16px;
+    border: 1.5px solid var(--ink-100);
+    border-radius: 10px;
+    background: #fff;
+    font-size: 14.5px;
+    color: var(--ink-900);
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .form-group input:focus,
+  .form-group select:focus {
+    outline: none;
+    border-color: var(--orange-500);
+    box-shadow: 0 0 0 4px rgba(240,80,10,.12);
+  }
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .form-card .btn {
+    width: 100%;
+    margin-top: 8px;
+  }
+  .form-trust {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px dashed var(--ink-100);
+    font-size: 12.5px;
+    color: var(--ink-500);
+    line-height: 1.8;
+  }
+  .form-trust span {
+    display: flex; align-items: center; gap: 6px;
+  }
+  .form-trust span::before {
+    content: "✓";
+    color: var(--orange-500);
+    font-weight: 700;
+  }
+
+  @media (max-width: 900px) {
+    .cta-inner { grid-template-columns: 1fr; gap: 40px; }
+    .form-card { padding: 28px; }
+  }
+  @media (max-width: 480px) { .form-row { grid-template-columns: 1fr; } }
+
+  /* =========================================================
+     FOOTER
+     ========================================================= */
+  .footer {
+    padding: 72px 0 32px;
+    background: var(--ink-900);
+    color: var(--ink-300);
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap: 48px;
+    margin-bottom: 48px;
+  }
+  .footer-brand .logo { margin-bottom: 20px; }
+  .footer-brand .footer-logo img {
+    height: 42px;
+    /* Preserve logo colors - white bg behind for contrast */
+    background: #fff;
+    padding: 6px 10px;
+    border-radius: 8px;
+  }
+  .footer-brand p {
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    max-width: 320px;
+  }
+  .footer-contact { font-size: 14px; line-height: 1.9; }
+  .footer-contact strong { color: #fff; font-weight: 600; display: block; margin-top: 12px; }
+  .footer-col h4 {
+    color: #fff;
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 18px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col li { margin-bottom: 10px; }
+  .footer-col a { font-size: 14px; color: var(--ink-300); transition: color .2s; }
+  .footer-col a:hover { color: var(--orange-300); }
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 32px;
+    border-top: 1px solid rgba(255,255,255,.08);
+    font-size: 13px;
+  }
+  .footer-socials { display: flex; gap: 10px; }
+  .footer-socials a {
+    width: 36px; height: 36px;
+    display: grid; place-items: center;
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 50%;
+    transition: background .2s, border-color .2s;
+  }
+  .footer-socials a:hover { background: var(--orange-500); border-color: var(--orange-500); color: #fff; }
+
+  @media (max-width: 820px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 520px) {
+    .footer-grid { grid-template-columns: 1fr; }
+    .footer-bottom { flex-direction: column; gap: 16px; }
+  }
+
+  /* =========================================================
+     REVEAL ANIMATION
+     ========================================================= */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity .8s ease, transform .8s ease;
+  }
+  .reveal.in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .float-card { animation: none; }
+    .contrast-arrow svg { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ==================== NAVBAR ==================== -->
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="#" class="logo" aria-label="1Office">
+      <img src="1office-logo.png" alt="1Office" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="#contrast">So sánh</a></li>
+      <li><a href="#how">Cách hoạt động</a></li>
+      <li><a href="#capabilities">Năng lực</a></li>
+      <li><a href="#departments">Nghiệp vụ</a></li>
+      <li><a href="#cases">Khách hàng</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="#contact" class="btn btn-ghost">Đăng nhập</a>
+      <a href="#contact" class="btn btn-primary">Đăng ký nhận demo ngay</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ==================== HERO ==================== -->
+<section class="hero">
+  <div class="hero-grid-lines"></div>
+  <div class="container hero-inner">
+    <div class="reveal">
+      <div class="hero-badge">
+        <span class="pill">MỚI</span>
+        <span><strong>1AI Process</strong> — AI hỗ trợ dựng & tối ưu workflow</span>
+      </div>
+      <h1>
+        Số hóa và tự động hóa
+        <span class="break">quy trình với <span class="accent">No-code/Low-code</span></span>
+        <span class="break">&amp; <span class="accent">AI</span>.</span>
+      </h1>
+      <p class="hero-sub">
+        Thiết kế quy trình bằng kéo-thả, tự động luân chuyển và ký số trên một nền tảng duy nhất.
+        Giao việc theo vị trí — phòng ban, rẽ nhánh theo điều kiện, giám sát realtime —
+        giúp doanh nghiệp vận hành liền mạch.
+      </p>
+      <ul class="hero-bullets">
+        <li>Tạo và duyệt chứng từ trực tiếp trên quy trình</li>
+        <li>Giao việc theo vị trí, phòng ban — tích hợp ký số</li>
+        <li>Thiết lập quy trình theo điều kiện rẽ nhánh linh hoạt</li>
+      </ul>
+      <div class="hero-ctas">
+        <a href="#contact" class="btn btn-primary btn-lg">
+          Đăng ký nhận demo ngay
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+        <a href="#how" class="btn btn-ghost btn-lg">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Xem demo 2 phút
+        </a>
+      </div>
+      <div class="hero-trust-card">
+        <div class="trust-avatars">
+          <span>ML</span>
+          <span>ME</span>
+          <span>TH</span>
+          <span>VP</span>
+          <span>+99</span>
+        </div>
+        <div class="trust-text">
+          <strong>⭐ 4.9/5 từ 6.000+ doanh nghiệp</strong>
+          MeeyLand · MathExpress · TinHoldings và nhiều tập đoàn lớn
+        </div>
+      </div>
+    </div>
+
+    <!-- Hero visual — Sales workflow with callouts -->
+    <div class="hero-visual reveal" style="transition-delay:.15s">
+      <svg viewBox="0 0 640 640" xmlns="http://www.w3.org/2000/svg">
+        <!-- background world-map dot pattern (subtle) -->
+        <defs>
+          <pattern id="dotmap" x="0" y="0" width="18" height="18" patternUnits="userSpaceOnUse">
+            <circle cx="2" cy="2" r="1.2" fill="#FFC4A0" opacity="0.35"/>
+          </pattern>
+          <filter id="softshadow" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#F0500A" flood-opacity="0.12"/>
+          </filter>
+        </defs>
+        <rect x="0" y="0" width="640" height="640" fill="url(#dotmap)"/>
+
+        <!-- decorative orange dots -->
+        <circle cx="70" cy="50" r="7" fill="#F0500A"/>
+        <circle cx="590" cy="90" r="5" fill="#FFC4A0"/>
+        <circle cx="560" cy="430" r="9" fill="#F0500A" opacity=".35"/>
+        <circle cx="60" cy="450" r="5" fill="#F0500A" opacity=".6"/>
+        <circle cx="610" cy="560" r="6" fill="#FF9339"/>
+
+        <!-- ============ CENTRAL WORKFLOW (vertical) ============ -->
+
+        <!-- Node 1: Bắt đầu -->
+        <g transform="translate(365 55)" filter="url(#softshadow)">
+          <rect x="0" y="0" width="150" height="54" rx="12" fill="#fff" stroke="#FFE0CF"/>
+          <circle cx="22" cy="27" r="10" fill="#F0500A"/>
+          <path d="M18 27 L21 30 L27 24" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <text x="40" y="24" font-family="Inter" font-size="11" fill="#0E1116" font-weight="700">Bắt đầu</text>
+          <text x="40" y="38" font-family="Inter" font-size="9" fill="#5A626F">Quy trình bán hàng</text>
+        </g>
+
+        <!-- connector 1 -->
+        <path d="M 440 109 L 440 140" stroke="#F0500A" stroke-width="1.8" fill="none"/>
+        <circle cx="440" cy="140" r="3" fill="#F0500A"/>
+
+        <!-- Node 2: Tiếp cận khách hàng -->
+        <g transform="translate(345 140)" filter="url(#softshadow)">
+          <rect x="0" y="0" width="190" height="64" rx="12" fill="#fff" stroke="#FFE0CF"/>
+          <text x="16" y="20" font-family="Inter" font-size="8.5" fill="#9BA3AE" font-weight="600" letter-spacing="1">CÔNG VIỆC</text>
+          <text x="16" y="40" font-family="Inter" font-size="12" fill="#0E1116" font-weight="600">Tiếp cận khách hàng</text>
+          <!-- avatars -->
+          <circle cx="130" cy="48" r="9" fill="#F0500A" stroke="#fff" stroke-width="2"/>
+          <text x="130" y="51" text-anchor="middle" font-family="Inter" font-size="7" fill="#fff" font-weight="700">VA</text>
+          <circle cx="145" cy="48" r="9" fill="#1F4DD6" stroke="#fff" stroke-width="2"/>
+          <text x="145" y="51" text-anchor="middle" font-family="Inter" font-size="7" fill="#fff" font-weight="700">LH</text>
+          <circle cx="160" cy="48" r="9" fill="#0E9384" stroke="#fff" stroke-width="2"/>
+          <text x="160" y="51" text-anchor="middle" font-family="Inter" font-size="7" fill="#fff" font-weight="700">NM</text>
+          <!-- highlight ring around avatars (for callout) -->
+          <ellipse cx="145" cy="48" rx="36" ry="16" fill="none" stroke="#F0500A" stroke-width="1.8" stroke-dasharray="3 3" opacity="0.8"/>
+        </g>
+
+        <!-- sub-node: Nhập thông tin khách hàng -->
+        <g transform="translate(555 150)" filter="url(#softshadow)">
+          <rect x="0" y="0" width="70" height="44" rx="10" fill="#fff" stroke="#FFE0CF"/>
+          <text x="8" y="18" font-family="Inter" font-size="8.5" fill="#2B2F36" font-weight="600">Nhập thông tin</text>
+          <text x="8" y="30" font-family="Inter" font-size="8.5" fill="#2B2F36" font-weight="600">khách hàng</text>
+        </g>
+        <path d="M 535 172 L 555 172" stroke="#9BA3AE" stroke-width="1.5" fill="none"/>
+
+        <!-- connector 2 -->
+        <path d="M 440 204 L 440 238" stroke="#F0500A" stroke-width="1.8" fill="none"/>
+        <circle cx="440" cy="238" r="3" fill="#10B981"/>
+
+        <!-- Node 3: Gửi báo giá cho khách hàng -->
+        <g transform="translate(340 238)" filter="url(#softshadow)">
+          <rect x="0" y="0" width="200" height="64" rx="12" fill="#fff" stroke="#FFE0CF"/>
+          <text x="16" y="20" font-family="Inter" font-size="8.5" fill="#9BA3AE" font-weight="600" letter-spacing="1">CÔNG VIỆC</text>
+          <text x="16" y="40" font-family="Inter" font-size="12" fill="#0E1116" font-weight="600">Gửi báo giá cho khách hàng</text>
+          <circle cx="140" cy="48" r="9" fill="#8B5CF6" stroke="#fff" stroke-width="2"/>
+          <text x="140" y="51" text-anchor="middle" font-family="Inter" font-size="7" fill="#fff" font-weight="700">PH</text>
+          <circle cx="155" cy="48" r="9" fill="#F0500A" stroke="#fff" stroke-width="2"/>
+          <text x="155" y="51" text-anchor="middle" font-family="Inter" font-size="7" fill="#fff" font-weight="700">TN</text>
+          <circle cx="170" cy="48" r="9" fill="#0E9384" stroke="#fff" stroke-width="2"/>
+          <text x="170" y="51" text-anchor="middle" font-family="Inter" font-size="7" fill="#fff" font-weight="700">HA</text>
+        </g>
+
+        <!-- connector to branch (Y split) -->
+        <path d="M 440 302 C 440 325, 395 325, 395 348" stroke="#F0500A" stroke-width="1.8" fill="none"/>
+        <path d="M 440 302 C 440 325, 500 325, 500 348" stroke="#F0500A" stroke-width="1.8" fill="none"/>
+
+        <!-- Branch: Duyệt giá (yes) -->
+        <g transform="translate(345 348)" filter="url(#softshadow)">
+          <rect x="0" y="0" width="100" height="38" rx="10" fill="#FFF1EB" stroke="#F0500A" stroke-width="1.4"/>
+          <text x="50" y="23" text-anchor="middle" font-family="Inter" font-size="11" fill="#A63606" font-weight="700">Duyệt giá</text>
+        </g>
+        <!-- Branch: Không duyệt (no) -->
+        <g transform="translate(455 348)" filter="url(#softshadow)">
+          <rect x="0" y="0" width="100" height="38" rx="10" fill="#fff" stroke="#FFE0CF"/>
+          <text x="50" y="23" text-anchor="middle" font-family="Inter" font-size="11" fill="#5A626F" font-weight="600">Không duyệt</text>
+        </g>
+
+        <!-- highlight ring around branch (for callout) -->
+        <ellipse cx="450" cy="367" rx="130" ry="32" fill="none" stroke="#F0500A" stroke-width="1.8" stroke-dasharray="3 3" opacity="0.7"/>
+
+        <!-- connector from duyệt giá to next -->
+        <path d="M 395 386 L 395 418" stroke="#F0500A" stroke-width="1.8" fill="none"/>
+
+        <!-- Node 4: Tạo hợp đồng bán hàng -->
+        <g transform="translate(300 418)" filter="url(#softshadow)">
+          <rect x="0" y="0" width="190" height="64" rx="12" fill="#fff" stroke="#FFE0CF"/>
+          <text x="16" y="20" font-family="Inter" font-size="8.5" fill="#9BA3AE" font-weight="600" letter-spacing="1">CÔNG VIỆC</text>
+          <text x="16" y="40" font-family="Inter" font-size="12" fill="#0E1116" font-weight="600">Tạo hợp đồng bán hàng</text>
+          <circle cx="130" cy="48" r="9" fill="#F0500A" stroke="#fff" stroke-width="2"/>
+          <text x="130" y="51" text-anchor="middle" font-family="Inter" font-size="7" fill="#fff" font-weight="700">VK</text>
+          <circle cx="145" cy="48" r="9" fill="#1F4DD6" stroke="#fff" stroke-width="2"/>
+          <text x="145" y="51" text-anchor="middle" font-family="Inter" font-size="7" fill="#fff" font-weight="700">LH</text>
+          <circle cx="160" cy="48" r="9" fill="#0E9384" stroke="#fff" stroke-width="2"/>
+          <text x="160" y="51" text-anchor="middle" font-family="Inter" font-size="7" fill="#fff" font-weight="700">TA</text>
+        </g>
+
+        <!-- connector to sign node -->
+        <path d="M 395 482 L 395 508" stroke="#F0500A" stroke-width="1.8" fill="none"/>
+
+        <!-- Sign icon node -->
+        <g transform="translate(373 508)" filter="url(#softshadow)">
+          <circle cx="22" cy="22" r="22" fill="#fff" stroke="#FFE0CF"/>
+          <path d="M 13 26 Q 17 18, 22 22 T 31 22" stroke="#F0500A" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M 13 30 L 31 30" stroke="#F0500A" stroke-width="2" stroke-linecap="round"/>
+        </g>
+
+        <!-- connector to hoàn thành -->
+        <path d="M 395 552 L 395 578" stroke="#F0500A" stroke-width="1.8" fill="none"/>
+
+        <!-- Node: Hoàn thành -->
+        <g transform="translate(310 578)" filter="url(#softshadow)">
+          <rect x="0" y="0" width="170" height="44" rx="12" fill="#F0FDF4" stroke="#86EFAC" stroke-width="1.4"/>
+          <circle cx="22" cy="22" r="9" fill="#10B981"/>
+          <path d="M18 22 L21 25 L27 19" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <text x="42" y="20" font-family="Inter" font-size="12" fill="#0E1116" font-weight="700">Hoàn thành</text>
+          <text x="42" y="33" font-family="Inter" font-size="8.5" fill="#5A626F">Gửi ghi nhận thông tin</text>
+        </g>
+
+        <!-- ============ BÁO GIÁ SIDE CARD (left) ============ -->
+        <g transform="translate(30 130)" filter="url(#softshadow)">
+          <rect x="0" y="0" width="230" height="270" rx="14" fill="#fff" stroke="#FFE0CF"/>
+          <!-- header -->
+          <rect x="0" y="0" width="230" height="42" rx="14" fill="#FFF1EB"/>
+          <rect x="0" y="28" width="230" height="14" fill="#FFF1EB"/>
+          <text x="16" y="27" font-family="Montserrat" font-size="15" fill="#0E1116" font-weight="700">Báo giá</text>
+          <text x="208" y="25" text-anchor="middle" font-family="Inter" font-size="12" fill="#9BA3AE">×</text>
+          <!-- rows -->
+          <text x="16" y="64" font-family="Inter" font-size="9" fill="#9BA3AE">Mã báo giá</text>
+          <text x="16" y="78" font-family="Inter" font-size="10.5" fill="#0E1116" font-weight="600">BG06072021000059</text>
+          <text x="16" y="98" font-family="Inter" font-size="9" fill="#9BA3AE">Tên khách hàng</text>
+          <text x="16" y="112" font-family="Inter" font-size="10.5" fill="#0E1116" font-weight="600">Công Ty Ngọc Quân</text>
+          <text x="16" y="132" font-family="Inter" font-size="9" fill="#9BA3AE">Ngày báo giá</text>
+          <text x="16" y="146" font-family="Inter" font-size="10.5" fill="#0E1116" font-weight="600">06/07/2021</text>
+          <text x="16" y="166" font-family="Inter" font-size="9" fill="#9BA3AE">Số điện thoại</text>
+          <text x="16" y="180" font-family="Inter" font-size="10.5" fill="#0E1116" font-weight="600">0987 654 321</text>
+          <text x="16" y="200" font-family="Inter" font-size="9" fill="#9BA3AE">Giá trị báo giá</text>
+          <text x="16" y="214" font-family="Inter" font-size="10.5" fill="#0E1116" font-weight="600">47.000.000</text>
+          <text x="16" y="234" font-family="Inter" font-size="9" fill="#9BA3AE">Trạng thái</text>
+          <rect x="16" y="238" width="50" height="16" rx="8" fill="#D1FAE5"/>
+          <text x="41" y="249" text-anchor="middle" font-family="Inter" font-size="9" fill="#047857" font-weight="700">Đã duyệt</text>
+          <!-- action btn -->
+          <rect x="140" y="236" width="78" height="24" rx="6" fill="#F0500A"/>
+          <text x="179" y="252" text-anchor="middle" font-family="Inter" font-size="10" fill="#fff" font-weight="700">Xem thêm</text>
+        </g>
+
+        <!-- ============ CALLOUTS ============ -->
+
+        <!-- Callout 1: Tạo và duyệt chứng từ trực tiếp trên quy trình (top-left) -->
+        <g>
+          <text x="30" y="66" font-family="Inter" font-size="12" fill="#A63606" font-weight="600">Tạo và duyệt chứng từ</text>
+          <text x="30" y="82" font-family="Inter" font-size="12" fill="#A63606" font-weight="600">trực tiếp trên quy trình</text>
+          <!-- curly arrow from text to báo giá card -->
+          <path d="M 160 95 Q 170 115, 150 130" stroke="#F0500A" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M 145 127 L 150 130 L 153 124" stroke="#F0500A" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+
+        <!-- Callout 2: Giao việc theo vị trí, phòng ban (top-right) -->
+        <g>
+          <text x="545" y="66" text-anchor="middle" font-family="Inter" font-size="12" fill="#A63606" font-weight="600">Giao việc theo</text>
+          <text x="545" y="82" text-anchor="middle" font-family="Inter" font-size="12" fill="#A63606" font-weight="600">vị trí, phòng ban</text>
+          <!-- curly arrow from text to avatars on node 2 -->
+          <path d="M 525 100 Q 505 135, 510 168" stroke="#F0500A" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M 505 163 L 510 168 L 516 163" stroke="#F0500A" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+
+        <!-- Callout 3: Thiết lập quy trình theo điều kiện rẽ nhánh (right, near branch) -->
+        <g>
+          <text x="555" y="400" text-anchor="middle" font-family="Inter" font-size="12" fill="#A63606" font-weight="600">Thiết lập quy trình</text>
+          <text x="555" y="416" text-anchor="middle" font-family="Inter" font-size="12" fill="#A63606" font-weight="600">theo điều kiện rẽ nhánh</text>
+          <!-- curly arrow to the branch ellipse -->
+          <path d="M 555 381 Q 590 350, 580 368" stroke="#F0500A" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M 576 363 L 580 368 L 585 365" stroke="#F0500A" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+
+        <!-- Callout 4: Tích hợp ký số (bottom-left) -->
+        <g>
+          <text x="195" y="520" text-anchor="middle" font-family="Inter" font-size="12" fill="#A63606" font-weight="600">Tích hợp ký số</text>
+          <!-- curly arrow to the sign node -->
+          <path d="M 250 524 Q 320 540, 370 532" stroke="#F0500A" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M 365 528 L 370 532 L 368 538" stroke="#F0500A" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== LOGO MARQUEE ==================== -->
+<section class="logos">
+  <div class="container">
+    <div class="logos-label">Được tin dùng bởi <strong>6.000+ doanh nghiệp</strong> trên toàn quốc</div>
+  </div>
+  <div class="marquee">
+    <div class="marquee-track">
+      <div class="logo-item">MeeyLand</div>
+      <span class="logo-item sep"></span>
+      <div class="logo-item">MathExpress</div>
+      <span class="logo-item sep"></span>
+      <div class="logo-item">TinHoldings</div>
+      <span class="logo-item sep"></span>
+      <div class="logo-item">VINAMILK</div>
+      <span class="logo-item sep"></span>
+      <div class="logo-item">FPT Retail</div>
+      <span class="logo-item sep"></span>
+      <div class="logo-item">HIGHLANDS</div>
+      <span class="logo-item sep"></span>
+      <div class="logo-item">MASAN</div>
+      <span class="logo-item sep"></span>
+      <div class="logo-item">TH True Milk</div>
+      <span class="logo-item sep"></span>
+      <div class="logo-item">SUNHOUSE</div>
+      <span class="logo-item sep"></span>
+      <div class="logo-item">VIETTEL</div>
+      <span class="logo-item sep"></span>
+
+      <div class="logo-item" aria-hidden="true">MeeyLand</div>
+      <span class="logo-item sep" aria-hidden="true"></span>
+      <div class="logo-item" aria-hidden="true">MathExpress</div>
+      <span class="logo-item sep" aria-hidden="true"></span>
+      <div class="logo-item" aria-hidden="true">TinHoldings</div>
+      <span class="logo-item sep" aria-hidden="true"></span>
+      <div class="logo-item" aria-hidden="true">VINAMILK</div>
+      <span class="logo-item sep" aria-hidden="true"></span>
+      <div class="logo-item" aria-hidden="true">FPT Retail</div>
+      <span class="logo-item sep" aria-hidden="true"></span>
+      <div class="logo-item" aria-hidden="true">HIGHLANDS</div>
+      <span class="logo-item sep" aria-hidden="true"></span>
+      <div class="logo-item" aria-hidden="true">MASAN</div>
+      <span class="logo-item sep" aria-hidden="true"></span>
+      <div class="logo-item" aria-hidden="true">TH True Milk</div>
+      <span class="logo-item sep" aria-hidden="true"></span>
+      <div class="logo-item" aria-hidden="true">SUNHOUSE</div>
+      <span class="logo-item sep" aria-hidden="true"></span>
+      <div class="logo-item" aria-hidden="true">VIETTEL</div>
+      <span class="logo-item sep" aria-hidden="true"></span>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PAIN CONTRAST ==================== -->
+<section class="pain-contrast" id="contrast">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Thách thức & Giải pháp</span>
+      <h2 class="section-title">Những điểm nghẽn đang âm thầm<br/><span class="accent">kéo lùi</span> hiệu suất vận hành</h2>
+      <p class="section-subtitle">
+        Nhận diện vấn đề trước — và xem 1Office thay đổi vận hành doanh nghiệp bạn thế nào.
+      </p>
+    </div>
+
+    <div class="contrast-grid reveal">
+      <div class="contrast-col before">
+        <div class="contrast-col-title">Trước đây</div>
+        <ul class="contrast-list">
+          <li>Công việc rời rạc, không có quy trình chuẩn</li>
+          <li>Các phòng ban thiếu kết nối, trách nhiệm mơ hồ</li>
+          <li>Hồ sơ thất lạc, không biết đang ở đâu, do ai</li>
+          <li>Phê duyệt chậm — "kẹt chữ ký" khi sếp đi công tác</li>
+          <li>Lãng phí tài nguyên cho việc hành chính lặp lại</li>
+        </ul>
+      </div>
+
+      <div class="contrast-arrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+        </svg>
+      </div>
+
+      <div class="contrast-col after">
+        <div class="contrast-col-title">Với 1Office</div>
+        <ul class="contrast-list">
+          <li>Chuẩn hoá quy trình, phòng ban phối hợp nhịp nhàng</li>
+          <li>Dữ liệu tập trung, trách nhiệm rõ ràng từng bước</li>
+          <li>Theo dõi realtime, biết ngay điểm nghẽn ở đâu</li>
+          <li>Ký số mọi lúc, mọi nơi — kể cả trên điện thoại</li>
+          <li>Tự động hoá tác vụ thủ công, giải phóng nguồn lực</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== STATS — 4 numbers with source ==================== -->
+<section class="stats">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Kết quả đo được</span>
+      <h2 class="section-title">Nhanh hơn. Chính xác hơn.<br/><span class="accent">Hiệu quả hơn.</span></h2>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card reveal">
+        <div class="stat-number">85%</div>
+        <div class="stat-label">Xử lý công việc<br/>nhanh hơn</div>
+      </div>
+      <div class="stat-card reveal" style="transition-delay:.08s">
+        <div class="stat-number">90%</div>
+        <div class="stat-label">Giảm thao tác<br/>thủ công</div>
+      </div>
+      <div class="stat-card reveal" style="transition-delay:.16s">
+        <div class="stat-number">60%</div>
+        <div class="stat-label">Tăng tốc độ<br/>phê duyệt</div>
+      </div>
+      <div class="stat-card reveal" style="transition-delay:.24s">
+        <div class="stat-number">96%</div>
+        <div class="stat-label">Vận hành<br/>liền mạch hơn</div>
+      </div>
+    </div>
+
+    <p class="stats-footnote">
+      * Dữ liệu đo tại các khách hàng 1Office triển khai trên 6 tháng (2023–2025), so sánh thời gian trung bình xử lý quy trình trước và sau khi áp dụng.
+    </p>
+  </div>
+</section>
+
+<!-- ==================== HOW IT WORKS — 5 steps ==================== -->
+<section class="how" id="how">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Cách 1Office hoạt động</span>
+      <h2 class="section-title">Tự động hoá quy trình trong <span class="accent">5 bước</span></h2>
+      <p class="section-subtitle">
+        Từ file mô tả đến workflow chạy thật — không cần IT, không cần vẽ sơ đồ bằng tay.
+      </p>
+    </div>
+
+    <div class="how-steps">
+
+      <!-- Step 1: Build workflow -->
+      <div class="how-step reveal">
+        <div class="how-step-num">1</div>
+        <div class="how-step-content">
+          <h3>Dựng workflow bằng kéo-thả</h3>
+          <p>Giao diện trực quan — kéo các Node có sẵn (Điều kiện, Tích hợp, Form, Ký số, Nhắc nhở) vào canvas. Gán người xử lý theo vị trí/phòng ban, cấu hình rẽ nhánh đa cấp. Trưởng phòng tự làm được, không cần nhờ IT hay chờ vendor.</p>
+          <div class="how-step-compare">
+            <span class="how-compare-before">IT phát triển 1-2 tuần</span>
+            <span class="how-compare-arrow">→</span>
+            <span class="how-compare-after">Trưởng phòng tự làm 15 phút</span>
+          </div>
+        </div>
+        <div class="how-step-visual">
+          <svg viewBox="0 0 360 220" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="10" width="90" height="200" rx="8" fill="#F4F5F7"/>
+            <text x="55" y="30" text-anchor="middle" font-family="Inter" font-size="10" fill="#5A626F" font-weight="600">NODES</text>
+            <rect x="20" y="42" width="70" height="22" rx="6" fill="#fff" stroke="#FFC4A0"/>
+            <text x="55" y="57" text-anchor="middle" font-family="Inter" font-size="9" fill="#F0500A">+ Approve</text>
+            <rect x="20" y="72" width="70" height="22" rx="6" fill="#fff" stroke="#E6E8EC"/>
+            <text x="55" y="87" text-anchor="middle" font-family="Inter" font-size="9" fill="#5A626F">+ Condition</text>
+            <rect x="20" y="102" width="70" height="22" rx="6" fill="#fff" stroke="#E6E8EC"/>
+            <text x="55" y="117" text-anchor="middle" font-family="Inter" font-size="9" fill="#5A626F">+ Sign</text>
+            <rect x="20" y="132" width="70" height="22" rx="6" fill="#fff" stroke="#E6E8EC"/>
+            <text x="55" y="147" text-anchor="middle" font-family="Inter" font-size="9" fill="#5A626F">+ Email</text>
+            <rect x="20" y="162" width="70" height="22" rx="6" fill="#fff" stroke="#E6E8EC"/>
+            <text x="55" y="177" text-anchor="middle" font-family="Inter" font-size="9" fill="#5A626F">+ Var</text>
+
+            <rect x="110" y="10" width="240" height="200" rx="8" fill="#fff" stroke="#E6E8EC"/>
+            <rect x="130" y="30" width="80" height="30" rx="6" fill="#FFF1EB" stroke="#F0500A"/>
+            <text x="170" y="48" text-anchor="middle" font-family="Inter" font-size="10" fill="#F0500A" font-weight="600">Nộp đơn</text>
+            <rect x="130" y="80" width="80" height="30" rx="6" fill="#fff" stroke="#E6E8EC"/>
+            <text x="170" y="98" text-anchor="middle" font-family="Inter" font-size="10" fill="#2B2F36">Duyệt</text>
+            <rect x="240" y="55" width="90" height="30" rx="6" fill="#FFF1EB" stroke="#FFC4A0" stroke-dasharray="3 2"/>
+            <text x="285" y="73" text-anchor="middle" font-family="Inter" font-size="9" fill="#F0500A" font-style="italic">drop here...</text>
+            <path d="M 210 45 L 240 70" stroke="#F0500A" stroke-width="1.5" stroke-dasharray="3 3"/>
+            <path d="M 170 60 L 170 80" stroke="#F0500A" stroke-width="1.5"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Step 2: E-form -->
+      <div class="how-step reveal">
+        <div class="how-step-num">2</div>
+        <div class="how-step-content">
+          <h3>Thiết kế biểu mẫu E-form</h3>
+          <p>Kéo-thả để tạo biểu mẫu điện tử cho từng quy trình: phiếu thu chi, tờ trình, đơn xin nghỉ phép, đề xuất mua hàng. Dữ liệu liên kết trực tiếp với khách hàng, nhân sự, phòng ban — nhập 1 lần, dùng lại ở mọi bước. Không cần in giấy, không nhập lại.</p>
+          <div class="how-step-compare">
+            <span class="how-compare-before">In - ký - scan - email</span>
+            <span class="how-compare-arrow">→</span>
+            <span class="how-compare-after">Điền form, submit 1 chạm</span>
+          </div>
+        </div>
+        <div class="how-step-visual">
+          <svg viewBox="0 0 360 220" xmlns="http://www.w3.org/2000/svg">
+            <rect x="20" y="10" width="320" height="200" rx="10" fill="#fff" stroke="#E6E8EC"/>
+            <text x="40" y="35" font-family="Inter" font-size="12" fill="#0E1116" font-weight="700">Phiếu đề xuất chi</text>
+            <rect x="40" y="50" width="120" height="10" rx="3" fill="#F4F5F7"/>
+            <text x="40" y="75" font-family="Inter" font-size="9" fill="#5A626F">Số tiền</text>
+            <rect x="40" y="80" width="130" height="26" rx="6" fill="#FFF1EB" stroke="#FFC4A0"/>
+            <text x="50" y="97" font-family="Inter" font-size="11" fill="#F0500A" font-weight="600">5.250.000 ₫</text>
+            <text x="190" y="75" font-family="Inter" font-size="9" fill="#5A626F">Phòng ban</text>
+            <rect x="190" y="80" width="130" height="26" rx="6" fill="#fff" stroke="#E6E8EC"/>
+            <text x="200" y="97" font-family="Inter" font-size="11" fill="#2B2F36">Marketing</text>
+            <text x="40" y="130" font-family="Inter" font-size="9" fill="#5A626F">Mục đích</text>
+            <rect x="40" y="135" width="280" height="40" rx="6" fill="#fff" stroke="#E6E8EC"/>
+            <text x="50" y="152" font-family="Inter" font-size="10" fill="#2B2F36">Chi phí chạy chiến dịch Q4/2025</text>
+            <rect x="40" y="185" width="80" height="18" rx="5" fill="#F0500A"/>
+            <text x="80" y="197" text-anchor="middle" font-family="Inter" font-size="10" fill="#fff" font-weight="600">Gửi duyệt</text>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Step 3: Auto route -->
+      <div class="how-step reveal">
+        <div class="how-step-num">3</div>
+        <div class="how-step-content">
+          <h3>Tự động luân chuyển & rẽ nhánh</h3>
+          <p>Hệ thống tự giao việc đúng người theo điều kiện "Nếu — Thì", nhắc hạn qua App/Email, chuyển bước khi thỏa điều kiện. Hỗ trợ <strong>phê duyệt đa cấp — nhiều người cùng lúc (song song) hoặc lần lượt (tuần tự)</strong>. Không còn việc "nằm chờ trên bàn" hay phụ thuộc ai có mặt ở văn phòng.</p>
+          <div class="how-step-compare">
+            <span class="how-compare-before">Gọi điện nhắc, đi xin chữ ký</span>
+            <span class="how-compare-arrow">→</span>
+            <span class="how-compare-after">Tự route - tự nhắc - tự chuyển</span>
+          </div>
+        </div>
+        <div class="how-step-visual">
+          <svg viewBox="0 0 360 200" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="80" width="70" height="40" rx="8" fill="#FFF1EB" stroke="#F0500A"/>
+            <text x="45" y="98" text-anchor="middle" font-family="Inter" font-size="9" fill="#F0500A" font-weight="600">Nhân viên</text>
+            <text x="45" y="112" text-anchor="middle" font-family="Inter" font-size="8" fill="#F0500A">Tạo phiếu</text>
+
+            <rect x="110" y="80" width="70" height="40" rx="8" fill="#fff" stroke="#E6E8EC"/>
+            <text x="145" y="98" text-anchor="middle" font-family="Inter" font-size="9" fill="#2B2F36" font-weight="600">TP duyệt</text>
+            <text x="145" y="112" text-anchor="middle" font-family="Inter" font-size="8" fill="#5A626F">2 phút</text>
+
+            <rect x="210" y="30" width="70" height="40" rx="8" fill="#fff" stroke="#E6E8EC"/>
+            <text x="245" y="48" text-anchor="middle" font-family="Inter" font-size="9" fill="#2B2F36">&lt; 5tr</text>
+            <text x="245" y="62" text-anchor="middle" font-family="Inter" font-size="8" fill="#5A626F">Kế toán</text>
+
+            <rect x="210" y="130" width="70" height="40" rx="8" fill="#FFF1EB" stroke="#F0500A"/>
+            <text x="245" y="148" text-anchor="middle" font-family="Inter" font-size="9" fill="#F0500A" font-weight="600">&gt; 5tr</text>
+            <text x="245" y="162" text-anchor="middle" font-family="Inter" font-size="8" fill="#F0500A">Giám đốc</text>
+
+            <rect x="300" y="80" width="50" height="40" rx="8" fill="#0E1116"/>
+            <text x="325" y="103" text-anchor="middle" font-family="Inter" font-size="9" fill="#fff" font-weight="600">Done</text>
+
+            <path d="M 80 100 L 110 100" stroke="#F0500A" stroke-width="2"/>
+            <path d="M 180 100 C 200 100, 200 50, 210 50" stroke="#9BA3AE" stroke-width="1.5" fill="none" stroke-dasharray="3 3"/>
+            <path d="M 180 100 C 200 100, 200 150, 210 150" stroke="#F0500A" stroke-width="2" fill="none"/>
+            <path d="M 280 50 C 290 50, 290 100, 300 100" stroke="#9BA3AE" stroke-width="1.5" fill="none"/>
+            <path d="M 280 150 C 290 150, 290 100, 300 100" stroke="#F0500A" stroke-width="2" fill="none"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Step 4: E-sign -->
+      <div class="how-step reveal">
+        <div class="how-step-num">4</div>
+        <div class="how-step-content">
+          <h3>Ký số ngay trên quy trình</h3>
+          <p>Node Ký số nhúng trực tiếp vào workflow — tích hợp Viettel-CA, VNPT-CA, EFY-CA. Hỗ trợ USB Token, Cloud HSM và ký từ xa trên mobile. <strong>Trình và ký một lúc nhiều file</strong>, sau khi ký xong hệ thống <strong>tự động lưu về đúng hồ sơ</strong> (nhân sự, hợp đồng, khách hàng…) — không cần tải xuống rồi upload lại. Sếp đi công tác vẫn ký được — hợp lệ pháp lý, lưu vết đầy đủ.</p>
+          <div class="how-step-compare">
+            <span class="how-compare-before">In - ký tay - scan (1 ngày)</span>
+            <span class="how-compare-arrow">→</span>
+            <span class="how-compare-after">Ký trên mobile trong 30 giây</span>
+          </div>
+        </div>
+        <div class="how-step-visual">
+          <svg viewBox="0 0 360 220" xmlns="http://www.w3.org/2000/svg">
+            <rect x="130" y="15" width="100" height="190" rx="14" fill="#0E1116"/>
+            <rect x="136" y="30" width="88" height="170" rx="6" fill="#fff"/>
+            <rect x="146" y="40" width="68" height="8" rx="2" fill="#F4F5F7"/>
+            <rect x="146" y="56" width="50" height="6" rx="2" fill="#9BA3AE"/>
+
+            <rect x="146" y="70" width="68" height="70" rx="4" fill="#F4F5F7"/>
+            <rect x="152" y="78" width="44" height="3" rx="1" fill="#9BA3AE"/>
+            <rect x="152" y="85" width="56" height="3" rx="1" fill="#9BA3AE"/>
+            <rect x="152" y="92" width="38" height="3" rx="1" fill="#9BA3AE"/>
+            <rect x="152" y="115" width="50" height="18" rx="2" fill="#FFF1EB" stroke="#F0500A" stroke-dasharray="2 2"/>
+            <text x="177" y="126" text-anchor="middle" font-family="Inter" font-size="7" fill="#F0500A" font-weight="600">Chữ ký số</text>
+
+            <rect x="146" y="150" width="68" height="24" rx="12" fill="#F0500A"/>
+            <text x="180" y="165" text-anchor="middle" font-family="Inter" font-size="10" fill="#fff" font-weight="700">Ký số ✓</text>
+            <text x="180" y="190" text-anchor="middle" font-family="Inter" font-size="8" fill="#10B981" font-weight="600">Hợp lệ pháp lý</text>
+
+            <rect x="20" y="70" width="80" height="22" rx="6" fill="#fff" stroke="#E6E8EC"/>
+            <text x="60" y="85" text-anchor="middle" font-family="Inter" font-size="9" fill="#2B2F36" font-weight="600">Viettel-CA</text>
+            <rect x="20" y="100" width="80" height="22" rx="6" fill="#fff" stroke="#E6E8EC"/>
+            <text x="60" y="115" text-anchor="middle" font-family="Inter" font-size="9" fill="#2B2F36" font-weight="600">VNPT-CA</text>
+            <rect x="20" y="130" width="80" height="22" rx="6" fill="#fff" stroke="#E6E8EC"/>
+            <text x="60" y="145" text-anchor="middle" font-family="Inter" font-size="9" fill="#2B2F36" font-weight="600">EFY-CA</text>
+
+            <path d="M 100 81 L 130 81" stroke="#F0500A" stroke-width="1.5" stroke-dasharray="2 2"/>
+            <path d="M 100 111 L 130 111" stroke="#F0500A" stroke-width="1.5" stroke-dasharray="2 2"/>
+            <path d="M 100 141 L 130 141" stroke="#F0500A" stroke-width="1.5" stroke-dasharray="2 2"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Step 5: Dashboard & Report -->
+      <div class="how-step reveal">
+        <div class="how-step-num">5</div>
+        <div class="how-step-content">
+          <h3>Giám sát realtime & Báo cáo</h3>
+          <p>Dashboard trực quan hiển thị trạng thái mọi quy trình đang chạy. Đo SLA từng bước, phát hiện điểm nghẽn tự động, cảnh báo trước khi quá hạn. Tích hợp với KPI & OKR để đánh giá hiệu suất. CEO mở 1 màn hình là biết ngay đâu đang tắc — không phải chờ báo cáo cuối tuần.</p>
+          <div class="how-step-compare">
+            <span class="how-compare-before">Báo cáo Excel cuối tuần</span>
+            <span class="how-compare-arrow">→</span>
+            <span class="how-compare-after">Dashboard realtime 24/7</span>
+          </div>
+        </div>
+        <div class="how-step-visual">
+          <svg viewBox="0 0 360 220" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="10" width="340" height="200" rx="10" fill="#fff" stroke="#E6E8EC"/>
+
+            <rect x="22" y="22" width="95" height="52" rx="6" fill="#F4F5F7"/>
+            <text x="32" y="36" font-family="Inter" font-size="8" fill="#5A626F" font-weight="600">QUY TRÌNH</text>
+            <text x="32" y="58" font-family="Montserrat" font-size="18" fill="#0E1116" font-weight="800">2.847</text>
+            <text x="85" y="58" font-family="Inter" font-size="9" fill="#10B981" font-weight="700">+12%</text>
+
+            <rect x="125" y="22" width="95" height="52" rx="6" fill="#FFF1EB"/>
+            <text x="135" y="36" font-family="Inter" font-size="8" fill="#F0500A" font-weight="600">TB XỬ LÝ</text>
+            <text x="135" y="58" font-family="Montserrat" font-size="18" fill="#F0500A" font-weight="800">2.4h</text>
+
+            <rect x="228" y="22" width="110" height="52" rx="6" fill="#F4F5F7"/>
+            <text x="238" y="36" font-family="Inter" font-size="8" fill="#5A626F" font-weight="600">ĐÚNG HẠN</text>
+            <text x="238" y="58" font-family="Montserrat" font-size="18" fill="#0E1116" font-weight="800">94%</text>
+            <text x="298" y="58" font-family="Inter" font-size="9" fill="#10B981" font-weight="700">+3%</text>
+
+            <path d="M 30 180 L 70 160 L 110 170 L 150 140 L 190 150 L 230 125 L 270 130 L 310 105" stroke="#F0500A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <path d="M 30 180 L 70 160 L 110 170 L 150 140 L 190 150 L 230 125 L 270 130 L 310 105 L 310 200 L 30 200 Z" fill="#F0500A" opacity="0.1"/>
+            <circle cx="310" cy="105" r="4" fill="#F0500A"/>
+            <circle cx="150" cy="140" r="8" fill="#D04408" opacity="0.3"/>
+            <circle cx="150" cy="140" r="4" fill="#D04408"/>
+          </svg>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ==================== NĂNG LỰC CỐT LÕI (Platform capabilities / USP) ==================== -->
+<section class="caps" id="capabilities">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Năng lực cốt lõi</span>
+      <h2 class="section-title">Nền tảng xử lý <span class="accent">mọi quy trình</span><br/>— từ đơn giản đến phức tạp nhất</h2>
+      <p class="section-subtitle">
+        Xử lý quy trình phức tạp với rẽ nhánh đa cấp, điều kiện logic linh hoạt. Bộ Node đa dạng, phân quyền chi tiết
+        và liên thông hệ sinh thái — giúp bạn xây quy trình linh hoạt hơn bất kỳ phần mềm nào khác.
+      </p>
+    </div>
+
+    <div class="caps-grid">
+
+      <!-- 1. Node library -->
+      <div class="caps-card reveal">
+        <span class="caps-num">01</span>
+        <div class="caps-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+        </div>
+        <h3>Thư viện Node mạnh mẽ</h3>
+        <p>
+          Node Điều kiện, Tích hợp, Var, Form Design, Ký số, Nhắc nhở —
+          ghép nối linh hoạt để xử lý mọi kịch bản nghiệp vụ, dù đặc thù đến đâu.
+        </p>
+        <div class="caps-tags">
+          <span class="caps-tag">Decision</span>
+          <span class="caps-tag">API</span>
+          <span class="caps-tag">Form</span>
+          <span class="caps-tag">E-sign</span>
+        </div>
+      </div>
+
+      <!-- 2. Fine-grained permission -->
+      <div class="caps-card reveal" style="transition-delay:.06s">
+        <span class="caps-num">02</span>
+        <div class="caps-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <h3>Phân quyền đến từng bước</h3>
+        <p>
+          Kiểm soát ai xem, sửa, duyệt tại từng node — từng trường dữ liệu.
+          Đảm bảo bảo mật, minh bạch trách nhiệm, dễ kiểm toán khi cần.
+        </p>
+        <div class="caps-tags">
+          <span class="caps-tag">Per-step ACL</span>
+          <span class="caps-tag">Audit trail</span>
+        </div>
+      </div>
+
+      <!-- 3. Ecosystem integration -->
+      <div class="caps-card reveal" style="transition-delay:.12s">
+        <span class="caps-num">03</span>
+        <div class="caps-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v6M12 17v6M4.22 4.22l4.24 4.24M15.54 15.54l4.24 4.24M1 12h6M17 12h6"/></svg>
+        </div>
+        <h3>Liên thông hệ sinh thái 1Office</h3>
+        <p>
+          Quy trình liên thông sẵn với các phân hệ khác của 1Office — 1HRM, 1CRM, 1Sign,
+          Công việc, Văn bản, Tài chính. Dữ liệu chảy xuyên suốt — không nhập lại, không sót bước.
+        </p>
+        <div class="caps-tags">
+          <span class="caps-tag">1HRM</span>
+          <span class="caps-tag">1CRM</span>
+          <span class="caps-tag">1Sign</span>
+          <span class="caps-tag">Tài chính</span>
+        </div>
+      </div>
+
+      <!-- 4. API / Webhook open -->
+      <div class="caps-card reveal" style="transition-delay:.18s">
+        <span class="caps-num">04</span>
+        <div class="caps-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <h3>API &amp; Webhook mở</h3>
+        <p>
+          Kết nối với hệ thống bên ngoài qua API mở: phần mềm kế toán, CRM, ERP,
+          hay các ứng dụng chuyên ngành. Không "đóng khung".
+        </p>
+        <div class="caps-tags">
+          <span class="caps-tag">REST API</span>
+          <span class="caps-tag">Webhook</span>
+          <span class="caps-tag">ERP / CRM</span>
+        </div>
+      </div>
+
+      <!-- 5. Analytics & optimization -->
+      <div class="caps-card reveal" style="transition-delay:.24s">
+        <span class="caps-num">05</span>
+        <div class="caps-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 12 4-4 4 4 6-6"/></svg>
+        </div>
+        <h3>Phân tích &amp; tối ưu liên tục</h3>
+        <p>
+          Đo thời gian trung bình mỗi quy trình, phát hiện bước thường xuyên tắc nghẽn,
+          đề xuất cải thiện. Tích hợp sẵn với KPI &amp; OKR để đánh giá hiệu suất.
+        </p>
+        <div class="caps-tags">
+          <span class="caps-tag">SLA</span>
+          <span class="caps-tag">Bottleneck</span>
+          <span class="caps-tag">KPI / OKR</span>
+        </div>
+      </div>
+
+      <!-- 6. Multi-platform -->
+      <div class="caps-card reveal" style="transition-delay:.30s">
+        <span class="caps-num">06</span>
+        <div class="caps-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <h3>Đa nền tảng Web + Mobile</h3>
+        <p>
+          Vận hành, phê duyệt, ký số từ bất kỳ đâu — trên trình duyệt hoặc app iOS/Android.
+          Sếp đi công tác vẫn ký được. Nhân viên làm việc từ xa không gián đoạn.
+        </p>
+        <div class="caps-tags">
+          <span class="caps-tag">Web</span>
+          <span class="caps-tag">iOS</span>
+          <span class="caps-tag">Android</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ==================== DEPARTMENTS — Tab Switcher ==================== -->
+<section class="departments" id="departments">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Ứng dụng theo phòng ban</span>
+      <h2 class="section-title">Xây dựng workflow cho<br/><span class="accent">mọi nghiệp vụ</span></h2>
+      <p class="section-subtitle">
+        Một nền tảng — 5 phòng ban phối hợp nhịp nhàng. Dữ liệu chảy xuyên suốt, không nhập lại.
+      </p>
+    </div>
+
+    <div class="tabs-nav reveal">
+      <button class="tab-btn active" data-tab="accounting"><span class="tab-icon">🧾</span> Kế toán</button>
+      <button class="tab-btn" data-tab="hr"><span class="tab-icon">👥</span> Nhân sự</button>
+      <button class="tab-btn" data-tab="sales"><span class="tab-icon">💼</span> Kinh doanh</button>
+      <button class="tab-btn" data-tab="service"><span class="tab-icon">🛎️</span> Chăm sóc KH</button>
+      <button class="tab-btn" data-tab="operations"><span class="tab-icon">⚙️</span> Vận hành nội bộ</button>
+    </div>
+
+    <div class="tab-panel active" data-panel="accounting">
+      <div class="tab-content">
+        <div class="tab-subtitle">Phòng Kế toán</div>
+        <h3>Phê duyệt phiếu thu chi & thanh toán</h3>
+        <p>
+          Tự động hoá toàn bộ luồng đề xuất → duyệt → ký số → ghi sổ.
+          Rẽ nhánh theo hạn mức, có thể kết nối với phần mềm kế toán qua API. Chứng từ truy xuất nhanh chóng.
+        </p>
+        <ul class="tab-results">
+          <li>Loại bỏ luân chuyển giấy tờ thủ công — duyệt và ký số ngay trên quy trình</li>
+          <li>Chứng từ số hoá tập trung, không còn thất lạc giấy tờ</li>
+          <li>Tự động đồng bộ dữ liệu sang phần mềm kế toán — không nhập lại</li>
+        </ul>
+      </div>
+      <div class="dept-flow">
+        <div class="dept-flow-title">Quy trình mẫu</div>
+        <div class="dept-nodes">
+          <div class="dept-node">Nhân viên nộp phiếu chi</div>
+          <div class="dept-connector"></div>
+          <div class="dept-node">Trưởng phòng duyệt</div>
+          <div class="dept-connector"></div>
+          <div class="dept-node branch">Rẽ nhánh: &lt;5tr / &gt;5tr</div>
+          <div class="dept-connector"></div>
+          <div class="dept-node">Kế toán / Giám đốc ký số</div>
+          <div class="dept-connector"></div>
+          <div class="dept-node">Tự động ghi sổ &amp; đồng bộ dữ liệu</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-panel" data-panel="hr">
+      <div class="tab-content">
+        <div class="tab-subtitle">Phòng Nhân sự</div>
+        <h3>Tuyển dụng, Onboarding & Đơn từ</h3>
+        <p>
+          Toàn bộ vòng đời nhân sự trên một luồng: từ ứng viên đậu phỏng vấn đến ngày làm việc đầu tiên.
+          HĐLĐ ký số hợp lệ pháp lý. Đơn xin nghỉ phép, làm thêm giờ duyệt online.
+        </p>
+        <ul class="tab-results">
+          <li>Onboarding nhân viên mới diễn ra liền mạch, không sót bước</li>
+          <li>HĐLĐ ký số hợp lệ pháp lý, lưu trữ tập trung dài hạn</li>
+          <li>Liên thông sẵn sang chấm công + tính lương — không rải rác</li>
+        </ul>
+      </div>
+      <div class="dept-flow">
+        <div class="dept-flow-title">Quy trình mẫu</div>
+        <div class="dept-nodes">
+          <div class="dept-node">Ứng viên đậu phỏng vấn</div>
+          <div class="dept-connector"></div>
+          <div class="dept-node">HR tạo hợp đồng lao động</div>
+          <div class="dept-connector"></div>
+          <div class="dept-node">Ký số HĐLĐ (NV + GĐ)</div>
+          <div class="dept-connector"></div>
+          <div class="dept-node">Cấp tài khoản + thiết bị</div>
+          <div class="dept-connector"></div>
+          <div class="dept-node">Đào tạo + Review 30 ngày</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-panel" data-panel="sales">
+      <div class="tab-content">
+        <div class="tab-subtitle">Phòng Kinh doanh</div>
+        <h3>Phê duyệt hợp đồng & báo giá</h3>
+        <p>
+          Sale chốt deal trên CRM → workflow phê duyệt tự kích hoạt → ký số → tạo hóa đơn.
+          Rút ngắn time-to-cash, giảm tỷ lệ mất deal vì chờ ký. KPI tự đồng bộ, không nhập Excel.
+        </p>
+        <ul class="tab-results">
+          <li>Rút ngắn đáng kể thời gian từ chốt deal đến ký hợp đồng</li>
+          <li>Không còn mất deal vì hợp đồng "nằm chờ" trên bàn lãnh đạo</li>
+          <li>KPI tự đồng bộ sau khi ký — không phải nhập lại Excel</li>
+        </ul>
+      </div>
+      <div class="dept-flow">
+        <div class="dept-flow-title">Quy trình mẫu</div>
+        <div class="dept-nodes">
+          <div class="dept-node">Sale tạo đơn hàng trên CRM</div>
+          <div class="dept-connector"></div>
+          <div class="dept-node">Trưởng phòng KD duyệt</div>
+          <div class="dept-connector"></div>
+          <div class="dept-node branch">Rẽ nhánh theo giá trị & chính sách</div>
+          <div class="dept-connector"></div>
+          <div class="dept-node">Giám đốc ký số</div>
+          <div class="dept-connector"></div>
+          <div class="dept-node">Tự tạo hóa đơn + cập nhật KPI</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-panel" data-panel="service">
+      <div class="tab-content">
+        <div class="tab-subtitle">Phòng Chăm sóc khách hàng</div>
+        <h3>Xử lý yêu cầu & theo dõi SLA</h3>
+        <p>
+          Ticket tiếp nhận → phân loại tự động theo độ ưu tiên → gán chuyên viên → xử lý → đóng + khảo sát.
+          Không còn "ticket rơi qua khe". Cảnh báo bottleneck realtime cho trưởng phòng.
+        </p>
+        <ul class="tab-results">
+          <li>Tỷ lệ SLA đạt chuẩn tăng rõ rệt nhờ tracking tự động</li>
+          <li>Phát hiện bottleneck realtime, cảnh báo trước khi quá hạn</li>
+          <li>Mọi ticket đều được theo dõi và phản hồi đúng hạn</li>
+        </ul>
+      </div>
+      <div class="dept-flow">
+        <div class="dept-flow-title">Quy trình mẫu</div>
+        <div class="dept-nodes">
+          <div class="dept-node">Tiếp nhận yêu cầu khách hàng</div>
+          <div class="dept-connector"></div>
+          <div class="dept-node branch">Phân loại tự động theo ưu tiên</div>
+          <div class="dept-connector"></div>
+          <div class="dept-node">Gán chuyên viên phụ trách</div>
+          <div class="dept-connector"></div>
+          <div class="dept-node">Xử lý + tracking SLA</div>
+          <div class="dept-connector"></div>
+          <div class="dept-node">Đóng ticket + khảo sát</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-panel" data-panel="operations">
+      <div class="tab-content">
+        <div class="tab-subtitle">Vận hành nội bộ</div>
+        <h3>Hành chính - Đề xuất - Phê duyệt</h3>
+        <p>
+          Số hoá mọi loại văn bản, đề xuất, tờ trình nội bộ. Luân chuyển tự động theo cơ cấu tổ chức,
+          lưu trữ tập trung, truy xuất nhanh. Giảm phụ thuộc thủ công và đảm bảo nhất quán toàn DN.
+        </p>
+        <ul class="tab-results">
+          <li>Giảm đáng kể thời gian xử lý văn bản, đề xuất nội bộ</li>
+          <li>Giấy tờ số hóa tập trung, truy xuất lịch sử tức thì</li>
+          <li>Mọi thao tác được lưu vết — minh bạch, dễ kiểm toán</li>
+        </ul>
+      </div>
+      <div class="dept-flow">
+        <div class="dept-flow-title">Quy trình mẫu</div>
+        <div class="dept-nodes">
+          <div class="dept-node">Nhân viên tạo đề xuất</div>
+          <div class="dept-connector"></div>
+          <div class="dept-node">Trưởng bộ phận duyệt</div>
+          <div class="dept-connector"></div>
+          <div class="dept-node branch">Phân loại theo cấp độ xử lý</div>
+          <div class="dept-connector"></div>
+          <div class="dept-node">Ban lãnh đạo phê duyệt</div>
+          <div class="dept-connector"></div>
+          <div class="dept-node">Lưu trữ + thông báo liên quan</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== AI ADD-ON ==================== -->
+<section class="ai-addon">
+  <div class="container ai-addon-inner">
+    <div class="ai-addon-text reveal">
+      <span class="eyebrow">Add-on · Tính năng nâng cao</span>
+      <span class="ai-tag-inline">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.39 7.36H22l-6.3 4.58L18.09 22 12 17.27 5.91 22l2.39-8.06L2 9.36h7.61z"/></svg>
+        1AI PROCESS
+      </span>
+      <h2>Muốn nhanh hơn nữa?<br/>Để AI dựng quy trình <span class="accent">thay bạn.</span></h2>
+      <p class="ai-addon-lead">
+        Tải file mô tả quy trình (Word/PDF) — <strong>1AI Process</strong> đọc, phân tích và tự dựng workflow.
+        Bạn chỉ việc xem lại, chỉnh sửa và publish. Add-on tùy chọn, có thể bật/tắt theo nhu cầu.
+      </p>
+      <ul class="ai-addon-features">
+        <li>Đọc file mô tả và tự tách thành các bước, điều kiện rẽ nhánh</li>
+        <li>Chủ động gợi ý tối ưu dựa trên best practice ngành</li>
+        <li>Phân tích điểm nghẽn quy trình hiện tại, đề xuất cải tiến liên tục</li>
+      </ul>
+      <a href="#contact" class="btn btn-primary">Tìm hiểu về 1AI Process →</a>
+    </div>
+
+    <div class="ai-chat-mini reveal" style="transition-delay:.15s">
+      <div class="ai-chat-header">
+        <div class="ai-avatar">1O</div>
+        <strong>1AI Process</strong>
+        <span class="status">Đang hoạt động</span>
+      </div>
+      <div class="chat-msg user">
+        Dựng giúp tôi quy trình phê duyệt báo giá nhé.
+        <div style="margin-top:6px;font-size:11px;color:var(--ink-500)">📎 QuyTrinh_BaoGia.docx</div>
+      </div>
+      <div class="chat-msg ai">
+        Đã phân tích xong. Quy trình gồm <strong>5 bước</strong>, <strong>2 điểm rẽ nhánh</strong>:
+        <div class="chat-flow-mini">
+          <div>Sale tạo báo giá</div>
+          <div>Trưởng phòng duyệt</div>
+          <div>Rẽ nhánh &lt;1 tỷ / &gt;1 tỷ</div>
+          <div>Giám đốc ký số</div>
+          <div>Gửi khách hàng</div>
+        </div>
+      </div>
+      <div class="chat-msg ai">
+        💡 Gợi ý: Thêm bước "Lập lại báo giá" khi khách từ chối — tăng cơ hội chốt deal.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== CASE STUDIES — Process-focused ==================== -->
+<section class="cases" id="cases">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Khách hàng nói gì</span>
+      <h2 class="section-title">Doanh nghiệp đã <span class="accent">chuyển đổi vận hành</span><br/>cùng 1Office</h2>
+    </div>
+
+    <div class="cases-grid">
+      <div class="case-card reveal">
+        <div class="case-header">
+          <span class="case-industry">Bất động sản</span>
+          <div class="case-company">MeeyLand</div>
+          <div class="case-scale">400+ Users</div>
+        </div>
+        <div class="case-body">
+          <p class="case-quote">
+            "Sử dụng 1Office giúp chúng tôi quản lý chi tiết nội dung công việc, phân công và tiến độ dự án của từng cá nhân. Thông qua đó nắm bắt được tiến độ của bất kỳ thành viên nào trong thời gian thực."
+          </p>
+          <div class="case-metric">
+            <div>
+              <div class="case-metric-label">Hiệu quả vận hành</div>
+              <div class="case-metric-before">Phân tán</div>
+              <span class="case-metric-arrow">→</span>
+              <span class="case-metric-after">Realtime</span>
+            </div>
+          </div>
+          <div class="case-person">
+            <div class="case-avatar a">PH</div>
+            <div>
+              <strong>Bà Phạm Thị Thu Hương</strong>
+              <span>TP Nhân sự · CTCP Tập đoàn MeeyLand</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="case-card reveal" style="transition-delay:.1s">
+        <div class="case-header">
+          <span class="case-industry">Giáo dục</span>
+          <div class="case-company">MathExpress</div>
+          <div class="case-scale">600+ Users</div>
+        </div>
+        <div class="case-body">
+          <p class="case-quote">
+            "Chuyển đổi số là tất yếu. Điều đầu tiên, nó giúp doanh nghiệp vận hành tốt hơn. Thứ hai, mang lại trải nghiệm tốt cho nhân viên — và muốn có trải nghiệm khách hàng tốt thì phải có trải nghiệm nhân viên tốt."
+          </p>
+          <div class="case-metric">
+            <div>
+              <div class="case-metric-label">Xử lý văn bản</div>
+              <div class="case-metric-before">Nhiều ngày</div>
+              <span class="case-metric-arrow">→</span>
+              <span class="case-metric-after">&lt; 1 ngày</span>
+            </div>
+          </div>
+          <div class="case-person">
+            <div class="case-avatar b">TN</div>
+            <div>
+              <strong>Ông Trần Trọng Nam</strong>
+              <span>PGĐ · Công ty TNHH MathExpress</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="case-card reveal" style="transition-delay:.2s">
+        <div class="case-header">
+          <span class="case-industry">Bán lẻ</span>
+          <div class="case-company">TinHoldings</div>
+          <div class="case-scale">200+ Users</div>
+        </div>
+        <div class="case-body">
+          <p class="case-quote">
+            "Từ khi triển khai, nhân viên có thể làm việc ở bất cứ đâu, bất cứ lúc nào. Các luồng công việc vận hành trơn tru — kể cả quy trình có rẽ nhánh phức tạp đều được xử lý linh hoạt."
+          </p>
+          <div class="case-metric">
+            <div>
+              <div class="case-metric-label">Luồng rẽ nhánh</div>
+              <div class="case-metric-before">Thủ công</div>
+              <span class="case-metric-arrow">→</span>
+              <span class="case-metric-after">Tự động 100%</span>
+            </div>
+          </div>
+          <div class="case-person">
+            <div class="case-avatar c">NK</div>
+            <div>
+              <strong>Ông Nguyễn Văn Khải</strong>
+              <span>Tổng giám đốc · CTCP TinHoldings</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FAQ ==================== -->
+<section class="faq" id="faq">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Câu hỏi thường gặp</span>
+      <h2 class="section-title">Trước khi đăng ký,<br/>có thể bạn đang <span class="accent">băn khoăn…</span></h2>
+    </div>
+
+    <div class="faq-list">
+      <details class="faq-item reveal" open>
+        <summary>Triển khai 1Office có phức tạp không? Công ty tôi không có đội IT mạnh.</summary>
+        <div class="faq-answer">
+          <strong>Bạn không cần đội IT.</strong> 1Office được thiết kế để <em>trưởng phòng nghiệp vụ</em>
+          tự cấu hình bằng kéo-thả. Đội ngũ 1Office hỗ trợ onboarding 1-1 trong 2–4 tuần đầu,
+          có thư viện quy trình mẫu cho nhiều ngành. Phần lớn khách hàng đi live trong vòng 30 ngày.
+        </div>
+      </details>
+
+      <details class="faq-item reveal" style="transition-delay:.06s">
+        <summary>Quy trình công ty tôi rất đặc thù — 1Office có làm được không?</summary>
+        <div class="faq-answer">
+          1Office <strong>không phải phần mềm đóng khung</strong>. Với các Node đa dạng (Điều kiện, Tích hợp,
+          Form, Ký số, Nhắc nhở…), bạn có thể xây bất kỳ quy trình nào — kể cả 20+ bước với nhiều rẽ nhánh.
+          Cứ đặt demo, chúng tôi sẽ <em>dựng thử chính quy trình của bạn</em> ngay trong buổi gặp.
+        </div>
+      </details>
+
+      <details class="faq-item reveal" style="transition-delay:.12s">
+        <summary>Tôi đang dùng Misa/Fast/phần mềm khác — có kết nối được không?</summary>
+        <div class="faq-answer">
+          Có. 1Office có <strong>API mở và Webhook</strong>, cho phép kết nối với hầu hết phần mềm
+          kế toán, CRM, ERP đang phổ biến như Misa, Fast, Bravo, Google Workspace, Microsoft 365.
+          Ngoài ra còn <strong>hỗ trợ import từ Excel</strong> cho nhu cầu đơn giản hơn.
+          Dữ liệu cũ giữ nguyên — 1Office là lớp quản trị quy trình phía trên, không yêu cầu thay thế hệ thống hiện tại.
+        </div>
+      </details>
+
+      <details class="faq-item reveal" style="transition-delay:.18s">
+        <summary>Ký số trên 1Office có giá trị pháp lý không?</summary>
+        <div class="faq-answer">
+          <strong>Có — hợp lệ pháp lý đầy đủ.</strong> 1Office tích hợp sẵn với các nhà cung cấp chứng thư số
+          được cấp phép tại Việt Nam: Viettel-CA, VNPT-CA, EFY-CA. Hỗ trợ USB Token, Cloud HSM và ký từ xa
+          trên mobile. Mọi thao tác ký số được ghi nhận thời gian, người ký, trạng thái để truy vết sau này.
+        </div>
+      </details>
+
+      <details class="faq-item reveal" style="transition-delay:.24s">
+        <summary>Nếu dùng xong không phù hợp thì sao? Tôi có bị "khóa" không?</summary>
+        <div class="faq-answer">
+          Dữ liệu bạn nhập <strong>luôn có thể export ra Excel/PDF chuẩn</strong> bất cứ lúc nào.
+          Gói dùng thử <strong>miễn phí, không cần thẻ thanh toán</strong>. 1Office cam kết SLA rõ ràng,
+          điều khoản hợp đồng minh bạch — bạn luôn có quyền kiểm soát dữ liệu của mình.
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FINAL CTA + FORM ==================== -->
+<section class="final-cta" id="contact">
+  <div class="container">
+    <div class="cta-inner">
+      <div class="cta-text reveal">
+        <span class="eyebrow">Sẵn sàng bứt phá</span>
+        <h2>Vận hành liền mạch —<br/>tự động hoá <span class="accent">hàng trăm quy trình</span><br/>với một nền tảng.</h2>
+        <p>Đặt lịch demo 30 phút với chuyên gia 1Office. Chúng tôi sẽ <strong>dựng thử chính một quy trình đang khiến bạn đau đầu</strong> ngay trong buổi demo — để bạn thấy giải pháp, không phải chỉ slide.</p>
+
+        <ul class="cta-bullets">
+          <li>Dựng demo quy trình theo đúng đặc thù công ty bạn</li>
+          <li>Tư vấn chuẩn hoá vận hành bởi chuyên gia 10+ năm kinh nghiệm</li>
+          <li>Roadmap triển khai rõ ràng, có mốc go-live cụ thể</li>
+        </ul>
+      </div>
+
+      <div class="form-card reveal" style="transition-delay:.1s">
+        <h3>Nhận tư vấn miễn phí</h3>
+        <p>Chuyên gia 1Office sẽ liên hệ trong 2h làm việc.</p>
+        <form onsubmit="event.preventDefault(); alert('Cảm ơn bạn! Chuyên gia 1Office sẽ liên hệ trong 2h làm việc.');">
+          <div class="form-group">
+            <label for="name">Họ và tên *</label>
+            <input type="text" id="name" placeholder="Nguyễn Văn A" required />
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="phone">Số điện thoại *</label>
+              <input type="tel" id="phone" placeholder="0912 345 678" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email công ty *</label>
+              <input type="email" id="email" placeholder="ban@congty.vn" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="scale">Quy mô</label>
+              <select id="scale">
+                <option>Dưới 20 nhân sự</option>
+                <option>20 – 50</option>
+                <option>50 – 100</option>
+                <option selected>100 – 300</option>
+                <option>300 – 500</option>
+                <option>Trên 500</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="role">Vị trí</label>
+              <select id="role">
+                <option>CEO / Founder</option>
+                <option>COO / GĐ Vận hành</option>
+                <option selected>Trưởng phòng</option>
+                <option>Quản lý CNTT</option>
+                <option>Khác</option>
+              </select>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-lg">
+            Đăng ký nhận demo ngay
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </button>
+          <div class="form-trust">
+            <span>Phản hồi trong 2h làm việc</span>
+            <span>Không spam — chỉ 1 cuộc gọi đúng việc</span>
+            <span>Bảo mật theo chuẩn 1Office SLA</span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo footer-logo">
+          <img src="1office-logo.png" alt="1Office" />
+        </div>
+        <p>Nền tảng quản trị doanh nghiệp toàn diện đầu tiên & duy nhất tại Việt Nam — được 6.000+ doanh nghiệp tin dùng.</p>
+        <div class="footer-contact">
+          <strong>Hotline</strong>
+          <a href="tel:0834838888" style="color:var(--orange-300);font-weight:600;font-size:16px">083 483 8888</a>
+          <strong>Trụ sở Hà Nội</strong>
+          Tầng 3, Tòa G2 Five Star Garden, số 02 Kim Giang
+          <strong>VP TP. HCM</strong>
+          Lầu 3, số 222 Hoàng Hoa Thám, Q. Tân Bình
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Sản phẩm</h4>
+        <ul>
+          <li><a href="#">1Office — Quy trình</a></li>
+          <li><a href="#">1Sign — Ký số</a></li>
+          <li><a href="#">1HRM — Nhân sự</a></li>
+          <li><a href="#">1CRM — Khách hàng</a></li>
+          <li><a href="#">1AI Process (Add-on)</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Công ty</h4>
+        <ul>
+          <li><a href="#">Giới thiệu</a></li>
+          <li><a href="#">Khách hàng</a></li>
+          <li><a href="#">Đối tác</a></li>
+          <li><a href="#">Tuyển dụng</a></li>
+          <li><a href="#">Truyền thông</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Tài nguyên</h4>
+        <ul>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Ebook & Biểu mẫu</a></li>
+          <li><a href="#">Hướng dẫn sử dụng</a></li>
+          <li><a href="#">Cam kết SLA</a></li>
+          <li><a href="#">Chính sách bảo mật</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>© 2015 - 2026 1Office Software. All Rights Reserved.</div>
+      <div class="footer-socials">
+        <a href="#" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.07C24 5.41 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.8-4.7 4.54-4.7 1.31 0 2.68.24 2.68.24v2.97h-1.5c-1.5 0-1.96.93-1.96 1.89v2.26h3.32l-.53 3.5h-2.79V24C19.61 23.1 24 18.1 24 12.07"/></svg></a>
+        <a href="#" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.11 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.77-.77 1.77-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg></a>
+        <a href="#" aria-label="YouTube"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.12-2.13C19.5 3.56 12 3.56 12 3.56s-7.5 0-9.38.5A3 3 0 0 0 .5 6.21C0 8.07 0 12 0 12s0 3.93.5 5.8a3 3 0 0 0 2.12 2.12c1.88.51 9.38.51 9.38.51s7.5 0 9.38-.5a3 3 0 0 0 2.12-2.13C24 15.93 24 12 24 12s0-3.93-.5-5.8zM9.6 15.58V8.42L15.82 12 9.6 15.58z"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-item').forEach(item => {
+    item.addEventListener('toggle', () => {
+      if (item.open) {
+        document.querySelectorAll('.faq-item').forEach(other => {
+          if (other !== item) other.open = false;
+        });
+      }
+    });
+  });
+
+  // Tab switcher
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const tabPanels = document.querySelectorAll('.tab-panel');
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetTab = btn.dataset.tab;
+      tabBtns.forEach(b => b.classList.remove('active'));
+      tabPanels.forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelector(`[data-panel="${targetTab}"]`).classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>
