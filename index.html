@@ -1007,7 +1007,7 @@
   .video-container video {
     width: 100%;
     height: 100%;
-    object-fit: cover;   /* ensures it fills without distortion */
+    object-fit: contain;   /* cover: ensures it fills without distortion */
     display: block;
   }
   .ai-chat-mini {
@@ -2523,7 +2523,7 @@
       </div>
     </div> -->
     <div class="ai-chat-mini reveal video-container">
-      <video autoplay muted><source src="1ai-process.mp4"  type="video/mp4"></video>
+      <video autoplay muted loop><source src="1ai-process.mp4"  type="video/mp4"></video>
     </div>
   </div>
 </section>
@@ -2661,22 +2661,22 @@
             <div class="form-group">
               <label for="scale">Quy mô</label>
               <select id="scale">
-                <option>Dưới 20 nhân sự</option>
-                <option>20 – 50</option>
-                <option>50 – 100</option>
-                <option selected>100 – 300</option>
-                <option>300 – 500</option>
-                <option>Trên 500</option>
+                <option>20 – 50 nhân viên</option>
+                <option>50 – 100 nhân viên</option>
+                <option selected>100 – 300 nhân viên</option>
+                <option>300 – 500 nhân viên</option>
+                <option>500 – 1000 nhân viên</option>
+                <option>Trên 1000 nhân viên</option>
               </select>
             </div>
             <div class="form-group">
-              <label for="role">Vị trí</label>
+              <label for="role">Chức vụ</label>
               <select id="role">
-                <option>CEO / Founder</option>
-                <option>COO / GĐ Vận hành</option>
-                <option selected>Trưởng phòng</option>
-                <option>Quản lý CNTT</option>
-                <option>Khác</option>
+                <option>Lãnh đạo (Chủ tịch, CEO, Clevel...)</option>
+                <option>Quản lý nhân sự</option>
+                <option selected>Quản lý CNTT</option>
+                <option>Quản lý cấp trung</option>
+                <option>Nhân viên</option>
               </select>
             </div>
           </div>
