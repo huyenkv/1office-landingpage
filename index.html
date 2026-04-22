@@ -995,7 +995,21 @@
     letter-spacing: 0.04em;
     margin-bottom: 16px;
   }
+  /* 1 AI video */
+  .video-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px; /* optional, match your UI */
+  }
 
+  .video-container video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;   /* ensures it fills without distortion */
+    display: block;
+  }
   .ai-chat-mini {
     background: #fff;
     border-radius: 20px;
@@ -1586,8 +1600,8 @@
       </div>
       <h1>
         Số hóa và tự động hóa
-        <span class="break">quy trình với <span class="accent">No-code</span></span>
-        <span class="break">&amp; <span class="accent">AI</span>.</span>
+        <span class="break">quy trình với</span>
+        <span class="break"><span class="accent">No-code</span> &amp; <span class="accent">AI</span>.</span>
       </h1>
       <p class="hero-sub">
         Thiết kế quy trình bằng kéo-thả, tự động luân chuyển và ký số trên một nền tảng duy nhất.
@@ -1960,7 +1974,7 @@
       <span class="eyebrow">Cách 1Office hoạt động</span>
       <h2 class="section-title">Tự động hoá quy trình trong <span class="accent">5 bước</span></h2>
       <p class="section-subtitle">
-    
+        Từ file mô tả đến workflow chạy thật — không cần IT, không cần vẽ sơ đồ bằng tay.
       </p>
     </div>
 
@@ -2487,7 +2501,7 @@
       <a href="#contact" class="btn btn-primary">Tìm hiểu về 1AI Process →</a>
     </div>
 
-    <div class="ai-chat-mini reveal" style="transition-delay:.15s">
+    <!-- <div class="ai-chat-mini reveal" style="transition-delay:.15s">
       <div class="ai-chat-header">
         <div class="ai-avatar">1O</div>
         <strong>1AI Process</strong>
@@ -2510,6 +2524,9 @@
       <div class="chat-msg ai">
         💡 Gợi ý: Thêm bước "Lập lại báo giá" khi khách từ chối — tăng cơ hội chốt deal.
       </div>
+    </div> -->
+    <div class="ai-chat-mini reveal video-container">
+      <video autoplay muted><source src="1ai-process.mp4"  type="video/mp4"></video>
     </div>
   </div>
 </section>
@@ -2619,15 +2636,6 @@
     </div>
 
     <div class="faq-list">
-      <details class="faq-item reveal" open>
-        <summary>Triển khai 1Office có phức tạp không? Công ty tôi không có đội IT mạnh.</summary>
-        <div class="faq-answer">
-          <strong>Bạn không cần đội IT.</strong> 1Office được thiết kế để <em>trưởng phòng nghiệp vụ</em>
-          tự cấu hình bằng kéo-thả. Đội ngũ 1Office hỗ trợ onboarding 1-1 trong 2–4 tuần đầu,
-          có thư viện quy trình mẫu cho nhiều ngành. Phần lớn khách hàng đi live trong vòng 30 ngày.
-        </div>
-      </details>
-
       <details class="faq-item reveal" style="transition-delay:.06s">
         <summary>Quy trình công ty tôi rất đặc thù — 1Office có làm được không?</summary>
         <div class="faq-answer">
@@ -2675,7 +2683,7 @@
       <div class="cta-text reveal">
         <span class="eyebrow">Sẵn sàng bứt phá</span>
         <h2>Vận hành liền mạch —<br/>Tự động hoá <span class="accent">hàng trăm quy trình</span><br/>với một nền tảng.</h2>
-        <p>Đặt lịch demo ngay với chuyên gia 1Office. 
+        <p>Đặt lịch demo với chuyên gia 1Office. 
 
         <ul class="cta-bullets">
           <li>Dựng demo quy trình theo đúng đặc thù công ty bạn</li>
