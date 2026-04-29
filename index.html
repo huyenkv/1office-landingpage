@@ -601,6 +601,8 @@ section { padding: 90px 0; position: relative; }
     transition: all var(--transition);
     position: relative;
     z-index: 2;
+    text-decoration: none;
+
 }
 .stepper-dot.active {
     background: var(--color-brand);
@@ -2167,6 +2169,44 @@ section { padding: 90px 0; position: relative; }
     border-radius: 16px;
     padding: 32px;
 }
+
+/* When the form is triggered to be a popup */
+/* This class will be added via JS */
+.cta-form.is-popup {
+    /* Critical: 'fixed' positions it relative to the browser window, not the footer */
+    position: fixed !important; 
+    
+    /* Center it perfectly */
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    
+    /* Ensure it sits on top of EVERYTHING */
+    z-index: 99999 !important;
+    
+    /* Popup styling */
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    width: 90%;
+    max-width: 500px;
+    margin: 0 !important;
+}
+
+/* Create the dark background effect when is-popup*/
+body.modal-open::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+    z-index: 99998; /* Just below the form */
+}
+
 .form-title { font-size: 20px; font-weight: 700; margin-bottom: 6px; letter-spacing: -0.01em; }
 .form-subtitle { font-size: 14px; color: var(--color-text-secondary); margin-bottom: 24px; }
 .form-group { margin-bottom: 14px; }
@@ -2316,7 +2356,7 @@ section { padding: 90px 0; position: relative; }
             <a href="#final-cta">Liên hệ</a>
         </nav>
         <div class="header-cta">
-            <a href="#final-cta" class="btn btn-primary">Đăng ký nhận demo</a>
+            <button onclick="openDemoFormPop()" class="btn btn-primary">Đăng ký nhận demo</button>
         </div>
         <button class="mobile-toggle" aria-label="Menu">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
@@ -2338,10 +2378,10 @@ section { padding: 90px 0; position: relative; }
                 <h1>Số hóa và tự động hóa quy trình với <span class="hl">No-code &amp; AI</span></h1>
                 <p class="hero-sub">Thiết kế quy trình bằng kéo-thả, tự động luân chuyển và ký số trên một nền tảng duy nhất. Giao việc theo vị trí — phòng ban, rẽ nhánh theo điều kiện, giám sát theo thời gian thực — giúp doanh nghiệp vận hành liền mạch.</p>
                 <div class="hero-ctas">
-                    <a href="#final-cta" class="btn btn-primary btn-lg">
+                    <button onclick="openDemoFormPop()" class="btn btn-primary btn-lg">
                         Đăng ký nhận demo ngay
                         <svg class="arrow-bounce" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-                    </a>
+                    </button>
                 </div>
             </div>
 
@@ -2829,20 +2869,20 @@ section { padding: 90px 0; position: relative; }
 
         <!-- Stepper indicator -->
         <div class="steps-indicator aos-item">
-            <div class="stepper-dot active">1</div>
+            <a href="#workflow-step-1" class="stepper-dot active">1</a>
             <div class="stepper-line active"></div>
-            <div class="stepper-dot active">2</div>
+            <a href="#workflow-step-2" class="stepper-dot active">2</a>
             <div class="stepper-line active"></div>
-            <div class="stepper-dot active">3</div>
+            <a href="#workflow-step-3" class="stepper-dot active">3</a>
             <div class="stepper-line active"></div>
-            <div class="stepper-dot active">4</div>
+            <a href="#workflow-step-4" class="stepper-dot active">4</a>
             <div class="stepper-line active"></div>
-            <div class="stepper-dot active">5</div>
+            <a href="#workflow-step-5" class="stepper-dot active">5</a>
         </div>
 
         <div class="steps-list">
             <!-- Step 1: Drag & Drop Workflow -->
-            <div class="step-row aos-item">
+            <div id="workflow-step-1" class="step-row aos-item">
                 <div class="step-content">
                     <div class="step-number-badge">
                         <div class="step-number-circle">1</div>
@@ -2978,7 +3018,7 @@ section { padding: 90px 0; position: relative; }
             </div>
 
             <!-- Step 2: E-Form Builder -->
-            <div class="step-row aos-item">
+            <div id="workflow-step-2" class="step-row aos-item">
                 <div class="step-content">
                     <div class="step-number-badge">
                         <div class="step-number-circle">2</div>
@@ -3036,7 +3076,7 @@ section { padding: 90px 0; position: relative; }
             </div>
 
             <!-- Step 3: Auto Routing & Branching -->
-            <div class="step-row aos-item">
+            <div id="workflow-step-3" class="step-row aos-item">
                 <div class="step-content">
                     <div class="step-number-badge">
                         <div class="step-number-circle">3</div>
@@ -3109,7 +3149,7 @@ section { padding: 90px 0; position: relative; }
             </div>
 
             <!-- Step 4: Digital Signature on Mobile -->
-            <div class="step-row aos-item">
+            <div id="workflow-step-4" class="step-row aos-item">
                 <div class="step-content">
                     <div class="step-number-badge">
                         <div class="step-number-circle">4</div>
@@ -3176,7 +3216,7 @@ section { padding: 90px 0; position: relative; }
             </div>
 
             <!-- Step 5: Dashboard & Reporting -->
-            <div class="step-row aos-item">
+            <div id="workflow-step-5" class="step-row aos-item">
                 <div class="step-content">
                     <div class="step-number-badge">
                         <div class="step-number-circle">5</div>
@@ -3571,7 +3611,6 @@ section { padding: 90px 0; position: relative; }
                                 <img src="MeeyLand-logo.png" alt="Meey Land Logo" height="14">
                             </div>
                             <!-- Decorative orange blocks right -->
-                            <div class="tm-deco-small"></div>
                             <div class="tm-deco-arrow">
                                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                             </div>
@@ -3662,7 +3701,6 @@ section { padding: 90px 0; position: relative; }
                                 <img src="MathExpress-logo.png" alt="Math Express Logo" height="14"/>
                             </div>
                             <!-- Decorative orange blocks right -->
-                            <div class="tm-deco-small"></div>
                             <div class="tm-deco-arrow">
                                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                             </div>
@@ -3753,7 +3791,6 @@ section { padding: 90px 0; position: relative; }
                                 <img src="TinHoldings-logo.png" alt="Tín Holdings Logo" height="14"/>
                             </div>
                             <!-- Decorative orange blocks right -->
-                            <div class="tm-deco-small"></div>
                             <div class="tm-deco-arrow">
                                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                             </div>
@@ -4098,6 +4135,47 @@ function handleForm(e) {
     e.preventDefault();
     alert('Cảm ơn! Chuyên gia 1Office sẽ liên hệ với bạn trong thời gian sớm nhất.\n\n(Demo mode)');
 }
+
+function openDemoFormPop() {
+    const ctaForm = document.querySelector('.cta-form');
+    
+    const form = ctaForm.cloneNode(true);
+    document.body.appendChild(form);
+    // Add the popup styles
+    form.classList.add('is-popup');
+    
+    // Add the dark background to the body
+    document.body.classList.add('modal-open');
+    
+    // Close the popup if user hits 'Escape' key
+    window.addEventListener('keydown', (e) => {
+        if (e.key === "Escape") closeFormPopup();
+    });
+    // Add this inside openFormPopup() if you want a close button to appear
+    // if (!document.querySelector('.close-btn')) {
+    if (form) {
+        const closeBtn = document.createElement('button');
+        closeBtn.innerHTML = "&times;";
+        closeBtn.className = "close-btn";
+        closeBtn.style = "position:absolute; top:10px; right:20px; font-size:30px; border:none; background:none; cursor:pointer;";
+        closeBtn.onclick = closeFormPopup;
+        form.appendChild(closeBtn);
+    }
+}
+
+function closeFormPopup() {
+    const form = document.querySelector('.cta-form.is-popup');
+    if (form) {
+        form.remove();
+        document.body.classList.remove('modal-open');
+    }
+}
+// Close if user clicks the dark background (the body)
+document.addEventListener('click', function(e) {
+    if (document.body.classList.contains('modal-open') && e.target.tagName === 'BODY') {
+        closeFormPopup();
+    }
+});
 </script>
 
 </body>
