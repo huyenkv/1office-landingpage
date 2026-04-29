@@ -1,0 +1,4184 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>1Office — Số hóa và tự động hóa quy trình với No-code & AI</title>
+<meta name="description" content="Thiết kế quy trình bằng kéo-thả, tự động luân chuyển và ký số trên một nền tảng duy nhất." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --color-brand: #F0500A;
+    --color-brand-hover: #D4430A;
+    --color-brand-light: #FF7A3D;
+    --color-brand-soft: rgba(240, 80, 10, 0.08);
+    --color-text-primary: #1D232E;
+    --color-text-secondary: #676D78;
+    --color-bg: #FFFFFF;
+    --color-bg-alt: #F7F8FA;
+    --color-bg-dark: #0F141C;
+    --color-border: #E8EAED;
+    --color-border-strong: #D8DCE2;
+    --color-success: #16A34A;
+    --color-danger: #DC2626;
+    --font-main: 'Inter Tight', -apple-system, BlinkMacSystemFont, sans-serif;
+    --radius-card: 16px;
+    --radius-btn: 10px;
+    --shadow-sm: 0 1px 2px rgba(15, 20, 28, 0.04);
+    --shadow-card: 0 4px 16px rgba(15, 20, 28, 0.06);
+    --shadow-card-hover: 0 12px 32px rgba(15, 20, 28, 0.10);
+    --shadow-cta: 0 8px 24px rgba(240, 80, 10, 0.35);
+    --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    --max-width: 1200px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+    font-family: var(--font-main);
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--color-text-primary);
+    background: var(--color-bg);
+    -webkit-font-smoothing: antialiased;
+}
+
+.container { max-width: var(--max-width); margin: 0 auto; padding: 0 24px; }
+section { padding: 90px 0; position: relative; }
+
+.section-label {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-brand);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    padding: 6px 14px;
+    background: var(--color-brand-soft);
+    border-radius: 100px;
+}
+.section-title {
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+    max-width: 900px;
+}
+.section-subtitle {
+    font-size: 18px;
+    color: var(--color-text-secondary);
+    max-width: 720px;
+    margin-bottom: 56px;
+}
+.section-header { margin-bottom: 56px; }
+.section-header.center { text-align: center; }
+.section-header.center .section-title,
+.section-header.center .section-subtitle { margin-left: auto; margin-right: auto; }
+
+/* ============================================================
+   CTA BUTTONS — with motion effects (pulse, glow, shine)
+   ============================================================ */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 28px;
+    border-radius: var(--radius-btn);
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: all var(--transition);
+    white-space: nowrap;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--color-brand) 0%, var(--color-brand-light) 100%);
+    color: #fff;
+    box-shadow: var(--shadow-cta);
+    animation: cta-pulse 2.8s ease-in-out infinite;
+}
+.btn-primary:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 12px 32px rgba(240, 80, 10, 0.45);
+    animation-play-state: paused;
+}
+
+/* Pulse glow animation for primary CTAs */
+@keyframes cta-pulse {
+    0%, 100% {
+        box-shadow: 0 8px 24px rgba(240, 80, 10, 0.35), 0 0 0 0 rgba(240, 80, 10, 0.4);
+    }
+    50% {
+        box-shadow: 0 8px 24px rgba(240, 80, 10, 0.5), 0 0 0 10px rgba(240, 80, 10, 0);
+    }
+}
+
+/* Shine sweep effect on primary CTA */
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.3) 50%,
+        transparent 100%
+    );
+    transform: skewX(-20deg);
+    animation: shine-sweep 3.5s ease-in-out infinite;
+    z-index: 0;
+    pointer-events: none;
+}
+@keyframes shine-sweep {
+    0%, 40% { left: -75%; }
+    50% { left: 125%; }
+    100% { left: 125%; }
+}
+
+.btn-primary > * { position: relative; z-index: 1; }
+
+/* Arrow bounce for CTAs with arrow icons */
+.btn-primary .arrow-bounce {
+    animation: arrow-bounce 2s ease-in-out infinite;
+}
+@keyframes arrow-bounce {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(4px); }
+}
+
+.btn-ghost {
+    background: transparent;
+    color: var(--color-brand);
+    border: 2px solid var(--color-brand);
+}
+.btn-ghost:hover {
+    background: var(--color-brand-soft);
+    transform: translateY(-1px);
+}
+
+.btn-lg { padding: 16px 34px; font-size: 17px; }
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: saturate(180%) blur(12px);
+    -webkit-backdrop-filter: saturate(180%) blur(12px);
+    box-shadow: 0 1px 0 var(--color-border);
+}
+.header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+}
+.logo {
+    display: flex; align-items: center;
+    line-height: 0;
+}
+.logo img {
+    height: 38px;
+    width: auto;
+    display: block;
+}
+.nav { display: flex; align-items: center; gap: 28px; }
+.nav a {
+    color: var(--color-text-primary);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    transition: color var(--transition);
+}
+.nav a:hover { color: var(--color-brand); }
+.header-cta { display: flex; gap: 12px; }
+.mobile-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
+
+@media (max-width: 1023px) {
+    .nav, .header-cta .btn-ghost { display: none; }
+    .mobile-toggle { display: block; }
+}
+
+/* ============================================================
+   SECTION 1 — HERO (bigger image)
+   ============================================================ */
+.hero {
+    padding: 80px 0 90px;
+    background:
+        radial-gradient(ellipse at top right, rgba(240, 80, 10, 0.06), transparent 60%),
+        radial-gradient(ellipse at bottom left, rgba(240, 80, 10, 0.04), transparent 60%),
+        #fff;
+    position: relative;
+    overflow: hidden;
+}
+.hero-grid {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 48px;
+    align-items: center;
+}
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    background: var(--color-brand-soft);
+    border: 1px solid rgba(240, 80, 10, 0.2);
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-brand);
+    margin-bottom: 20px;
+}
+.hero-badge .new-tag {
+    background: var(--color-brand);
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 700;
+}
+.hero h1 {
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    margin-bottom: 20px;
+}
+.hero h1 .hl { color: var(--color-brand); }
+.hero-sub {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+    margin-bottom: 32px;
+    max-width: 540px;
+}
+.hero-ctas {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 32px;
+}
+.hero-social {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+.hero-avatars {
+    display: flex;
+}
+.hero-avatars .avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--color-brand);
+    color: #fff;
+    display: grid; place-items: center;
+    font-size: 12px;
+    font-weight: 700;
+    border: 2px solid #fff;
+    margin-left: -10px;
+}
+.hero-avatars .avatar:first-child { margin-left: 0; }
+.avatar.a1 { background: linear-gradient(135deg, #F0500A, #FF7A3D); }
+.avatar.a2 { background: linear-gradient(135deg, #2563EB, #60A5FA); }
+.avatar.a3 { background: linear-gradient(135deg, #16A34A, #4ADE80); }
+.avatar.a4 { background: linear-gradient(135deg, #9333EA, #C084FC); }
+.avatar.plus { background: #1D232E; font-size: 11px; }
+.hero-social-text { font-size: 13px; line-height: 1.4; }
+.hero-social-text strong { color: var(--color-text-primary); display: block; font-size: 14px; }
+.hero-social-text small { color: var(--color-text-secondary); }
+
+/* Hero image — BIGGER per user request. SVG recreation inline. */
+.hero-image-wrap {
+    position: relative;
+    animation: hero-float 5s ease-in-out infinite;
+}
+.hero-svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    max-width: 720px;
+    margin: 0 auto;
+    filter: drop-shadow(0 20px 40px rgba(15, 20, 28, 0.10));
+}
+@keyframes hero-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+}
+
+.hero-chips {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 60px;
+    padding-top: 40px;
+    border-top: 1px solid var(--color-border);
+}
+.hero-chip {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 14px;
+    line-height: 1.5;
+    font-weight: 500;
+    color: var(--color-text-primary);
+}
+.hero-chip-icon {
+    flex-shrink: 0;
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    background: var(--color-brand-soft);
+    color: var(--color-brand);
+    display: grid; place-items: center;
+}
+
+@media (max-width: 1023px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+    .hero-svg { max-width: 560px; }
+    .hero-chips { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+    .hero-chips { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   SECTION 2 — LOGOS (new colored logos)
+   ============================================================ */
+.logos-section {
+    padding: 60px 0;
+    background: #fff;
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    overflow: hidden;
+}
+.logos-title {
+    text-align: center;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    margin-bottom: 32px;
+}
+.logos-title strong { color: var(--color-text-primary); font-weight: 700; }
+
+.logo-track-wrap {
+    position: relative;
+    overflow: hidden;
+    mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+}
+.logo-track {
+    display: flex;
+    gap: 72px;
+    width: fit-content;
+    animation: logo-scroll 32s linear infinite;
+    align-items: center;
+}
+@keyframes logo-scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+.logo-track:hover { animation-play-state: paused; }
+
+.logo-item {
+    flex-shrink: 0;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    filter: saturate(1);
+    transition: transform var(--transition);
+}
+.logo-item:hover { transform: scale(1.05); }
+.logo-item svg { height: 100%; width: auto; }
+
+/* Individual logo SVG sizing */
+.logo-item.wide svg { height: 44px; }
+
+/* ============================================================
+   SECTION 3 — Thách thức & Giải pháp (original content)
+   ============================================================ */
+.challenge {
+    background: var(--color-bg-alt);
+}
+.challenge-header { text-align: center; }
+.challenge-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-top: 40px;
+}
+.challenge-card {
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: 20px;
+    padding: 40px;
+    position: relative;
+}
+.challenge-card.before {
+    border-color: rgba(220, 38, 38, 0.2);
+}
+.challenge-card.after {
+    border-color: rgba(22, 163, 74, 0.2);
+}
+.challenge-label {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+.challenge-card.before .challenge-label {
+    background: rgba(220, 38, 38, 0.08);
+    color: var(--color-danger);
+}
+.challenge-card.after .challenge-label {
+    background: rgba(22, 163, 74, 0.08);
+    color: var(--color-success);
+}
+.challenge-card h3 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    letter-spacing: -0.01em;
+}
+.challenge-list {
+    list-style: none;
+    display: grid;
+    gap: 14px;
+}
+.challenge-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--color-text-primary);
+}
+.challenge-list li .icon {
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+.challenge-card.before .icon { color: var(--color-danger); }
+.challenge-card.after .icon { color: var(--color-success); }
+
+@media (max-width: 900px) { .challenge-grid { grid-template-columns: 1fr; } }
+
+/* ============================================================
+   SECTION 4 — Stats (DARK theme)
+   ============================================================ */
+.stats-section {
+    padding: 90px 0;
+    background: linear-gradient(180deg, #0F141C 0%, #1A2331 100%);
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+}
+.stats-section::before {
+    content: '';
+    position: absolute;
+    top: -30%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 800px; height: 800px;
+    background: radial-gradient(circle, rgba(240, 80, 10, 0.15), transparent 60%);
+    pointer-events: none;
+}
+.stats-section::after {
+    content: '';
+    position: absolute;
+    bottom: -50%;
+    right: -10%;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(240, 80, 10, 0.08), transparent 60%);
+    pointer-events: none;
+}
+.stats-section .container { position: relative; z-index: 1; }
+.stats-section .section-title { color: #fff; }
+.stats-section .section-label {
+    background: rgba(240, 80, 10, 0.15);
+    border: 1px solid rgba(240, 80, 10, 0.3);
+    color: var(--color-brand-light);
+}
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-top: 40px;
+}
+.stat-card {
+    text-align: center;
+    padding: 36px 20px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    transition: all var(--transition);
+    backdrop-filter: blur(8px);
+}
+.stat-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(240, 80, 10, 0.4);
+    background: rgba(240, 80, 10, 0.06);
+    box-shadow: 0 12px 32px rgba(240, 80, 10, 0.15);
+}
+.stat-value {
+    font-size: clamp(48px, 6vw, 72px);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    background: linear-gradient(135deg, var(--color-brand-light) 0%, var(--color-brand) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 14px;
+}
+.stat-label {
+    font-size: 15px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.5;
+}
+@media (max-width: 900px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+
+/* ============================================================
+   SECTION 5 — 5 BƯỚC (REDESIGNED — creative timeline with unique visuals)
+   ============================================================ */
+.steps-section {
+    background: linear-gradient(180deg, #fff 0%, var(--color-bg-alt) 100%);
+    padding: 100px 0;
+    position: relative;
+}
+.steps-section::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 400px;
+    background: radial-gradient(ellipse at center top, rgba(240, 80, 10, 0.04), transparent 70%);
+    pointer-events: none;
+}
+.steps-header { text-align: center; position: relative; }
+
+/* Horizontal stepper indicator */
+.steps-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin: 40px auto 64px;
+    max-width: 900px;
+    padding: 0 20px;
+    position: relative;
+}
+.stepper-dot {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid var(--color-border-strong);
+    color: var(--color-text-secondary);
+    display: grid;
+    place-items: center;
+    font-size: 15px;
+    font-weight: 700;
+    flex-shrink: 0;
+    transition: all var(--transition);
+    position: relative;
+    z-index: 2;
+}
+.stepper-dot.active {
+    background: var(--color-brand);
+    border-color: var(--color-brand);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(240, 80, 10, 0.3);
+}
+.stepper-line {
+    flex: 1;
+    height: 2px;
+    background: var(--color-border-strong);
+    margin: 0 2px;
+    position: relative;
+    z-index: 1;
+    border-radius: 2px;
+}
+.stepper-line.active { background: var(--color-brand); }
+
+/* Step cards list */
+.steps-list {
+    display: grid;
+    gap: 40px;
+    position: relative;
+}
+.step-row {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 64px;
+    align-items: center;
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: 24px;
+    padding: 48px;
+    box-shadow: var(--shadow-card);
+    position: relative;
+    overflow: hidden;
+    transition: all var(--transition);
+}
+.step-row:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-card-hover);
+}
+.step-row:nth-child(even) { grid-template-columns: 1.1fr 1fr; }
+.step-row:nth-child(even) .step-content { order: 2; }
+.step-row:nth-child(even) .step-visual { order: 1; }
+
+.step-row::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 6px; height: 100%;
+    background: linear-gradient(180deg, var(--color-brand), var(--color-brand-light));
+    border-radius: 24px 0 0 24px;
+}
+
+.step-content { position: relative; }
+.step-number-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+.step-number-circle {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--color-brand), var(--color-brand-light));
+    color: #fff;
+    display: grid;
+    place-items: center;
+    font-size: 24px;
+    font-weight: 800;
+    box-shadow: 0 4px 12px rgba(240, 80, 10, 0.3);
+}
+.step-number-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-brand);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+.step-number-label small {
+    display: block;
+    font-size: 11px;
+    color: var(--color-text-secondary);
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: 0;
+    margin-top: 2px;
+}
+.step-row h3 {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+}
+.step-row p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+    margin-bottom: 20px;
+}
+.step-features-list {
+    list-style: none;
+    display: grid;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+.step-features-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14.5px;
+    line-height: 1.5;
+}
+.step-features-list li .check {
+    flex-shrink: 0;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: var(--color-brand-soft);
+    color: var(--color-brand);
+    display: grid; place-items: center;
+    margin-top: 2px;
+}
+.step-compare {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    background: linear-gradient(135deg, rgba(240, 80, 10, 0.06), rgba(240, 80, 10, 0.02));
+    border: 1px dashed rgba(240, 80, 10, 0.3);
+    border-radius: 10px;
+    font-size: 13px;
+    line-height: 1.4;
+    flex-wrap: wrap;
+}
+.step-compare .from { color: var(--color-text-secondary); text-decoration: line-through; }
+.step-compare .arrow-icon { color: var(--color-brand); font-weight: 800; }
+.step-compare .to { color: var(--color-text-primary); font-weight: 600; }
+
+/* ============================================================
+   STEP VISUALS — Each step has a UNIQUE custom illustration
+   ============================================================ */
+.step-visual {
+    position: relative;
+    aspect-ratio: 1.1 / 1;
+    background: linear-gradient(135deg, var(--color-bg-alt), #fff);
+    border-radius: 16px;
+    padding: 28px;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+}
+
+/* Step 1: No-code Builder Interface (component palette + canvas) */
+.viz-nocode {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(15, 20, 28, 0.06);
+    border: 1px solid var(--color-border);
+}
+
+/* Component palette sidebar */
+.nc-sidebar {
+    background: #FAFBFC;
+    border-right: 1px solid var(--color-border);
+    padding: 10px 8px;
+    overflow: hidden;
+}
+.nc-section-title {
+    font-size: 9px;
+    font-weight: 700;
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 6px 4px 4px;
+}
+.nc-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 8px;
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: 4px;
+    cursor: grab;
+    transition: all 0.2s;
+    position: relative;
+}
+.nc-item:hover {
+    border-color: var(--color-brand);
+    transform: translateX(2px);
+}
+.nc-item-icon {
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    color: #fff;
+}
+.nc-item-icon.start { background: var(--color-success); }
+.nc-item-icon.task { background: var(--color-brand); }
+.nc-item-icon.decision { background: #F59E0B; }
+.nc-item-icon.end { background: var(--color-danger); }
+.nc-item-icon.form { background: #6366F1; }
+.nc-item-icon.api { background: #06B6D4; }
+
+.nc-item.grabbing {
+    cursor: grabbing;
+    opacity: 0.5;
+}
+
+/* Canvas area */
+.nc-canvas {
+    position: relative;
+    background-color: #FAFBFC;
+    background-image:
+        radial-gradient(circle, #D8DCE2 1px, transparent 1px);
+    background-size: 16px 16px;
+    padding: 14px;
+    overflow: hidden;
+}
+.nc-canvas-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--color-border);
+    background: #fff;
+    margin: -14px -14px 10px;
+    padding: 8px 12px;
+}
+.nc-canvas-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.nc-canvas-actions { display: flex; gap: 4px; }
+.nc-canvas-btn {
+    font-size: 9px;
+    padding: 3px 8px;
+    background: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    color: var(--color-text-secondary);
+    font-weight: 600;
+}
+.nc-canvas-btn.primary {
+    background: var(--color-brand);
+    color: #fff;
+    border-color: var(--color-brand);
+}
+
+/* Canvas nodes */
+.nc-node {
+    position: absolute;
+    background: #fff;
+    border: 1.5px solid var(--color-border);
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-size: 10.5px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    box-shadow: 0 1px 2px rgba(15, 20, 28, 0.05);
+    white-space: nowrap;
+}
+.nc-node-badge {
+    width: 14px; height: 14px;
+    border-radius: 3px;
+    display: grid;
+    place-items: center;
+    color: #fff;
+    flex-shrink: 0;
+}
+.nc-node.start { top: 8%; left: 50%; transform: translateX(-50%); border-color: var(--color-success); }
+.nc-node.start .nc-node-badge { background: var(--color-success); }
+.nc-node.task1 { top: 32%; left: 50%; transform: translateX(-50%); }
+.nc-node.task1 .nc-node-badge { background: var(--color-brand); }
+.nc-node.decision {
+    top: 55%; left: 50%; transform: translateX(-50%);
+    border-color: #F59E0B;
+    background: #FFFBEB;
+}
+.nc-node.decision .nc-node-badge { background: #F59E0B; }
+.nc-node.end {
+    top: 82%; left: 50%; transform: translateX(-50%);
+    border-color: var(--color-danger);
+}
+.nc-node.end .nc-node-badge { background: var(--color-danger); }
+
+/* Connection lines between nodes */
+.nc-connections {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Dragging indicator — component being dragged from sidebar to canvas */
+.nc-dragging {
+    position: absolute;
+    z-index: 10;
+    background: var(--color-brand);
+    color: #fff;
+    border: none;
+    box-shadow: 0 8px 20px rgba(240, 80, 10, 0.35);
+    animation: nc-drag-motion 3.2s ease-in-out infinite;
+    pointer-events: none;
+}
+.nc-dragging .nc-node-badge { background: rgba(255,255,255,0.25); }
+@keyframes nc-drag-motion {
+    0% {
+        left: -10%;
+        top: 40%;
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    15% { opacity: 1; transform: scale(1); }
+    50% {
+        left: 35%;
+        top: 44%;
+        opacity: 1;
+        transform: scale(1.05);
+    }
+    85% {
+        left: 42%;
+        top: 44%;
+        opacity: 0.8;
+        transform: scale(1);
+    }
+    100% {
+        left: 42%;
+        top: 44%;
+        opacity: 0;
+        transform: scale(0.95);
+    }
+}
+.nc-drop-zone {
+    position: absolute;
+    top: 42%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 28px;
+    border: 1.5px dashed var(--color-brand);
+    border-radius: 6px;
+    background: rgba(240, 80, 10, 0.05);
+    animation: drop-pulse 3.2s ease-in-out infinite;
+    opacity: 0;
+}
+@keyframes drop-pulse {
+    0%, 40% { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
+    60%, 80% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    100% { opacity: 0; transform: translate(-50%, -50%) scale(1); }
+}
+
+/* Step 2: Form Builder */
+.viz-form {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: var(--shadow-sm);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+/* Step 2 animations: fields fill in sequentially */
+.viz-form-field {
+    margin-bottom: 10px;
+    opacity: 0;
+    animation: form-field-in 0.6s ease-out forwards;
+}
+.viz-form-field:nth-child(2) { animation-delay: 0.3s; }
+.viz-form-field:nth-child(3) { animation-delay: 1.0s; }
+.viz-form-field:nth-child(4) { animation-delay: 1.7s; }
+@keyframes form-field-in {
+    0% { opacity: 0; transform: translateX(-12px); }
+    100% { opacity: 1; transform: translateX(0); }
+}
+/* Highlighted amount field gets pulsing attention ring */
+.viz-form-input.highlighted {
+    animation: amount-glow 2.5s ease-in-out infinite 2.5s;
+}
+@keyframes amount-glow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(240, 80, 10, 0.4); }
+    50% { box-shadow: 0 0 0 6px rgba(240, 80, 10, 0); }
+}
+.viz-form-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--color-border);
+    margin-bottom: 16px;
+}
+.viz-form-title { font-weight: 700; font-size: 15px; }
+.viz-form-badge {
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 100px;
+    background: var(--color-brand-soft);
+    color: var(--color-brand);
+    font-weight: 600;
+}
+.viz-form-label {
+    font-size: 11px;
+    color: var(--color-text-secondary);
+    margin-bottom: 4px;
+    font-weight: 500;
+}
+.viz-form-input {
+    padding: 8px 12px;
+    background: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    font-size: 13px;
+    color: var(--color-text-primary);
+}
+.viz-form-input.filled { font-weight: 600; }
+.viz-form-input.highlighted {
+    border-color: var(--color-brand);
+    background: var(--color-brand-soft);
+    color: var(--color-brand);
+    font-weight: 700;
+}
+.viz-form-submit {
+    margin-top: auto;
+    padding: 10px 16px;
+    background: var(--color-brand);
+    color: #fff;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+.viz-form-submit::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -50%;
+    width: 50%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    animation: shine-sweep 3s ease-in-out infinite;
+}
+
+/* Step 3: Routing */
+.viz-routing {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 100%;
+    justify-content: center;
+}
+/* Step 3 animation: each route slides in sequentially */
+.viz-route {
+    opacity: 0;
+    animation: route-slide-in 0.6s ease-out forwards;
+}
+.viz-route:nth-of-type(1) { animation-delay: 0.1s; }
+.viz-route:nth-of-type(2) { animation-delay: 0.6s; }
+.viz-route:nth-of-type(3) { animation-delay: 1.2s; }
+.viz-route:nth-of-type(4) { animation-delay: 1.8s; }
+@keyframes route-slide-in {
+    0% { opacity: 0; transform: translateY(-8px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+.viz-route-connector {
+    opacity: 0;
+    animation: connector-fade 0.4s ease-out forwards;
+}
+.viz-route-connector:nth-of-type(1) { animation-delay: 0.5s; }
+.viz-route-connector:nth-of-type(2) { animation-delay: 1.1s; }
+.viz-route-connector:nth-of-type(3) { animation-delay: 1.7s; }
+@keyframes connector-fade {
+    to { opacity: 1; }
+}
+.viz-route {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid var(--color-border);
+    font-size: 13px;
+    box-shadow: var(--shadow-sm);
+}
+.viz-route .avatar-sm {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    display: grid; place-items: center;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+.viz-route .info { flex: 1; min-width: 0; }
+.viz-route .name { font-weight: 600; color: var(--color-text-primary); }
+.viz-route .meta { font-size: 11px; color: var(--color-text-secondary); margin-top: 1px; }
+.viz-route .status {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 100px;
+    text-transform: uppercase;
+}
+.status-done { background: rgba(22, 163, 74, 0.1); color: var(--color-success); }
+.status-active {
+    background: var(--color-brand);
+    color: #fff;
+    animation: status-pulse 1.5s ease-in-out infinite;
+}
+.status-wait { background: var(--color-border); color: var(--color-text-secondary); }
+@keyframes status-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+.viz-route.active {
+    border-color: var(--color-brand);
+    background: linear-gradient(135deg, rgba(240, 80, 10, 0.04), #fff);
+}
+.viz-route-connector {
+    width: 2px; height: 8px;
+    background: var(--color-border-strong);
+    margin-left: 30px;
+}
+
+/* Step 4: Digital Signature on Mobile */
+.viz-mobile {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+/* Step 4 animation: tap finger appears, presses sign button */
+.viz-tap-finger {
+    position: absolute;
+    z-index: 5;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(240, 80, 10, 0.85);
+    border: 3px solid rgba(255, 255, 255, 0.9);
+    box-shadow: 0 4px 16px rgba(240, 80, 10, 0.5);
+    pointer-events: none;
+    opacity: 0;
+    animation: tap-cycle 3.5s ease-in-out infinite;
+}
+@keyframes tap-cycle {
+    0% {
+        opacity: 0;
+        right: -10%;
+        bottom: 30%;
+        transform: scale(0.9);
+    }
+    20% {
+        opacity: 1;
+        right: 22%;
+        bottom: 32%;
+        transform: scale(1);
+    }
+    40% {
+        opacity: 1;
+        right: 30%;
+        bottom: 30%;
+        transform: scale(0.85);
+    }
+    55% {
+        opacity: 1;
+        right: 30%;
+        bottom: 30%;
+        transform: scale(1);
+    }
+    75% {
+        opacity: 0.4;
+        right: 30%;
+        bottom: 30%;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        right: 30%;
+        bottom: 30%;
+        transform: scale(1);
+    }
+}
+/* Notification badge above phone */
+.viz-phone-notif {
+    position: absolute;
+    top: 6%;
+    right: 8%;
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: var(--shadow-card);
+    opacity: 0;
+    animation: notif-pop 4s ease-in-out infinite;
+    z-index: 6;
+    white-space: nowrap;
+}
+.viz-phone-notif .notif-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-success);
+    animation: status-pulse 1.5s infinite;
+}
+@keyframes notif-pop {
+    0%, 60% { opacity: 0; transform: translateY(-8px) scale(0.9); }
+    70%, 90% { opacity: 1; transform: translateY(0) scale(1); }
+    100% { opacity: 0; transform: translateY(-4px) scale(0.95); }
+}
+.viz-phone {
+    width: 180px;
+    height: 340px;
+    background: #1D232E;
+    border-radius: 28px;
+    padding: 8px;
+    box-shadow: 0 24px 48px rgba(15, 20, 28, 0.25);
+    position: relative;
+    z-index: 2;
+}
+.viz-phone::before {
+    content: '';
+    position: absolute;
+    top: 10px; left: 50%;
+    transform: translateX(-50%);
+    width: 80px; height: 18px;
+    background: #0F141C;
+    border-radius: 12px;
+    z-index: 10;
+}
+.viz-phone-screen {
+    width: 100%; height: 100%;
+    background: #fff;
+    border-radius: 22px;
+    overflow: hidden;
+    padding: 28px 14px 14px;
+    display: flex;
+    flex-direction: column;
+}
+.phone-header {
+    font-size: 11px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 10px;
+    color: var(--color-text-primary);
+}
+.phone-doc {
+    background: var(--color-bg-alt);
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 10px;
+    margin-bottom: 12px;
+    flex: 1;
+}
+.phone-doc-title { font-weight: 600; margin-bottom: 6px; font-size: 10px; }
+.phone-doc-lines div {
+    height: 4px;
+    background: var(--color-border);
+    border-radius: 2px;
+    margin-bottom: 4px;
+}
+.phone-doc-lines div:nth-child(1) { width: 100%; }
+.phone-doc-lines div:nth-child(2) { width: 85%; }
+.phone-doc-lines div:nth-child(3) { width: 70%; }
+.phone-sign {
+    background: linear-gradient(135deg, var(--color-brand), var(--color-brand-light));
+    color: #fff;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    animation: cta-pulse 2.5s ease-in-out infinite;
+}
+.phone-providers {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 8px;
+}
+.phone-providers span {
+    font-size: 8px;
+    padding: 2px 6px;
+    background: var(--color-bg-alt);
+    border-radius: 4px;
+    color: var(--color-text-secondary);
+    font-weight: 600;
+}
+.viz-signature-ring {
+    position: absolute;
+    width: 140px; height: 140px;
+    border: 2px solid var(--color-brand);
+    border-radius: 50%;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    animation: ring-expand 2.5s ease-out infinite;
+    z-index: 1;
+}
+@keyframes ring-expand {
+    0% { width: 100px; height: 100px; opacity: 0.5; }
+    100% { width: 260px; height: 260px; opacity: 0; }
+}
+
+/* Step 5: Dashboard */
+.viz-dashboard {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    height: 100%;
+}
+/* Step 5 animations: cards fade in, alert pulses */
+.viz-dash-card {
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    padding: 14px;
+    box-shadow: var(--shadow-sm);
+    opacity: 0;
+    animation: dash-card-in 0.6s ease-out forwards;
+}
+.viz-dash-card:nth-child(1) { animation-delay: 0.1s; }
+.viz-dash-card:nth-child(2) { animation-delay: 0.25s; }
+.viz-dash-card:nth-child(3) { animation-delay: 0.4s; }
+.viz-dash-card:nth-child(4) { animation-delay: 0.55s; }
+.viz-dash-card:nth-child(5) { animation-delay: 0.7s; }
+@keyframes dash-card-in {
+    0% { opacity: 0; transform: scale(0.92); }
+    100% { opacity: 1; transform: scale(1); }
+}
+.viz-dash-card.alert {
+    animation: dash-card-in 0.6s ease-out 0.55s forwards, alert-blink 1.6s ease-in-out 1.3s infinite;
+}
+@keyframes alert-blink {
+    0%, 100% {
+        background: rgba(220, 38, 38, 0.04);
+        box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.3);
+    }
+    50% {
+        background: rgba(220, 38, 38, 0.08);
+        box-shadow: 0 0 0 4px rgba(220, 38, 38, 0);
+    }
+}
+.viz-dash-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+}
+.viz-dash-value {
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--color-text-primary);
+}
+.viz-dash-value .delta {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--color-success);
+    margin-left: 6px;
+}
+.viz-dash-value .delta.down { color: var(--color-danger); }
+.viz-dash-card.chart { grid-column: 1 / -1; padding: 14px; }
+.viz-chart-bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
+    height: 52px;
+    margin-top: 8px;
+}
+.viz-chart-bars > div {
+    flex: 1;
+    background: linear-gradient(180deg, var(--color-brand) 0%, var(--color-brand-light) 100%);
+    border-radius: 3px 3px 0 0;
+    animation: bar-grow 1.2s ease-out backwards;
+}
+.viz-chart-bars > div:nth-child(1) { animation-delay: 0.1s; }
+.viz-chart-bars > div:nth-child(2) { animation-delay: 0.2s; }
+.viz-chart-bars > div:nth-child(3) { animation-delay: 0.3s; }
+.viz-chart-bars > div:nth-child(4) { animation-delay: 0.4s; }
+.viz-chart-bars > div:nth-child(5) { animation-delay: 0.5s; }
+.viz-chart-bars > div:nth-child(6) { animation-delay: 0.6s; }
+.viz-chart-bars > div:nth-child(7) { animation-delay: 0.7s; }
+@keyframes bar-grow {
+    from { transform: scaleY(0); transform-origin: bottom; }
+    to { transform: scaleY(1); transform-origin: bottom; }
+}
+.viz-dash-card.alert {
+    background: rgba(220, 38, 38, 0.04);
+    border-color: var(--color-danger);
+}
+.viz-dash-card.alert .viz-dash-label { color: var(--color-danger); }
+.viz-dash-card.alert .viz-dash-value {
+    font-size: 15px;
+    color: var(--color-danger);
+    font-weight: 700;
+}
+
+@media (max-width: 900px) {
+    .step-row,
+    .step-row:nth-child(even) {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        padding: 32px 24px;
+    }
+    .step-row:nth-child(even) .step-content { order: 1; }
+    .step-row:nth-child(even) .step-visual { order: 2; }
+    .step-visual { aspect-ratio: 1.3 / 1; }
+}
+
+/* ============================================================
+   SECTION 6 — Năng lực cốt lõi (kept)
+   ============================================================ */
+.capabilities .section-header { text-align: center; }
+.cap-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+.cap-card {
+    padding: 32px;
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+    transition: all var(--transition);
+}
+.cap-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-card-hover);
+    border-color: transparent;
+}
+.cap-num {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--color-brand);
+    letter-spacing: 0.08em;
+    margin-bottom: 16px;
+    display: block;
+}
+.cap-icon {
+    width: 52px; height: 52px;
+    border-radius: 12px;
+    background: var(--color-brand-soft);
+    color: var(--color-brand);
+    display: grid; place-items: center;
+    margin-bottom: 20px;
+}
+.cap-title {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+}
+.cap-desc {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+    margin-bottom: 20px;
+}
+.cap-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.cap-tag {
+    font-size: 12px;
+    font-weight: 500;
+    padding: 4px 10px;
+    background: var(--color-bg-alt);
+    color: var(--color-text-secondary);
+    border-radius: 100px;
+    border: 1px solid var(--color-border);
+}
+@media (max-width: 1023px) { .cap-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 600px) { .cap-grid { grid-template-columns: 1fr; } }
+
+/* ============================================================
+   SECTION 7 — Phòng ban (tabs, kept)
+   ============================================================ */
+.usecases { background: var(--color-bg-alt); }
+.usecases .section-header { text-align: center; }
+.uc-tabs {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+}
+.uc-tab {
+    padding: 12px 20px;
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: 100px;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: all var(--transition);
+}
+.uc-tab:hover { border-color: var(--color-brand); color: var(--color-brand); }
+.uc-tab.active {
+    background: var(--color-brand);
+    color: #fff;
+    border-color: var(--color-brand);
+    box-shadow: 0 4px 12px rgba(240, 80, 10, 0.2);
+}
+.uc-panel {
+    display: none;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 56px;
+    background: #fff;
+    padding: 48px;
+    border-radius: var(--radius-card);
+    border: 1px solid var(--color-border);
+}
+.uc-panel.active { display: grid; }
+.uc-department {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-brand);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 12px;
+}
+.uc-title {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+}
+.uc-desc {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+    margin-bottom: 24px;
+}
+.uc-benefits { list-style: none; display: grid; gap: 12px; }
+.uc-benefits li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 15px;
+    line-height: 1.5;
+}
+.uc-benefits li svg { flex-shrink: 0; margin-top: 3px; color: var(--color-brand); }
+.uc-flow {
+    background: var(--color-bg-alt);
+    padding: 24px;
+    border-radius: 12px;
+    border: 1px solid var(--color-border);
+}
+.uc-flow-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 16px;
+}
+.uc-flow-steps { display: grid; gap: 10px; }
+.uc-flow-step {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+}
+.uc-flow-step .step-dot {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: var(--color-brand-soft);
+    color: var(--color-brand);
+    display: grid; place-items: center;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+.uc-flow-connector {
+    height: 12px; width: 2px;
+    background: var(--color-border-strong);
+    margin-left: 27px;
+}
+@media (max-width: 900px) {
+    .uc-panel { grid-template-columns: 1fr; gap: 32px; padding: 32px 24px; }
+}
+
+/* ============================================================
+   SECTION 8 — 1AI Process (kept)
+   ============================================================ */
+.ai-section {
+    background: linear-gradient(180deg, #0F141C 0%, #1A2331 100%);
+    color: #fff;
+    overflow: hidden;
+    position: relative;
+}
+.ai-section::before {
+    content: '';
+    position: absolute;
+    top: -20%; right: -10%;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(240, 80, 10, 0.15), transparent 70%);
+    pointer-events: none;
+}
+.ai-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+    position: relative;
+}
+.ai-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: rgba(240, 80, 10, 0.15);
+    border: 1px solid rgba(240, 80, 10, 0.3);
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-brand-light);
+    margin-bottom: 20px;
+}
+.ai-badge .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--color-brand);
+    animation: pulse-dot 2s infinite;
+}
+@keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.3); }
+}
+.ai-title {
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: #fff;
+    margin-bottom: 20px;
+}
+.ai-title .hl { color: var(--color-brand); }
+.ai-desc {
+    font-size: 17px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.75);
+    margin-bottom: 28px;
+}
+.ai-features { list-style: none; display: grid; gap: 14px; margin-bottom: 32px; }
+.ai-features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 15px;
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.9);
+}
+.ai-features li svg { flex-shrink: 0; margin-top: 3px; color: var(--color-brand); }
+/* .ai-mockup {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 24px;
+} */
+.ai-mockup video {
+    width: 100%;
+    height: auto;
+}
+.ai-upload {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px dashed rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    margin-bottom: 16px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+}
+.ai-upload .file-icon { color: var(--color-brand); }
+.ai-arrow { text-align: center; color: var(--color-brand); margin: 12px 0; }
+.ai-output {
+    background: rgba(240, 80, 10, 0.08);
+    border: 1px solid rgba(240, 80, 10, 0.2);
+    border-radius: 10px;
+    padding: 16px;
+}
+.ai-output-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--color-brand-light);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.ai-output-nodes { display: grid; gap: 8px; }
+.ai-node {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    font-size: 13px;
+    color: #fff;
+}
+.ai-node .node-badge {
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 100px;
+    background: rgba(240, 80, 10, 0.25);
+    color: var(--color-brand-light);
+    font-weight: 600;
+}
+@media (max-width: 900px) { .ai-inner { grid-template-columns: 1fr; gap: 40px; } }
+
+/* ============================================================
+   SECTION 9 — Testimonials (carousel: video + content)
+   ============================================================ */
+.testimonials .section-header {
+    text-align: center;
+    margin-bottom: 48px;
+}
+.testimonials .section-title {
+    margin-bottom: 0;
+    max-width: 760px;
+}
+
+.tm-carousel {
+    position: relative;
+    overflow: hidden;
+}
+.tm-track {
+    display: flex;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.tm-slide {
+    min-width: 100%;
+    padding: 8px 0;
+}
+
+.tm-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Video frame (left side) — uses YouTube thumbnail */
+.tm-video {
+    position: relative;
+    aspect-ratio: 5 / 4;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #1D232E;
+    cursor: pointer;
+    box-shadow: 0 12px 32px rgba(15, 20, 28, 0.10);
+}
+.tm-video-thumb {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    z-index: 0;
+    transition: opacity 0.3s ease;
+}
+.tm-video-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    transition: transform 0.6s ease;
+}
+.tm-video:hover .tm-video-thumb img {
+    transform: scale(1.04);
+}
+/* Subtle dark overlay for better contrast */
+.tm-video-thumb::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(15,20,28,0.05) 0%, rgba(15,20,28,0.25) 100%);
+    pointer-events: none;
+}
+/* When video is playing, hide thumbnail + overlays */
+.tm-video.playing .tm-video-thumb,
+.tm-video.playing .tm-logo-bar,
+.tm-video.playing .tm-caption,
+.tm-video.playing .tm-deco-small,
+.tm-video.playing .tm-deco-arrow,
+.tm-video.playing .tm-play {
+    opacity: 0;
+    pointer-events: none;
+}
+.tm-iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    z-index: 10;
+    border-radius: 20px;
+}
+
+/* Logo overlay top-left */
+.tm-logo-bar {
+    position: absolute;
+    top: 18px;
+    left: 18px;
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 10px 5px 8px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 6px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: opacity 0.3s;
+}
+.tm-logo-bar .logo-1office {
+    display: flex;
+    align-items: center;
+    gap: 1px;
+    font-size: 11px;
+    font-weight: 800;
+    color: #1D232E;
+}
+.tm-logo-bar .logo-1office .one-badge {
+    width: 14px; height: 14px;
+    border-radius: 3px;
+    background: var(--color-brand);
+    color: #fff;
+    display: grid;
+    place-items: center;
+    font-size: 10px;
+    font-weight: 800;
+    margin-right: 2px;
+}
+.tm-logo-bar .divider {
+    width: 1px;
+    height: 12px;
+    background: #D8DCE2;
+}
+.tm-logo-bar .partner-logo {
+    font-size: 11px;
+    font-weight: 700;
+}
+
+/* Play button center */
+.tm-play {
+    position: absolute;
+    top: 50%;
+    left: 45%;
+    transform: translate(-50%, -50%);
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.95);
+    border: none;
+    display: grid;
+    place-items: center;
+    z-index: 5;
+    transition: all var(--transition);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    padding: 0;
+}
+.tm-play::before {
+    content: '';
+    position: absolute;
+    inset: -10px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    animation: tm-play-ring 2.5s ease-in-out infinite;
+}
+@keyframes tm-play-ring {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.15); opacity: 0; }
+}
+.tm-play svg { color: var(--color-brand); margin-left: 3px; }
+.tm-video:hover .tm-play {
+    transform: translate(-50%, -50%) scale(1.08);
+}
+
+/* Orange decorative blocks on the right edge */
+.tm-deco-small {
+    position: absolute;
+    right: 14%;
+    top: 38%;
+    width: 28px;
+    height: 28px;
+    background: var(--color-brand);
+    z-index: 3;
+    transition: opacity 0.3s;
+}
+.tm-deco-arrow {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 56px;
+    height: 100px;
+    background: var(--color-brand);
+    display: grid;
+    place-items: center;
+    z-index: 3;
+    transition: opacity 0.3s;
+}
+.tm-deco-arrow svg { color: #fff; }
+
+/* Caption strip at bottom (some videos have lower-third) */
+.tm-caption {
+    position: absolute;
+    bottom: 14px;
+    left: 14px;
+    right: 14px;
+    padding: 8px 12px;
+    background: linear-gradient(135deg, rgba(15, 20, 28, 0.7), rgba(15, 20, 28, 0.4));
+    backdrop-filter: blur(4px);
+    border-radius: 8px;
+    color: #fff;
+    z-index: 3;
+    transition: opacity 0.3s;
+}
+.tm-caption-name { font-size: 13px; font-weight: 700; }
+.tm-caption-role { font-size: 11px; opacity: 0.9; margin-top: 1px; }
+
+/* Right side: content */
+.tm-content { padding: 16px 0; }
+
+.tm-stats-row {
+    display: grid;
+    grid-template-columns: auto 1fr 1fr 1.2fr;
+    gap: 24px;
+    align-items: start;
+    margin-bottom: 28px;
+    border: none;
+    padding: 0;
+}
+.tm-company-logo {
+    display: flex;
+    align-items: center;
+    height: 36px;
+}
+.tm-company-logo svg { height: 32px; width: auto; }
+
+.tm-stat-col {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.tm-stat-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+.tm-stat-value {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--color-brand);
+}
+
+.tm-quote {
+    font-size: 15.5px;
+    line-height: 1.7;
+    color: var(--color-text-primary);
+    font-style: italic;
+    padding-left: 16px;
+    border-left: 3px solid var(--color-brand);
+    margin-bottom: 28px;
+}
+
+.tm-author {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+}
+.tm-author-avatar {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: var(--color-bg-alt);
+    display: grid;
+    place-items: center;
+}
+.tm-author-name {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: 2px;
+}
+.tm-author-name strong { font-weight: 700; }
+.tm-author-role {
+    font-size: 14px;
+    color: var(--color-text-secondary);
+}
+
+.tm-results-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-bottom: 14px;
+}
+.tm-results-list {
+    list-style: none;
+    display: grid;
+    gap: 12px;
+}
+.tm-results-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--color-text-primary);
+}
+.tm-results-list li .check-icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--color-brand);
+    color: #fff;
+    display: grid;
+    place-items: center;
+    margin-top: 2px;
+}
+
+/* Carousel dots */
+.tm-dots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 40px;
+}
+.tm-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-border-strong);
+    border: none;
+    cursor: pointer;
+    transition: all var(--transition);
+    padding: 0;
+}
+.tm-dot.active {
+    width: 28px;
+    border-radius: 100px;
+    background: var(--color-brand);
+}
+.tm-dot:hover:not(.active) { background: var(--color-text-secondary); }
+
+@media (max-width: 1023px) {
+    .tm-card { grid-template-columns: 1fr; gap: 32px; }
+    .tm-stats-row {
+        grid-template-columns: auto 1fr 1fr;
+        gap: 16px 20px;
+    }
+    .tm-stats-row .tm-stat-col:last-child {
+        grid-column: 1 / -1;
+        flex-direction: row;
+        align-items: center;
+        gap: 12px;
+    }
+}
+@media (max-width: 600px) {
+    .tm-stats-row {
+        grid-template-columns: 1fr 1fr;
+    }
+    .tm-company-logo { grid-column: 1 / -1; }
+}
+
+/* ============================================================
+   SECTION 10 — Final CTA + form
+   ============================================================ */
+.final-cta {
+    background: linear-gradient(180deg, #fff 0%, var(--color-bg-alt) 100%);
+}
+.cta-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: start;
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: 24px;
+    padding: 56px;
+    box-shadow: var(--shadow-card);
+    position: relative;
+    overflow: hidden;
+}
+.cta-inner::before {
+    content: '';
+    position: absolute;
+    top: -150px; right: -150px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(240, 80, 10, 0.06), transparent 70%);
+    pointer-events: none;
+}
+.cta-content { position: relative; }
+.cta-title {
+    font-size: clamp(28px, 3.5vw, 38px);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+}
+.cta-desc { font-size: 17px; color: var(--color-text-secondary); margin-bottom: 28px; }
+.cta-benefits { list-style: none; display: grid; gap: 14px; margin-bottom: 28px; }
+.cta-benefits li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 15px;
+}
+.cta-benefits li svg { flex-shrink: 0; margin-top: 3px; color: var(--color-success); }
+.cta-form {
+    background: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    padding: 32px;
+}
+.form-title { font-size: 20px; font-weight: 700; margin-bottom: 6px; letter-spacing: -0.01em; }
+.form-subtitle { font-size: 14px; color: var(--color-text-secondary); margin-bottom: 24px; }
+.form-group { margin-bottom: 14px; }
+.form-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+.form-label .req { color: var(--color-brand); }
+.form-input, .form-select {
+    width: 100%;
+    padding: 12px 14px;
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 15px;
+    color: var(--color-text-primary);
+    transition: all var(--transition);
+}
+.form-input:focus, .form-select:focus {
+    outline: none;
+    border-color: var(--color-brand);
+    box-shadow: 0 0 0 3px var(--color-brand-soft);
+}
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.form-submit { width: 100%; margin-top: 8px; }
+@media (max-width: 900px) {
+    .cta-inner { grid-template-columns: 1fr; padding: 32px 24px; gap: 40px; }
+    .form-row { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   Footer
+   ============================================================ */
+.footer {
+    background: #0F141C;
+    color: rgba(255, 255, 255, 0.7);
+    padding: 60px 0 32px;
+}
+.footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 48px;
+    margin-bottom: 48px;
+}
+.footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    font-size: 24px;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 16px;
+}
+.footer-about { font-size: 14px; line-height: 1.6; margin-bottom: 20px; max-width: 320px; }
+.footer-contact { font-size: 14px; line-height: 1.7; }
+.footer-contact strong { color: #fff; font-weight: 600; }
+.footer-contact a { color: var(--color-brand-light); text-decoration: none; font-weight: 600; }
+.footer h4 {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 16px;
+}
+.footer-links { list-style: none; display: grid; gap: 10px; }
+.footer-links a {
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color var(--transition);
+}
+.footer-links a:hover { color: var(--color-brand-light); }
+.footer-bottom {
+    padding-top: 32px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    text-align: center;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.5);
+}
+@media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; } }
+@media (max-width: 600px) { .footer-grid { grid-template-columns: 1fr; } }
+
+/* Scroll top */
+.scroll-top {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: var(--color-brand);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 8px 24px rgba(240, 80, 10, 0.3);
+    opacity: 0;
+    transform: translateY(16px);
+    transition: all var(--transition);
+    z-index: 999;
+    pointer-events: none;
+}
+.scroll-top.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+.scroll-top:hover { background: var(--color-brand-hover); transform: translateY(-2px); }
+
+/* Animate on scroll */
+.aos-item {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.aos-item.aos-left { transform: translateX(-40px); }
+.aos-item.aos-right { transform: translateX(40px); }
+.aos-item.visible { opacity: 1; transform: none; }
+.aos-item:nth-child(2) { transition-delay: 0.08s; }
+.aos-item:nth-child(3) { transition-delay: 0.16s; }
+.aos-item:nth-child(4) { transition-delay: 0.24s; }
+.aos-item:nth-child(5) { transition-delay: 0.32s; }
+.aos-item:nth-child(6) { transition-delay: 0.40s; }
+
+@media (max-width: 768px) {
+    section { padding: 60px 0; }
+    .section-header { margin-bottom: 40px; }
+    .container { padding: 0 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+    <div class="container header-inner">
+        <a href="#" class="logo">
+            <img src="1office-logo.png" alt="1Office"/>
+        </a>
+        <nav class="nav">
+            <a href="#capabilities">Giải pháp</a>
+            <a href="#testimonials">Khách hàng</a>
+            <a href="#final-cta">Liên hệ</a>
+        </nav>
+        <div class="header-cta">
+            <a href="#final-cta" class="btn btn-primary">Đăng ký nhận demo</a>
+        </div>
+        <button class="mobile-toggle" aria-label="Menu">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+    </div>
+</header>
+
+<!-- ============================================================
+     SECTION 1 — HERO (image bigger per user request)
+     ============================================================ -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-grid">
+            <div class="aos-item aos-left">
+                <div class="hero-badge">
+                    <span class="new-tag">MỚI</span>
+                    <strong>1AI Process</strong> — AI hỗ trợ số hoá workflow
+                </div>
+                <h1>Số hóa và tự động hóa quy trình với <span class="hl">No-code &amp; AI</span>.</h1>
+                <p class="hero-sub">Thiết kế quy trình bằng kéo-thả, tự động luân chuyển và ký số trên một nền tảng duy nhất. Giao việc theo vị trí — phòng ban, rẽ nhánh theo điều kiện, giám sát theo thời gian thực — giúp doanh nghiệp vận hành liền mạch.</p>
+                <div class="hero-ctas">
+                    <a href="#final-cta" class="btn btn-primary btn-lg">
+                        Đăng ký nhận demo ngay
+                        <svg class="arrow-bounce" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="hero-image-wrap aos-item aos-right">
+                <!-- SVG inline — clean transparent background, no logo on image -->
+                <svg class="hero-svg" viewBox="0 0 760 720" xmlns="http://www.w3.org/2000/svg" aria-label="Quy trình bán hàng 1Office">
+                    <defs>
+                        <filter id="cardShadow" x="-20%" y="-20%" width="140%" height="140%">
+                            <feDropShadow dx="0" dy="6" stdDeviation="14" flood-color="#1D232E" flood-opacity="0.08"/>
+                        </filter>
+                        <filter id="smallShadow" x="-20%" y="-20%" width="140%" height="140%">
+                            <feDropShadow dx="0" dy="3" stdDeviation="6" flood-color="#1D232E" flood-opacity="0.06"/>
+                        </filter>
+                        <marker id="arrowHero" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                            <path d="M0,0 L10,5 L0,10 Z" fill="#F0500A"/>
+                        </marker>
+                        <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
+                            <stop offset="0%" stop-color="#F0500A"/>
+                            <stop offset="100%" stop-color="#FF7A3D"/>
+                        </linearGradient>
+                    </defs>
+
+                    <!-- ======== CENTRAL VERTICAL WORKFLOW ======== -->
+                    <!-- Connection lines + dots between workflow nodes -->
+                    <g stroke="#F0500A" stroke-width="2" stroke-dasharray="4 4" fill="none">
+                        <line x1="380" y1="140" x2="380" y2="178"/>
+                        <circle cx="380" cy="183" r="5" fill="#fff" stroke="#16A34A" stroke-width="2"/>
+                        <line x1="380" y1="248" x2="380" y2="290"/>
+                        <circle cx="380" cy="295" r="5" fill="#fff" stroke="#16A34A" stroke-width="2"/>
+                        <line x1="380" y1="358" x2="380" y2="402"/>
+                        <line x1="380" y1="442" x2="380" y2="478"/>
+                        <circle cx="380" cy="483" r="5" fill="#fff" stroke="#16A34A" stroke-width="2"/>
+                        <line x1="380" y1="548" x2="380" y2="582"/>
+                        <line x1="380" y1="618" x2="380" y2="650"/>
+                    </g>
+
+                    <!-- Start node -->
+                    <g filter="url(#cardShadow)">
+                        <rect x="280" y="92" width="200" height="48" rx="12" fill="#fff" stroke="#E8EAED" stroke-width="1"/>
+                        <circle cx="310" cy="116" r="12" fill="#F0500A"/>
+                        <polygon points="306,111 306,121 314,116" fill="#fff"/>
+                        <text x="332" y="113" font-family="Inter Tight, sans-serif" font-size="14" font-weight="700" fill="#1D232E">Bắt đầu</text>
+                        <text x="332" y="128" font-family="Inter Tight, sans-serif" font-size="10" font-weight="500" fill="#676D78">Quy trình bán hàng</text>
+                    </g>
+
+                    <!-- Task 1: Tiếp cận khách hàng -->
+                    <g filter="url(#cardShadow)">
+                        <rect x="260" y="190" width="240" height="60" rx="12" fill="#fff" stroke="#E8EAED" stroke-width="1"/>
+                        <g transform="translate(278, 206)">
+                            <rect x="0" y="0" width="20" height="16" rx="2" fill="none" stroke="#F0500A" stroke-width="1.5"/>
+                            <line x1="0" y1="5" x2="20" y2="5" stroke="#F0500A" stroke-width="1.5"/>
+                        </g>
+                        <text x="306" y="213" font-family="Inter Tight, sans-serif" font-size="9" font-weight="700" fill="#676D78" letter-spacing="1">CÔNG VIỆC</text>
+                        <text x="278" y="240" font-family="Inter Tight, sans-serif" font-size="14" font-weight="700" fill="#1D232E">Tiếp cận khách hàng</text>
+                        <!-- Avatar stack -->
+                        <g transform="translate(434, 210)">
+                            <circle cx="8" cy="12" r="11" fill="#F0500A" stroke="#fff" stroke-width="2"/>
+                            <circle cx="8" cy="9" r="3" fill="#fff"/>
+                            <ellipse cx="8" cy="17" rx="5.5" ry="4" fill="#fff"/>
+                            <circle cx="22" cy="12" r="11" fill="#1D232E" stroke="#fff" stroke-width="2"/>
+                            <circle cx="22" cy="9" r="3" fill="#fff"/>
+                            <ellipse cx="22" cy="17" rx="5.5" ry="4" fill="#fff"/>
+                            <circle cx="36" cy="12" r="11" fill="#E94B00" stroke="#fff" stroke-width="2"/>
+                            <circle cx="36" cy="9" r="3" fill="#fff"/>
+                            <ellipse cx="36" cy="17" rx="5.5" ry="4" fill="#fff"/>
+                        </g>
+                    </g>
+
+                    <!-- Task 2: Gửi báo giá -->
+                    <g filter="url(#cardShadow)">
+                        <rect x="260" y="300" width="240" height="60" rx="12" fill="#fff" stroke="#E8EAED" stroke-width="1"/>
+                        <g transform="translate(278, 316)">
+                            <rect x="0" y="0" width="20" height="16" rx="2" fill="none" stroke="#F0500A" stroke-width="1.5"/>
+                            <line x1="0" y1="5" x2="20" y2="5" stroke="#F0500A" stroke-width="1.5"/>
+                        </g>
+                        <text x="306" y="323" font-family="Inter Tight, sans-serif" font-size="9" font-weight="700" fill="#676D78" letter-spacing="1">CÔNG VIỆC</text>
+                        <text x="278" y="350" font-family="Inter Tight, sans-serif" font-size="14" font-weight="700" fill="#1D232E">Gửi báo giá cho KH</text>
+                        <g transform="translate(434, 320)">
+                            <circle cx="8" cy="12" r="11" fill="#F0500A" stroke="#fff" stroke-width="2"/>
+                            <circle cx="8" cy="9" r="3" fill="#fff"/>
+                            <ellipse cx="8" cy="17" rx="5.5" ry="4" fill="#fff"/>
+                            <circle cx="22" cy="12" r="11" fill="#1D232E" stroke="#fff" stroke-width="2"/>
+                            <circle cx="22" cy="9" r="3" fill="#fff"/>
+                            <ellipse cx="22" cy="17" rx="5.5" ry="4" fill="#fff"/>
+                            <circle cx="36" cy="12" r="11" fill="#E94B00" stroke="#fff" stroke-width="2"/>
+                            <circle cx="36" cy="9" r="3" fill="#fff"/>
+                            <ellipse cx="36" cy="17" rx="5.5" ry="4" fill="#fff"/>
+                        </g>
+                    </g>
+
+                    <!-- Decision branch: Duyệt giá / Không duyệt -->
+                    <g filter="url(#smallShadow)">
+                        <rect x="300" y="402" width="120" height="40" rx="10" fill="#fff" stroke="#E8EAED" stroke-width="1"/>
+                        <circle cx="322" cy="422" r="10" fill="#16A34A"/>
+                        <polyline points="318,422 321,425 327,418" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <text x="338" y="427" font-family="Inter Tight, sans-serif" font-size="13" font-weight="700" fill="#1D232E">Duyệt</text>
+                    </g>
+                    <path d="M 420 422 L 510 422" stroke="#F0500A" stroke-width="2" fill="none" marker-end="url(#arrowHero)"/>
+                    <g filter="url(#smallShadow)">
+                        <rect x="514" y="402" width="140" height="40" rx="10" fill="#fff" stroke="#E8EAED" stroke-width="1"/>
+                        <circle cx="538" cy="422" r="10" fill="#DC2626"/>
+                        <line x1="534" y1="418" x2="542" y2="426" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="542" y1="418" x2="534" y2="426" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+                        <text x="554" y="427" font-family="Inter Tight, sans-serif" font-size="13" font-weight="700" fill="#1D232E">Không duyệt</text>
+                    </g>
+
+                    <!-- Task 3: Tạo hợp đồng -->
+                    <g filter="url(#cardShadow)">
+                        <rect x="260" y="488" width="240" height="60" rx="12" fill="#fff" stroke="#E8EAED" stroke-width="1"/>
+                        <g transform="translate(278, 504)">
+                            <rect x="0" y="0" width="20" height="16" rx="2" fill="none" stroke="#F0500A" stroke-width="1.5"/>
+                            <line x1="0" y1="5" x2="20" y2="5" stroke="#F0500A" stroke-width="1.5"/>
+                        </g>
+                        <text x="306" y="511" font-family="Inter Tight, sans-serif" font-size="9" font-weight="700" fill="#676D78" letter-spacing="1">CÔNG VIỆC</text>
+                        <text x="278" y="538" font-family="Inter Tight, sans-serif" font-size="14" font-weight="700" fill="#1D232E">Tạo hợp đồng bán hàng</text>
+                        <g transform="translate(434, 508)">
+                            <circle cx="8" cy="12" r="11" fill="#F0500A" stroke="#fff" stroke-width="2"/>
+                            <circle cx="8" cy="9" r="3" fill="#fff"/>
+                            <ellipse cx="8" cy="17" rx="5.5" ry="4" fill="#fff"/>
+                            <circle cx="22" cy="12" r="11" fill="#1D232E" stroke="#fff" stroke-width="2"/>
+                            <circle cx="22" cy="9" r="3" fill="#fff"/>
+                            <ellipse cx="22" cy="17" rx="5.5" ry="4" fill="#fff"/>
+                            <circle cx="36" cy="12" r="11" fill="#E94B00" stroke="#fff" stroke-width="2"/>
+                            <circle cx="36" cy="9" r="3" fill="#fff"/>
+                            <ellipse cx="36" cy="17" rx="5.5" ry="4" fill="#fff"/>
+                        </g>
+                    </g>
+
+                    <!-- Signature circle icon -->
+                    <g filter="url(#smallShadow)">
+                        <circle cx="380" cy="600" r="22" fill="#fff" stroke="#F0500A" stroke-width="2"/>
+                        <g transform="translate(367, 587)">
+                            <rect x="2" y="0" width="18" height="22" rx="2" fill="none" stroke="#F0500A" stroke-width="1.8"/>
+                            <line x1="5" y1="6" x2="17" y2="6" stroke="#F0500A" stroke-width="1.5"/>
+                            <line x1="5" y1="11" x2="17" y2="11" stroke="#F0500A" stroke-width="1.5"/>
+                            <circle cx="17" cy="17" r="4" fill="#16A34A"/>
+                            <polyline points="15,17 16.5,18.5 19,16" fill="none" stroke="#fff" stroke-width="1.2" stroke-linecap="round"/>
+                        </g>
+                    </g>
+
+                    <!-- End node -->
+                    <g filter="url(#cardShadow)">
+                        <rect x="280" y="652" width="200" height="48" rx="12" fill="#fff" stroke="#E8EAED" stroke-width="1"/>
+                        <circle cx="310" cy="676" r="12" fill="#16A34A"/>
+                        <polyline points="304,676 308,680 316,672" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <text x="332" y="673" font-family="Inter Tight, sans-serif" font-size="14" font-weight="700" fill="#1D232E">Hoàn thành</text>
+                        <text x="332" y="688" font-family="Inter Tight, sans-serif" font-size="10" font-weight="500" fill="#676D78">Quy trình bán hàng</text>
+                    </g>
+
+                    <!-- ============ LEFT: BÁO GIÁ CARD ============ -->
+                    <g filter="url(#cardShadow)">
+                        <rect x="20" y="290" width="220" height="290" rx="14" fill="#fff" stroke="#F0500A" stroke-width="1.5"/>
+                        <g transform="translate(36, 312)">
+                            <rect x="0" y="0" width="18" height="22" rx="2" fill="none" stroke="#F0500A" stroke-width="1.5"/>
+                            <line x1="4" y1="6" x2="14" y2="6" stroke="#F0500A" stroke-width="1.2"/>
+                            <line x1="4" y1="11" x2="14" y2="11" stroke="#F0500A" stroke-width="1.2"/>
+                            <line x1="4" y1="16" x2="11" y2="16" stroke="#F0500A" stroke-width="1.2"/>
+                        </g>
+                        <text x="62" y="328" font-family="Inter Tight, sans-serif" font-size="16" font-weight="800" fill="#F0500A">Báo giá</text>
+                        <text x="220" y="324" text-anchor="end" font-family="Inter Tight, sans-serif" font-size="14" fill="#676D78">×</text>
+                        <line x1="36" y1="342" x2="224" y2="342" stroke="#F0F1F3" stroke-width="1"/>
+
+                        <text x="36" y="364" font-family="Inter Tight, sans-serif" font-size="9" fill="#676D78">Mã báo giá</text>
+                        <text x="118" y="364" font-family="Inter Tight, sans-serif" font-size="10" font-weight="700" fill="#1D232E">SO04072025000059</text>
+                        <line x1="36" y1="374" x2="224" y2="374" stroke="#F7F8FA" stroke-width="1"/>
+
+                        <text x="36" y="394" font-family="Inter Tight, sans-serif" font-size="9" fill="#676D78">Tên khách hàng</text>
+                        <text x="118" y="394" font-family="Inter Tight, sans-serif" font-size="10" font-weight="700" fill="#1D232E">Công Ty Ngọc Oanh</text>
+                        <line x1="36" y1="404" x2="224" y2="404" stroke="#F7F8FA" stroke-width="1"/>
+
+                        <text x="36" y="424" font-family="Inter Tight, sans-serif" font-size="9" fill="#676D78">Người liên hệ</text>
+                        <text x="118" y="424" font-family="Inter Tight, sans-serif" font-size="10" font-weight="700" fill="#1D232E">Quách Minh</text>
+                        <line x1="36" y1="434" x2="224" y2="434" stroke="#F7F8FA" stroke-width="1"/>
+
+                        <text x="36" y="454" font-family="Inter Tight, sans-serif" font-size="9" fill="#676D78">Số điện thoại</text>
+                        <text x="118" y="454" font-family="Inter Tight, sans-serif" font-size="10" font-weight="700" fill="#1D232E">0987 412 563</text>
+                        <line x1="36" y1="464" x2="224" y2="464" stroke="#F7F8FA" stroke-width="1"/>
+
+                        <text x="36" y="484" font-family="Inter Tight, sans-serif" font-size="9" fill="#676D78">Tổng tiền (VNĐ)</text>
+                        <text x="118" y="484" font-family="Inter Tight, sans-serif" font-size="11" font-weight="800" fill="#1D232E">45.000.000</text>
+                        <line x1="36" y1="494" x2="224" y2="494" stroke="#F7F8FA" stroke-width="1"/>
+
+                        <text x="36" y="514" font-family="Inter Tight, sans-serif" font-size="9" fill="#676D78">Hiệu lực đến</text>
+                        <text x="118" y="514" font-family="Inter Tight, sans-serif" font-size="10" font-weight="700" fill="#16A34A">17/6/2026</text>
+
+                        <rect x="36" y="538" width="188" height="34" rx="8" fill="url(#ctaGrad)"/>
+                        <text x="130" y="560" text-anchor="middle" font-family="Inter Tight, sans-serif" font-size="11" font-weight="700" fill="#fff" letter-spacing="1">XEM THÊM</text>
+                    </g>
+
+                    <!-- ============ RIGHT: Nhận thông tin khách hàng card ============ -->
+                    <g filter="url(#smallShadow)">
+                        <rect x="520" y="220" width="220" height="50" rx="12" fill="#fff" stroke="#E8EAED" stroke-width="1"/>
+                        <circle cx="544" cy="245" r="11" fill="none" stroke="#F0500A" stroke-width="1.8"/>
+                        <path d="M 540 240 Q 544 236 548 240 Q 548 246 544 248 Q 540 246 540 240 Z" fill="#F0500A"/>
+                        <text x="562" y="250" font-family="Inter Tight, sans-serif" font-size="11" font-weight="700" fill="#1D232E">Nhận thông tin khách hàng</text>
+                    </g>
+                    <line x1="500" y1="220" x2="520" y2="245" stroke="#F0500A" stroke-width="1.5"/>
+                </svg>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================
+     SECTION 2 — LOGOS (NEW: 8 companies with colorful brand logos)
+     Research-based colors:
+     - TASCO Insurance: red/navy
+     - Sơn Hà Group: red (signature red brand)
+     - DEKKO: dark navy with red accent
+     - Phú Mỹ: navy with orange arrow
+     - SOHACO Group: orange/red (pharma brand)
+     - GELEX: orange with black
+     - NovaGroup: dark teal
+     - Đồng Tâm Group: orange/red with gray
+     ============================================================ -->
+<section class="logos-section">
+    <div class="container">
+        <p class="logos-title">Được tin dùng bởi <strong>6.000+ doanh nghiệp</strong> trên toàn quốc</p>
+    </div>
+    <div class="logo-track-wrap">
+        <div class="logo-track">
+            <!-- Round 1 -->
+            <div class="logo-item">
+                <!-- TASCO INSURANCE -->
+                <svg viewBox="0 0 180 48" xmlns="http://www.w3.org/2000/svg">
+                    <text x="0" y="26" font-family="Inter Tight, sans-serif" font-size="26" font-weight="800" fill="#C8102E" letter-spacing="1">TASCO</text>
+                    <text x="0" y="42" font-family="Inter Tight, sans-serif" font-size="11" font-weight="600" fill="#1D232E" letter-spacing="2">INSURANCE</text>
+                </svg>
+            </div>
+            <div class="logo-item wide">
+                <!-- SONHA (red + green accent leaf) -->
+                <svg viewBox="0 0 160 48" xmlns="http://www.w3.org/2000/svg">
+                    <g transform="translate(0,10)">
+                        <!-- green leaf accent -->
+                        <path d="M8 14 C 2 8 6 2 14 4 C 22 6 22 14 16 18 C 14 20 10 20 8 18 Z" fill="#16A34A"/>
+                        <circle cx="13" cy="11" r="2.5" fill="#FF5500"/>
+                    </g>
+                    <text x="34" y="35" font-family="Inter Tight, sans-serif" font-size="26" font-weight="800" fill="#D41717" letter-spacing="0.5">SONHA</text>
+                </svg>
+            </div>
+            <div class="logo-item">
+                <!-- DEKKO (dark navy brand + red small accent) -->
+                <svg viewBox="0 0 140 48" xmlns="http://www.w3.org/2000/svg">
+                    <text x="0" y="34" font-family="Inter Tight, sans-serif" font-size="30" font-weight="900" fill="#1A1A1A" letter-spacing="1" font-style="italic">DEKKO</text>
+                    <circle cx="95" cy="14" r="4" fill="#D41717"/>
+                </svg>
+            </div>
+            <div class="logo-item wide">
+                <!-- PHU MY (navy + orange leaf arrow) -->
+                <svg viewBox="0 0 170 48" xmlns="http://www.w3.org/2000/svg">
+                    <g transform="translate(0,8)">
+                        <path d="M6 16 L 18 4 L 30 16 L 24 20 L 18 12 L 12 20 Z" fill="#F0500A"/>
+                        <path d="M20 18 L 32 10 L 32 22 Z" fill="#0D5BA3"/>
+                    </g>
+                    <text x="42" y="30" font-family="Inter Tight, sans-serif" font-size="22" font-weight="800" fill="#0D5BA3">PHÚ MỸ</text>
+                    <text x="42" y="42" font-family="Inter Tight, sans-serif" font-size="9" font-weight="500" fill="#676D78" letter-spacing="1">ĐẠM PHÚ MỸ</text>
+                </svg>
+            </div>
+            <div class="logo-item wide">
+                <!-- SOHACO GROUP (orange + pharma green) -->
+                <svg viewBox="0 0 180 48" xmlns="http://www.w3.org/2000/svg">
+                    <g transform="translate(0,8)">
+                        <path d="M5 14 Q 5 4 15 4 Q 25 4 25 14 L 25 26 Q 25 30 21 30 L 9 30 Q 5 30 5 26 Z" fill="#E94B00"/>
+                        <path d="M12 10 L 18 10 L 18 14 L 22 14 L 22 20 L 18 20 L 18 24 L 12 24 L 12 20 L 8 20 L 8 14 L 12 14 Z" fill="#fff"/>
+                    </g>
+                    <text x="36" y="30" font-family="Inter Tight, sans-serif" font-size="22" font-weight="800" fill="#1D232E">SOHACO</text>
+                    <text x="36" y="42" font-family="Inter Tight, sans-serif" font-size="10" font-weight="600" fill="#676D78" letter-spacing="2">GROUP</text>
+                </svg>
+            </div>
+            <div class="logo-item">
+                <!-- GELEX (orange with solid design) -->
+                <svg viewBox="0 0 140 48" xmlns="http://www.w3.org/2000/svg">
+                    <text x="0" y="34" font-family="Inter Tight, sans-serif" font-size="30" font-weight="900" fill="#E94B00" letter-spacing="0.5">GELE</text>
+                    <text x="79" y="34" font-family="Inter Tight, sans-serif" font-size="30" font-weight="900" fill="#1D232E">X</text>
+                </svg>
+            </div>
+            <div class="logo-item wide">
+                <!-- NOVA GROUP (dark teal) -->
+                <svg viewBox="0 0 180 48" xmlns="http://www.w3.org/2000/svg">
+                    <g transform="translate(0,10)">
+                        <path d="M5 14 L 14 4 L 23 14 L 14 24 Z" fill="#1F5F7B"/>
+                        <path d="M14 4 L 23 14 L 14 14 Z" fill="#2E88AB"/>
+                        <path d="M14 14 L 23 14 L 14 24 Z" fill="#8C6239"/>
+                    </g>
+                    <text x="34" y="30" font-family="Inter Tight, sans-serif" font-size="22" font-weight="800" fill="#1F5F7B" letter-spacing="-0.5">NOVA</text>
+                    <text x="34" y="42" font-family="Inter Tight, sans-serif" font-size="10" font-weight="600" fill="#8C6239" letter-spacing="2">GROUP</text>
+                </svg>
+            </div>
+            <div class="logo-item">
+                <!-- DONGTAM GROUP (orange + red gradient) -->
+                <svg viewBox="0 0 160 48" xmlns="http://www.w3.org/2000/svg">
+                    <g transform="translate(2,8)">
+                        <circle cx="14" cy="16" r="13" fill="#E94B00"/>
+                        <circle cx="14" cy="16" r="8" fill="#fff"/>
+                        <circle cx="14" cy="16" r="4" fill="#E94B00"/>
+                    </g>
+                    <text x="36" y="28" font-family="Inter Tight, sans-serif" font-size="20" font-weight="800" fill="#1D232E" font-style="italic">Đồng Tâm</text>
+                    <text x="36" y="40" font-family="Inter Tight, sans-serif" font-size="8" font-weight="500" fill="#676D78" letter-spacing="1">GROUP</text>
+                </svg>
+            </div>
+
+            <!-- Round 2 (duplicate for seamless scroll) -->
+            <div class="logo-item">
+                <svg viewBox="0 0 180 48" xmlns="http://www.w3.org/2000/svg">
+                    <text x="0" y="26" font-family="Inter Tight, sans-serif" font-size="26" font-weight="800" fill="#C8102E" letter-spacing="1">TASCO</text>
+                    <text x="0" y="42" font-family="Inter Tight, sans-serif" font-size="11" font-weight="600" fill="#1D232E" letter-spacing="2">INSURANCE</text>
+                </svg>
+            </div>
+            <div class="logo-item wide">
+                <svg viewBox="0 0 160 48" xmlns="http://www.w3.org/2000/svg">
+                    <g transform="translate(0,10)">
+                        <path d="M8 14 C 2 8 6 2 14 4 C 22 6 22 14 16 18 C 14 20 10 20 8 18 Z" fill="#16A34A"/>
+                        <circle cx="13" cy="11" r="2.5" fill="#FF5500"/>
+                    </g>
+                    <text x="34" y="35" font-family="Inter Tight, sans-serif" font-size="26" font-weight="800" fill="#D41717" letter-spacing="0.5">SONHA</text>
+                </svg>
+            </div>
+            <div class="logo-item">
+                <svg viewBox="0 0 140 48" xmlns="http://www.w3.org/2000/svg">
+                    <text x="0" y="34" font-family="Inter Tight, sans-serif" font-size="30" font-weight="900" fill="#1A1A1A" letter-spacing="1" font-style="italic">DEKKO</text>
+                    <circle cx="95" cy="14" r="4" fill="#D41717"/>
+                </svg>
+            </div>
+            <div class="logo-item wide">
+                <svg viewBox="0 0 170 48" xmlns="http://www.w3.org/2000/svg">
+                    <g transform="translate(0,8)">
+                        <path d="M6 16 L 18 4 L 30 16 L 24 20 L 18 12 L 12 20 Z" fill="#F0500A"/>
+                        <path d="M20 18 L 32 10 L 32 22 Z" fill="#0D5BA3"/>
+                    </g>
+                    <text x="42" y="30" font-family="Inter Tight, sans-serif" font-size="22" font-weight="800" fill="#0D5BA3">PHÚ MỸ</text>
+                    <text x="42" y="42" font-family="Inter Tight, sans-serif" font-size="9" font-weight="500" fill="#676D78" letter-spacing="1">ĐẠM PHÚ MỸ</text>
+                </svg>
+            </div>
+            <div class="logo-item wide">
+                <svg viewBox="0 0 180 48" xmlns="http://www.w3.org/2000/svg">
+                    <g transform="translate(0,8)">
+                        <path d="M5 14 Q 5 4 15 4 Q 25 4 25 14 L 25 26 Q 25 30 21 30 L 9 30 Q 5 30 5 26 Z" fill="#E94B00"/>
+                        <path d="M12 10 L 18 10 L 18 14 L 22 14 L 22 20 L 18 20 L 18 24 L 12 24 L 12 20 L 8 20 L 8 14 L 12 14 Z" fill="#fff"/>
+                    </g>
+                    <text x="36" y="30" font-family="Inter Tight, sans-serif" font-size="22" font-weight="800" fill="#1D232E">SOHACO</text>
+                    <text x="36" y="42" font-family="Inter Tight, sans-serif" font-size="10" font-weight="600" fill="#676D78" letter-spacing="2">GROUP</text>
+                </svg>
+            </div>
+            <div class="logo-item">
+                <svg viewBox="0 0 140 48" xmlns="http://www.w3.org/2000/svg">
+                    <text x="0" y="34" font-family="Inter Tight, sans-serif" font-size="30" font-weight="900" fill="#E94B00" letter-spacing="0.5">GELE</text>
+                    <text x="79" y="34" font-family="Inter Tight, sans-serif" font-size="30" font-weight="900" fill="#1D232E">X</text>
+                </svg>
+            </div>
+            <div class="logo-item wide">
+                <svg viewBox="0 0 180 48" xmlns="http://www.w3.org/2000/svg">
+                    <g transform="translate(0,10)">
+                        <path d="M5 14 L 14 4 L 23 14 L 14 24 Z" fill="#1F5F7B"/>
+                        <path d="M14 4 L 23 14 L 14 14 Z" fill="#2E88AB"/>
+                        <path d="M14 14 L 23 14 L 14 24 Z" fill="#8C6239"/>
+                    </g>
+                    <text x="34" y="30" font-family="Inter Tight, sans-serif" font-size="22" font-weight="800" fill="#1F5F7B" letter-spacing="-0.5">NOVA</text>
+                    <text x="34" y="42" font-family="Inter Tight, sans-serif" font-size="10" font-weight="600" fill="#8C6239" letter-spacing="2">GROUP</text>
+                </svg>
+            </div>
+            <div class="logo-item">
+                <svg viewBox="0 0 160 48" xmlns="http://www.w3.org/2000/svg">
+                    <g transform="translate(2,8)">
+                        <circle cx="14" cy="16" r="13" fill="#E94B00"/>
+                        <circle cx="14" cy="16" r="8" fill="#fff"/>
+                        <circle cx="14" cy="16" r="4" fill="#E94B00"/>
+                    </g>
+                    <text x="36" y="28" font-family="Inter Tight, sans-serif" font-size="20" font-weight="800" fill="#1D232E" font-style="italic">Đồng Tâm</text>
+                    <text x="36" y="40" font-family="Inter Tight, sans-serif" font-size="8" font-weight="500" fill="#676D78" letter-spacing="1">GROUP</text>
+                </svg>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================
+     SECTION 3 — Thách thức & Giải pháp (original content)
+     ============================================================ -->
+<section id="challenge" class="challenge">
+    <div class="container">
+        <div class="section-header center aos-item">
+            <span class="section-label">Thách thức &amp; Giải pháp</span>
+            <h2 class="section-title">Những điểm nghẽn đang âm thầm kéo lùi hiệu suất vận hành</h2>
+            <p class="section-subtitle">Nhận diện vấn đề trước — và xem 1Office thay đổi vận hành doanh nghiệp bạn thế nào.</p>
+        </div>
+
+        <div class="challenge-grid">
+            <div class="challenge-card before aos-item aos-left">
+                <span class="challenge-label">Trước đây</span>
+                <h3>Vận hành thủ công, rời rạc</h3>
+                <ul class="challenge-list">
+                    <li>
+                        <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                        Công việc rời rạc, không có quy trình chuẩn
+                    </li>
+                    <li>
+                        <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                        Các phòng ban thiếu kết nối, trách nhiệm mơ hồ
+                    </li>
+                    <li>
+                        <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                        Hồ sơ thất lạc, không biết đang ở đâu, do ai
+                    </li>
+                    <li>
+                        <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                        Phê duyệt chậm — "kẹt chữ ký" khi sếp đi công tác
+                    </li>
+                    <li>
+                        <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                        Lãng phí tài nguyên cho việc hành chính lặp lại
+                    </li>
+                </ul>
+            </div>
+            <div class="challenge-card after aos-item aos-right">
+                <span class="challenge-label">Với 1Office</span>
+                <h3>Vận hành liền mạch, tự động</h3>
+                <ul class="challenge-list">
+                    <li>
+                        <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+                        Chuẩn hoá quy trình, phòng ban phối hợp nhịp nhàng
+                    </li>
+                    <li>
+                        <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+                        Dữ liệu tập trung, trách nhiệm rõ ràng từng bước
+                    </li>
+                    <li>
+                        <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+                        Theo dõi theo thời gian thực, biết ngay điểm nghẽn ở đâu
+                    </li>
+                    <li>
+                        <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+                        Ký số mọi lúc, mọi nơi — kể cả trên điện thoại
+                    </li>
+                    <li>
+                        <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+                        Tự động hoá tác vụ thủ công, giải phóng nguồn lực
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================
+     SECTION 4 — Stats (original)
+     ============================================================ -->
+<section class="stats-section">
+    <div class="container">
+        <div class="section-header center aos-item">
+            <span class="section-label">Kết quả đo được</span>
+            <h2 class="section-title">Nhanh hơn. Chính xác hơn. Hiệu quả hơn.</h2>
+        </div>
+        <div class="stats-grid">
+            <div class="stat-card aos-item">
+                <div class="stat-value"><span class="count-up" data-target="85">85</span>%</div>
+                <div class="stat-label">Xử lý công việc<br>nhanh hơn</div>
+            </div>
+            <div class="stat-card aos-item">
+                <div class="stat-value"><span class="count-up" data-target="90">90</span>%</div>
+                <div class="stat-label">Giảm thao tác<br>thủ công</div>
+            </div>
+            <div class="stat-card aos-item">
+                <div class="stat-value"><span class="count-up" data-target="60">60</span>%</div>
+                <div class="stat-label">Tăng tốc độ<br>phê duyệt</div>
+            </div>
+            <div class="stat-card aos-item">
+                <div class="stat-value"><span class="count-up" data-target="96">96</span>%</div>
+                <div class="stat-label">Vận hành<br>liền mạch hơn</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================
+     SECTION 5 — 5 BƯỚC (REDESIGNED)
+     Creative timeline with unique visual per step
+     ============================================================ -->
+<section id="steps" class="steps-section">
+    <div class="container">
+        <div class="section-header center steps-header aos-item">
+            <span class="section-label">Cách 1Office hoạt động</span>
+            <h2 class="section-title">Tự động hoá quy trình trong 5 bước</h2>
+            <p class="section-subtitle">Từ file mô tả đến workflow chạy thật — đơn giản, nhanh chóng, không cần IT.</p>
+        </div>
+
+        <!-- Stepper indicator -->
+        <div class="steps-indicator aos-item">
+            <div class="stepper-dot active">1</div>
+            <div class="stepper-line active"></div>
+            <div class="stepper-dot active">2</div>
+            <div class="stepper-line active"></div>
+            <div class="stepper-dot active">3</div>
+            <div class="stepper-line active"></div>
+            <div class="stepper-dot active">4</div>
+            <div class="stepper-line active"></div>
+            <div class="stepper-dot active">5</div>
+        </div>
+
+        <div class="steps-list">
+            <!-- Step 1: Drag & Drop Workflow -->
+            <div class="step-row aos-item">
+                <div class="step-content">
+                    <div class="step-number-badge">
+                        <div class="step-number-circle">1</div>
+                        <div class="step-number-label">
+                            Bước 1
+                            <small>Thiết kế</small>
+                        </div>
+                    </div>
+                    <h3>Tự dựng workflow bằng kéo-thả</h3>
+                    <p>Giao diện trực quan — kéo các Node có sẵn (Điều kiện, Tích hợp, Form, Ký số, Nhắc nhở) vào quy trình. Gán người xử lý theo vị trí/phòng ban, cấu hình rẽ nhánh đa cấp.</p>
+                    <ul class="step-features-list">
+                        <li>
+                            <span class="check">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+                            </span>
+                            Không cần biết code — trưởng phòng tự làm được
+                        </li>
+                        <li>
+                            <span class="check">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+                            </span>
+                            Rẽ nhánh đa cấp "Nếu — Thì" linh hoạt
+                        </li>
+                    </ul>
+                    <div class="step-compare">
+                        <span class="from">IT phát triển</span>
+                        <span class="arrow-icon">→</span>
+                        <span class="to">Trưởng phòng tự làm</span>
+                    </div>
+                </div>
+                <div class="step-visual" style="padding: 0;">
+                    <div class="viz-nocode">
+                        <!-- Component palette (sidebar) -->
+                        <div class="nc-sidebar">
+                            <div class="nc-section-title">NODE</div>
+                            <div class="nc-item">
+                                <span class="nc-item-icon start">
+                                    <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                                </span>
+                                Bắt đầu
+                            </div>
+                            <div class="nc-item grabbing">
+                                <span class="nc-item-icon task">
+                                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><rect x="3" y="4" width="18" height="16" rx="2"/></svg>
+                                </span>
+                                Công việc
+                            </div>
+                            <div class="nc-item">
+                                <span class="nc-item-icon decision">
+                                    <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 22 12 12 22 2 12"/></svg>
+                                </span>
+                                Điều kiện
+                            </div>
+                            <div class="nc-item">
+                                <span class="nc-item-icon end">
+                                    <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="9"/></svg>
+                                </span>
+                                Kết thúc
+                            </div>
+                            <div class="nc-section-title" style="margin-top: 6px;">FORM</div>
+                            <div class="nc-item">
+                                <span class="nc-item-icon form">
+                                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="4" y1="12" x2="20" y2="12"/></svg>
+                                </span>
+                                E-form
+                            </div>
+                            <div class="nc-item">
+                                <span class="nc-item-icon api">
+                                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                                </span>
+                                API
+                            </div>
+                        </div>
+
+                        <!-- Canvas -->
+                        <div class="nc-canvas">
+                            <div class="nc-canvas-header">
+                                <div class="nc-canvas-title">
+                                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#F0500A" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                                    Quy trình bán hàng
+                                </div>
+                                <div class="nc-canvas-actions">
+                                    <span class="nc-canvas-btn">Preview</span>
+                                    <span class="nc-canvas-btn primary">Publish</span>
+                                </div>
+                            </div>
+
+                            <!-- Connection lines -->
+                            <svg class="nc-connections" viewBox="0 0 100 100" preserveAspectRatio="none">
+                                <line x1="50" y1="18" x2="50" y2="28" stroke="#F0500A" stroke-width="0.4" stroke-dasharray="1.2 0.8"/>
+                                <line x1="50" y1="42" x2="50" y2="52" stroke="#F0500A" stroke-width="0.4" stroke-dasharray="1.2 0.8"/>
+                                <line x1="50" y1="65" x2="50" y2="79" stroke="#F0500A" stroke-width="0.4" stroke-dasharray="1.2 0.8"/>
+                            </svg>
+
+                            <!-- Nodes -->
+                            <div class="nc-node start">
+                                <span class="nc-node-badge">
+                                    <svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                                </span>
+                                Bắt đầu
+                            </div>
+                            <div class="nc-node task1">
+                                <span class="nc-node-badge">
+                                    <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><rect x="3" y="4" width="18" height="16" rx="2"/></svg>
+                                </span>
+                                Tiếp cận KH
+                            </div>
+                            <!-- Drop zone hint -->
+                            <div class="nc-drop-zone"></div>
+                            <div class="nc-node decision">
+                                <span class="nc-node-badge">
+                                    <svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 22 12 12 22 2 12"/></svg>
+                                </span>
+                                Duyệt giá?
+                            </div>
+                            <div class="nc-node end">
+                                <span class="nc-node-badge">
+                                    <svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="9"/></svg>
+                                </span>
+                                Hoàn thành
+                            </div>
+
+                            <!-- Dragging indicator: "Công việc" being dragged from sidebar to canvas -->
+                            <div class="nc-node nc-dragging">
+                                <span class="nc-node-badge">
+                                    <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><rect x="3" y="4" width="18" height="16" rx="2"/></svg>
+                                </span>
+                                Công việc
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: E-Form Builder -->
+            <div class="step-row aos-item">
+                <div class="step-content">
+                    <div class="step-number-badge">
+                        <div class="step-number-circle">2</div>
+                        <div class="step-number-label">
+                            Bước 2
+                            <small>Biểu mẫu</small>
+                        </div>
+                    </div>
+                    <h3>Thiết kế biểu mẫu E-form</h3>
+                    <p>Tạo biểu mẫu điện tử cho từng quy trình: phiếu thu chi, tờ trình, đơn xin nghỉ phép, đề xuất mua hàng. Dữ liệu liên kết trực tiếp với khách hàng, nhân sự, phòng ban — nhập 1 lần, dùng lại ở mọi bước.</p>
+                    <ul class="step-features-list">
+                        <li>
+                            <span class="check">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+                            </span>
+                            Đa dạng loại trường: text, số, ngày, dropdown, file
+                        </li>
+                        <li>
+                            <span class="check">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+                            </span>
+                            Liên kết dữ liệu tự động với HRM, CRM
+                        </li>
+                    </ul>
+                    <div class="step-compare">
+                        <span class="from">In - ký - scan - email</span>
+                        <span class="arrow-icon">→</span>
+                        <span class="to">Điền form, submit 1 chạm</span>
+                    </div>
+                </div>
+                <div class="step-visual">
+                    <div class="viz-form">
+                        <div class="viz-form-header">
+                            <div class="viz-form-title">Phiếu đề xuất chi</div>
+                            <span class="viz-form-badge">E-FORM</span>
+                        </div>
+                        <div class="viz-form-field">
+                            <div class="viz-form-label">Số tiền</div>
+                            <div class="viz-form-input filled highlighted">5.250.000 ₫</div>
+                        </div>
+                        <div class="viz-form-field">
+                            <div class="viz-form-label">Phòng ban</div>
+                            <div class="viz-form-input filled">Marketing</div>
+                        </div>
+                        <div class="viz-form-field">
+                            <div class="viz-form-label">Mục đích</div>
+                            <div class="viz-form-input filled">Chi phí chạy chiến dịch Q4/2025</div>
+                        </div>
+                        <div class="viz-form-submit">
+                            Gửi duyệt
+                            <svg style="margin-left: 4px;" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Auto Routing & Branching -->
+            <div class="step-row aos-item">
+                <div class="step-content">
+                    <div class="step-number-badge">
+                        <div class="step-number-circle">3</div>
+                        <div class="step-number-label">
+                            Bước 3
+                            <small>Luân chuyển</small>
+                        </div>
+                    </div>
+                    <h3>Tự động luân chuyển &amp; rẽ nhánh</h3>
+                    <p>Hệ thống tự giao việc đúng người theo điều kiện "Nếu — Thì", nhắc hạn qua App/Email, chuyển bước khi thỏa điều kiện. Hỗ trợ <strong>phê duyệt đa cấp — nhiều người cùng lúc (song song) hoặc lần lượt (tuần tự)</strong>.</p>
+                    <ul class="step-features-list">
+                        <li>
+                            <span class="check">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+                            </span>
+                            Tự nhắc, tự chuyển lên cấp cao hơn khi trễ hạn
+                        </li>
+                        <li>
+                            <span class="check">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+                            </span>
+                            Giao theo chức danh, không phải theo tên
+                        </li>
+                    </ul>
+                    <div class="step-compare">
+                        <span class="from">Gọi điện nhắc, đi xin chữ ký</span>
+                        <span class="arrow-icon">→</span>
+                        <span class="to">Tự chuyển bước - tự nhắc</span>
+                    </div>
+                </div>
+                <div class="step-visual">
+                    <div class="viz-routing">
+                        <div class="viz-route">
+                            <div class="avatar-sm" style="background: #16A34A;">NV</div>
+                            <div class="info">
+                                <div class="name">Nhân viên tạo phiếu</div>
+                                <div class="meta">2 phút trước</div>
+                            </div>
+                            <span class="status status-done">Xong</span>
+                        </div>
+                        <div class="viz-route-connector"></div>
+                        <div class="viz-route">
+                            <div class="avatar-sm" style="background: #16A34A;">TP</div>
+                            <div class="info">
+                                <div class="name">Trưởng phòng duyệt</div>
+                                <div class="meta">Duyệt &lt; 5tr</div>
+                            </div>
+                            <span class="status status-done">Xong</span>
+                        </div>
+                        <div class="viz-route-connector"></div>
+                        <div class="viz-route active">
+                            <div class="avatar-sm" style="background: #F0500A;">GĐ</div>
+                            <div class="info">
+                                <div class="name">Giám đốc ký</div>
+                                <div class="meta">Đang trên mobile · Tokyo</div>
+                            </div>
+                            <span class="status status-active">Đang</span>
+                        </div>
+                        <div class="viz-route-connector"></div>
+                        <div class="viz-route">
+                            <div class="avatar-sm" style="background: #676D78;">KT</div>
+                            <div class="info">
+                                <div class="name">Kế toán ghi sổ</div>
+                                <div class="meta">Tự động</div>
+                            </div>
+                            <span class="status status-wait">Chờ</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Digital Signature on Mobile -->
+            <div class="step-row aos-item">
+                <div class="step-content">
+                    <div class="step-number-badge">
+                        <div class="step-number-circle">4</div>
+                        <div class="step-number-label">
+                            Bước 4
+                            <small>Ký số</small>
+                        </div>
+                    </div>
+                    <h3>Ký số ngay trên quy trình</h3>
+                    <p>Node Ký số nhúng trực tiếp vào workflow — tích hợp Viettel-CA, VNPT-CA, EFY-CA. Hỗ trợ USB Token, Cloud HSM và ký từ xa trên mobile. <strong>Trình và ký một lúc nhiều file</strong>, sau khi ký xong hệ thống <strong>tự động lưu về đúng hồ sơ</strong> (nhân sự, hợp đồng, khách hàng…)</p>
+                    <ul class="step-features-list">
+                        <li>
+                            <span class="check">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+                            </span>
+                            Hợp lệ pháp lý, lưu vết đầy đủ mọi thao tác
+                        </li>
+                        <li>
+                            <span class="check">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+                            </span>
+                            Ký 1 lần nhiều file — tiết kiệm thao tác
+                        </li>
+                    </ul>
+                    <div class="step-compare">
+                        <span class="from">In - ký tay - scan</span>
+                        <span class="arrow-icon">→</span>
+                        <span class="to">Ký trên mobile</span>
+                    </div>
+                </div>
+                <div class="step-visual">
+                    <div class="viz-mobile">
+                        <!-- Notification badge appears -->
+                        <div class="viz-phone-notif">
+                            <span class="notif-dot"></span>
+                            Đã ký thành công
+                        </div>
+                        <div class="viz-signature-ring"></div>
+                        <div class="viz-phone">
+                            <div class="viz-phone-screen">
+                                <div class="phone-header">Hợp đồng #HD2026-047</div>
+                                <div class="phone-doc">
+                                    <div class="phone-doc-title">Hợp đồng bán hàng</div>
+                                    <div class="phone-doc-lines">
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                    </div>
+                                </div>
+                                <div class="phone-sign">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+                                    Ký số
+                                </div>
+                                <div class="phone-providers">
+                                    <span>Viettel-CA</span>
+                                    <span>VNPT-CA</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Animated finger tapping the sign button -->
+                        <div class="viz-tap-finger"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5: Dashboard & Reporting -->
+            <div class="step-row aos-item">
+                <div class="step-content">
+                    <div class="step-number-badge">
+                        <div class="step-number-circle">5</div>
+                        <div class="step-number-label">
+                            Bước 5
+                            <small>Giám sát</small>
+                        </div>
+                    </div>
+                    <h3>Giám sát theo thời gian thực &amp; Báo cáo</h3>
+                    <p>Dashboard trực quan hiển thị trạng thái mọi quy trình đang chạy. Đo SLA từng bước, phát hiện điểm nghẽn tự động, cảnh báo trước khi quá hạn.</p>
+                    <ul class="step-features-list">
+                        <li>
+                            <span class="check">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+                            </span>
+                            Phát hiện điểm nghẽn tự động
+                        </li>
+                        <li>
+                            <span class="check">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+                            </span>
+                            Cảnh báo trước khi quá hạn
+                        </li>
+                    </ul>
+                    <div class="step-compare">
+                        <span class="from">Báo cáo Excel cuối tuần</span>
+                        <span class="arrow-icon">→</span>
+                        <span class="to">Dashboard thời gian thực 24/7</span>
+                    </div>
+                </div>
+                <div class="step-visual">
+                    <div class="viz-dashboard">
+                        <div class="viz-dash-card">
+                            <div class="viz-dash-label">Quy trình</div>
+                            <div class="viz-dash-value">2.847 <span class="delta">+12%</span></div>
+                        </div>
+                        <div class="viz-dash-card">
+                            <div class="viz-dash-label">TB xử lý</div>
+                            <div class="viz-dash-value">2.4<small style="font-size: 14px;">h</small></div>
+                        </div>
+                        <div class="viz-dash-card">
+                            <div class="viz-dash-label">Đúng hạn</div>
+                            <div class="viz-dash-value">94% <span class="delta">+3%</span></div>
+                        </div>
+                        <div class="viz-dash-card alert">
+                            <div class="viz-dash-label">⚠ Điểm nghẽn</div>
+                            <div class="viz-dash-value">Bước 3 · KT</div>
+                        </div>
+                        <div class="viz-dash-card chart">
+                            <div class="viz-dash-label">Quy trình theo tuần</div>
+                            <div class="viz-chart-bars">
+                                <div style="height: 40%"></div>
+                                <div style="height: 60%"></div>
+                                <div style="height: 75%"></div>
+                                <div style="height: 55%"></div>
+                                <div style="height: 88%"></div>
+                                <div style="height: 72%"></div>
+                                <div style="height: 95%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================
+     SECTION 6 — Năng lực cốt lõi (original content)
+     ============================================================ -->
+<section id="capabilities" class="capabilities">
+    <div class="container">
+        <div class="section-header center aos-item">
+            <span class="section-label">Năng lực cốt lõi</span>
+            <h2 class="section-title">Nền tảng xử lý mọi quy trình — từ đơn giản đến phức tạp nhất</h2>
+            <p class="section-subtitle">Xử lý quy trình phức tạp với rẽ nhánh đa cấp, điều kiện logic linh hoạt. Bộ Node đa dạng, phân quyền chi tiết và liên thông hệ sinh thái — giúp bạn xây quy trình linh hoạt hơn bất kỳ phần mềm nào khác.</p>
+        </div>
+
+        <div class="cap-grid">
+            <div class="cap-card aos-item">
+                <span class="cap-num">01</span>
+                <div class="cap-icon">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+                </div>
+                <h3 class="cap-title">Thư viện Node mạnh mẽ</h3>
+                <p class="cap-desc">Node Điều kiện, Tích hợp, Var, Form Design, Ký số, Nhắc nhở — ghép nối linh hoạt để xử lý mọi kịch bản nghiệp vụ, dù đặc thù đến đâu.</p>
+                <div class="cap-tags">
+                    <span class="cap-tag">Decision</span>
+                    <span class="cap-tag">API</span>
+                    <span class="cap-tag">Form</span>
+                    <span class="cap-tag">E-sign</span>
+                </div>
+            </div>
+
+            <div class="cap-card aos-item">
+                <span class="cap-num">02</span>
+                <div class="cap-icon">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                </div>
+                <h3 class="cap-title">Phân quyền đến từng bước</h3>
+                <p class="cap-desc">Kiểm soát ai xem, sửa, duyệt tại từng node — từng trường dữ liệu. Đảm bảo bảo mật, minh bạch trách nhiệm, dễ kiểm toán khi cần.</p>
+                <div class="cap-tags">
+                    <span class="cap-tag">Phân quyền từng bước</span>
+                    <span class="cap-tag">Lịch sử truy vết</span>
+                </div>
+            </div>
+
+            <div class="cap-card aos-item">
+                <span class="cap-num">03</span>
+                <div class="cap-icon">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                </div>
+                <h3 class="cap-title">Liên thông hệ sinh thái 1Office</h3>
+                <p class="cap-desc">Quy trình liên thông sẵn với các phân hệ khác của 1Office — 1HRM, 1CRM, 1Sign, Công việc, Văn bản, Tài chính. Dữ liệu chảy xuyên suốt — không nhập lại, không sót bước.</p>
+                <div class="cap-tags">
+                    <span class="cap-tag">1HRM</span>
+                    <span class="cap-tag">1CRM</span>
+                    <span class="cap-tag">1Sign</span>
+                    <span class="cap-tag">Tài chính</span>
+                </div>
+            </div>
+
+            <div class="cap-card aos-item">
+                <span class="cap-num">04</span>
+                <div class="cap-icon">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                </div>
+                <h3 class="cap-title">API &amp; Webhook mở</h3>
+                <p class="cap-desc">Kết nối với hệ thống bên ngoài qua API mở: phần mềm kế toán, CRM, ERP, hay các ứng dụng chuyên ngành. Không "đóng khung".</p>
+                <div class="cap-tags">
+                    <span class="cap-tag">REST API</span>
+                    <span class="cap-tag">Webhook</span>
+                    <span class="cap-tag">ERP / CRM</span>
+                </div>
+            </div>
+
+            <div class="cap-card aos-item">
+                <span class="cap-num">05</span>
+                <div class="cap-icon">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                </div>
+                <h3 class="cap-title">Phân tích &amp; tối ưu liên tục</h3>
+                <p class="cap-desc">Đo thời gian trung bình mỗi quy trình, phát hiện bước thường xuyên tắc nghẽn, đề xuất cải thiện. Tích hợp sẵn với KPI &amp; OKR để đánh giá hiệu suất.</p>
+                <div class="cap-tags">
+                    <span class="cap-tag">SLA</span>
+                    <span class="cap-tag">Điểm nghẽn</span>
+                    <span class="cap-tag">KPI / OKR</span>
+                </div>
+            </div>
+
+            <div class="cap-card aos-item">
+                <span class="cap-num">06</span>
+                <div class="cap-icon">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                </div>
+                <h3 class="cap-title">Đa nền tảng Web + Mobile</h3>
+                <p class="cap-desc">Vận hành, phê duyệt, ký số từ bất kỳ đâu — trên trình duyệt hoặc app iOS/Android. Sếp đi công tác vẫn ký được. Nhân viên làm việc từ xa không gián đoạn.</p>
+                <div class="cap-tags">
+                    <span class="cap-tag">Web</span>
+                    <span class="cap-tag">iOS</span>
+                    <span class="cap-tag">Android</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================
+     SECTION 7 — Ứng dụng theo phòng ban (original)
+     ============================================================ -->
+<section id="usecases" class="usecases">
+    <div class="container">
+        <div class="section-header center aos-item">
+            <span class="section-label">Ứng dụng theo phòng ban</span>
+            <h2 class="section-title">Xây dựng workflow cho mọi nghiệp vụ</h2>
+            <p class="section-subtitle">Một nền tảng — 5 phòng ban phối hợp nhịp nhàng. Dữ liệu chảy xuyên suốt, không nhập lại.</p>
+        </div>
+
+        <div class="uc-tabs aos-item">
+            <button class="uc-tab active" data-tab="acc">🧾 Kế toán</button>
+            <button class="uc-tab" data-tab="hr">👥 Nhân sự</button>
+            <button class="uc-tab" data-tab="sales">💼 Kinh doanh</button>
+            <button class="uc-tab" data-tab="cs">🛎️ Chăm sóc KH</button>
+            <button class="uc-tab" data-tab="ops">⚙️ Vận hành nội bộ</button>
+        </div>
+
+        <div class="uc-panel active aos-item" data-panel="acc">
+            <div>
+                <div class="uc-department">Phòng Kế toán</div>
+                <h3 class="uc-title">Phê duyệt phiếu thu chi &amp; thanh toán</h3>
+                <p class="uc-desc">Tự động hoá toàn bộ luồng đề xuất → duyệt → ký số → ghi sổ. Rẽ nhánh theo hạn mức, có thể kết nối với phần mềm kế toán qua API. Chứng từ truy xuất nhanh chóng.</p>
+                <ul class="uc-benefits">
+                    <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>Loại bỏ luân chuyển giấy tờ thủ công — duyệt và ký số ngay trên quy trình</li>
+                    <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>Chứng từ số hoá tập trung, không còn thất lạc giấy tờ</li>
+                    <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>Tự động đồng bộ dữ liệu sang phần mềm kế toán — không nhập lại</li>
+                </ul>
+            </div>
+            <div class="uc-flow">
+                <div class="uc-flow-label">Quy trình mẫu</div>
+                <div class="uc-flow-steps">
+                    <div class="uc-flow-step"><span class="step-dot">1</span>Nhân viên nộp phiếu chi</div>
+                    <div class="uc-flow-connector"></div>
+                    <div class="uc-flow-step"><span class="step-dot">2</span>Trưởng phòng duyệt</div>
+                    <div class="uc-flow-connector"></div>
+                    <div class="uc-flow-step"><span class="step-dot">3</span>Rẽ nhánh: &lt;5tr / &gt;5tr</div>
+                    <div class="uc-flow-connector"></div>
+                    <div class="uc-flow-step"><span class="step-dot">4</span>Kế toán / Giám đốc ký số</div>
+                    <div class="uc-flow-connector"></div>
+                    <div class="uc-flow-step"><span class="step-dot">5</span>Tự động ghi sổ &amp; đồng bộ</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="uc-panel" data-panel="hr">
+            <div>
+                <div class="uc-department">Phòng Nhân sự</div>
+                <h3 class="uc-title">Tuyển dụng, Onboarding &amp; Đơn từ</h3>
+                <p class="uc-desc">Toàn bộ vòng đời nhân sự trên một luồng: từ ứng viên đậu phỏng vấn đến ngày làm việc đầu tiên. HĐLĐ ký số hợp lệ pháp lý. Đơn xin nghỉ phép, làm thêm giờ duyệt online.</p>
+                <ul class="uc-benefits">
+                    <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>Onboarding nhân viên mới diễn ra liền mạch, không sót bước</li>
+                    <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>HĐLĐ ký số hợp lệ pháp lý, lưu trữ tập trung dài hạn</li>
+                    <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>Liên thông sẵn sang chấm công + tính lương — không rải rác</li>
+                </ul>
+            </div>
+            <div class="uc-flow">
+                <div class="uc-flow-label">Quy trình mẫu</div>
+                <div class="uc-flow-steps">
+                    <div class="uc-flow-step"><span class="step-dot">1</span>Ứng viên đậu phỏng vấn</div>
+                    <div class="uc-flow-connector"></div>
+                    <div class="uc-flow-step"><span class="step-dot">2</span>HR tạo hợp đồng lao động</div>
+                    <div class="uc-flow-connector"></div>
+                    <div class="uc-flow-step"><span class="step-dot">3</span>Ký số HĐLĐ (NV + GĐ)</div>
+                    <div class="uc-flow-connector"></div>
+                    <div class="uc-flow-step"><span class="step-dot">4</span>Cấp tài khoản + thiết bị</div>
+                    <div class="uc-flow-connector"></div>
+                    <div class="uc-flow-step"><span class="step-dot">5</span>Đào tạo + Review 30 ngày</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="uc-panel" data-panel="sales">
+            <div>
+                <div class="uc-department">Phòng Kinh doanh</div>
+                <h3 class="uc-title">Phê duyệt hợp đồng &amp; báo giá</h3>
+                <p class="uc-desc">Sale chốt deal trên CRM → workflow phê duyệt tự kích hoạt → ký số → tạo hóa đơn. Rút ngắn thời gian từ chốt deal đến thu tiền, giảm tỷ lệ mất deal vì chờ ký. KPI tự đồng bộ, không nhập Excel.</p>
+                <ul class="uc-benefits">
+                    <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>Rút ngắn đáng kể thời gian từ chốt deal đến ký hợp đồng</li>
+                    <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>Không còn mất deal vì hợp đồng "nằm chờ" trên bàn lãnh đạo</li>
+                    <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>KPI tự đồng bộ sau khi ký — không phải nhập lại Excel</li>
+                </ul>
+            </div>
+            <div class="uc-flow">
+                <div class="uc-flow-label">Quy trình mẫu</div>
+                <div class="uc-flow-steps">
+                    <div class="uc-flow-step"><span class="step-dot">1</span>Sale tạo đơn hàng trên CRM</div>
+                    <div class="uc-flow-connector"></div>
+                    <div class="uc-flow-step"><span class="step-dot">2</span>Trưởng phòng KD duyệt</div>
+                    <div class="uc-flow-connector"></div>
+                    <div class="uc-flow-step"><span class="step-dot">3</span>Rẽ nhánh theo giá trị &amp; chính sách</div>
+                    <div class="uc-flow-connector"></div>
+                    <div class="uc-flow-step"><span class="step-dot">4</span>Giám đốc ký số</div>
+                    <div class="uc-flow-connector"></div>
+                    <div class="uc-flow-step"><span class="step-dot">5</span>Tự tạo hóa đơn + cập nhật KPI</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="uc-panel" data-panel="cs">
+            <div>
+                <div class="uc-department">Phòng Chăm sóc khách hàng</div>
+                <h3 class="uc-title">Xử lý yêu cầu &amp; theo dõi SLA</h3>
+                <p class="uc-desc">Ticket tiếp nhận → phân loại tự động theo độ ưu tiên → gán chuyên viên → xử lý → đóng + khảo sát. Không còn "ticket rơi qua khe". Cảnh báo điểm nghẽn theo thời gian thực cho trưởng phòng.</p>
+                <ul class="uc-benefits">
+                    <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>Tỷ lệ SLA đạt chuẩn tăng rõ rệt nhờ tracking tự động</li>
+                    <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>Phát hiện điểm nghẽn theo thời gian thực, cảnh báo trước khi quá hạn</li>
+                    <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>Mọi ticket đều được theo dõi và phản hồi đúng hạn</li>
+                </ul>
+            </div>
+            <div class="uc-flow">
+                <div class="uc-flow-label">Quy trình mẫu</div>
+                <div class="uc-flow-steps">
+                    <div class="uc-flow-step"><span class="step-dot">1</span>Tiếp nhận yêu cầu khách hàng</div>
+                    <div class="uc-flow-connector"></div>
+                    <div class="uc-flow-step"><span class="step-dot">2</span>Phân loại tự động theo ưu tiên</div>
+                    <div class="uc-flow-connector"></div>
+                    <div class="uc-flow-step"><span class="step-dot">3</span>Gán chuyên viên phụ trách</div>
+                    <div class="uc-flow-connector"></div>
+                    <div class="uc-flow-step"><span class="step-dot">4</span>Xử lý + tracking SLA</div>
+                    <div class="uc-flow-connector"></div>
+                    <div class="uc-flow-step"><span class="step-dot">5</span>Đóng ticket + khảo sát</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="uc-panel" data-panel="ops">
+            <div>
+                <div class="uc-department">Vận hành nội bộ</div>
+                <h3 class="uc-title">Hành chính - Đề xuất - Phê duyệt</h3>
+                <p class="uc-desc">Số hoá mọi loại văn bản, đề xuất, tờ trình nội bộ. Luân chuyển tự động theo cơ cấu tổ chức, lưu trữ tập trung, truy xuất nhanh. Giảm phụ thuộc thủ công và đảm bảo nhất quán toàn DN.</p>
+                <ul class="uc-benefits">
+                    <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>Giảm đáng kể thời gian xử lý văn bản, đề xuất nội bộ</li>
+                    <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>Giấy tờ số hóa tập trung, truy xuất lịch sử tức thì</li>
+                    <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>Mọi thao tác được lưu vết — minh bạch, dễ kiểm toán</li>
+                </ul>
+            </div>
+            <div class="uc-flow">
+                <div class="uc-flow-label">Quy trình mẫu</div>
+                <div class="uc-flow-steps">
+                    <div class="uc-flow-step"><span class="step-dot">1</span>Nhân viên tạo đề xuất</div>
+                    <div class="uc-flow-connector"></div>
+                    <div class="uc-flow-step"><span class="step-dot">2</span>Trưởng bộ phận duyệt</div>
+                    <div class="uc-flow-connector"></div>
+                    <div class="uc-flow-step"><span class="step-dot">3</span>Phân loại theo cấp độ xử lý</div>
+                    <div class="uc-flow-connector"></div>
+                    <div class="uc-flow-step"><span class="step-dot">4</span>Ban lãnh đạo phê duyệt</div>
+                    <div class="uc-flow-connector"></div>
+                    <div class="uc-flow-step"><span class="step-dot">5</span>Lưu trữ + thông báo liên quan</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================
+     SECTION 8 — 1AI Process (original content)
+     ============================================================ -->
+<section class="ai-section">
+    <div class="container">
+        <div class="ai-inner">
+            <div class="aos-item aos-left">
+                <div class="ai-badge">
+                    <span class="dot"></span>
+                    Tính năng nâng cao · 1AI PROCESS
+                </div>
+                <h2 class="ai-title">Muốn nhanh hơn nữa? Để <span class="hl">1AI</span> số hoá quy trình thay bạn.</h2>
+                <p class="ai-desc">Tải file mô tả quy trình (Word/PDF) — <strong>1AI Process</strong> đọc, phân tích và tự dựng workflow. Bạn chỉ việc xem lại, chỉnh sửa và publish.</p>
+                <ul class="ai-features">
+                    <li>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+                        Đọc file mô tả và tự tách thành các bước, điều kiện rẽ nhánh
+                    </li>
+                    <li>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+                        Chủ động gợi ý tối ưu dựa trên kinh nghiệm tốt nhất trong ngành
+                    </li>
+                    <li>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+                        Phân tích điểm nghẽn quy trình hiện tại, đề xuất cải tiến liên tục
+                    </li>
+                </ul>
+                <a href="#final-cta" class="btn btn-primary btn-lg">
+                    Tìm hiểu về 1AI Process
+                    <svg class="arrow-bounce" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+            </div>
+            <div class="ai-mockup aos-item aos-right">
+                <video autoplay muted loop><source src="1ai-process.mp4"  type="video/mp4"></video>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================
+     SECTION 9 — Testimonials (carousel: video left + content right)
+     ============================================================ -->
+<section id="testimonials" class="testimonials">
+    <div class="container">
+        <div class="section-header center aos-item">
+            <h2 class="section-title">Được tin tưởng và đánh giá cao bởi các<br>doanh nghiệp hàng đầu</h2>
+        </div>
+
+        <div class="tm-carousel aos-item">
+            <div class="tm-track" id="tmTrack">
+
+                <!-- ========== Slide 1: MeeyLand ========== -->
+                <div class="tm-slide">
+                    <div class="tm-card">
+                        <div class="tm-video" data-video-id="4VKmS5IYTxM" data-start="76">
+                            <!-- YouTube thumbnail -->
+                            <div class="tm-video-thumb">
+                                <img src="https://img.youtube.com/vi/4VKmS5IYTxM/maxresdefault.jpg"
+                                     onerror="this.src='https://img.youtube.com/vi/4VKmS5IYTxM/hqdefault.jpg'"
+                                     alt="MeeyLand testimonial video">
+                            </div>
+                            <!-- Logo bar top-left -->
+                            <div class="tm-logo-bar">
+                                <span class="logo-1office">
+                                    <span class="one-badge">1</span>Office
+                                </span>
+                                <span class="divider"></span>
+                                <!-- MeeyLand logo: blue M shape + "Meey Land" -->
+                                <svg width="76" height="14" viewBox="0 0 110 22" xmlns="http://www.w3.org/2000/svg">
+                                    <g transform="translate(0,2)">
+                                        <path d="M 1 16 L 1 4 L 5 4 L 9 12 L 13 4 L 17 4 L 17 16 L 14 16 L 14 9 L 11 16 L 7 16 L 4 9 L 4 16 Z" fill="#0F4C8C"/>
+                                    </g>
+                                    <text x="22" y="14" font-family="Inter Tight, sans-serif" font-size="12" font-weight="800" fill="#0F4C8C">Meey Land</text>
+                                </svg>
+                            </div>
+                            <!-- Decorative orange blocks right -->
+                            <div class="tm-deco-small"></div>
+                            <div class="tm-deco-arrow">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                            </div>
+                            <!-- Play button -->
+                            <button class="tm-play" aria-label="Play video">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 21 12 6 21 6 3"/></svg>
+                            </button>
+                        </div>
+
+                        <div class="tm-content">
+                            <div class="tm-stats-row">
+                                <div class="tm-company-logo">
+                                    <!-- MeeyLand full logo: blue M shape + "Meey Land" + tagline -->
+                                    <svg viewBox="0 0 200 40" xmlns="http://www.w3.org/2000/svg">
+                                        <g transform="translate(0, 4)">
+                                            <path d="M 2 26 L 2 4 L 8 4 L 14 18 L 20 4 L 26 4 L 26 26 L 22 26 L 22 14 L 17 25 L 11 25 L 6 14 L 6 26 Z" fill="#0F4C8C"/>
+                                        </g>
+                                        <text x="34" y="22" font-family="Inter Tight, sans-serif" font-size="18" font-weight="800" fill="#0F4C8C">Meey Land</text>
+                                        <text x="34" y="34" font-family="Inter Tight, sans-serif" font-size="6" font-weight="600" fill="#0F4C8C" letter-spacing="0.4">CÔNG NGHỆ KHAI THÁC GIÁ TRỊ</text>
+                                    </svg>
+                                </div>
+                                <div class="tm-stat-col">
+                                    <span class="tm-stat-label">LĨNH VỰC</span>
+                                    <span class="tm-stat-value">Bất động sản</span>
+                                </div>
+                                <div class="tm-stat-col">
+                                    <span class="tm-stat-label">QUY MÔ</span>
+                                    <span class="tm-stat-value">400+ Users</span>
+                                </div>
+                                <div class="tm-stat-col">
+                                    <span class="tm-stat-label">GIẢI PHÁP</span>
+                                    <span class="tm-stat-value">1WORK - Quản lý công việc</span>
+                                </div>
+                            </div>
+
+                            <p class="tm-quote">Sử dụng phân hệ Workplace giúp chúng tôi quản lý chi tiết các nội dung công việc, phân công, tiến độ thực hiện của dự án/công việc của từng cá nhân đang thực hiện, thông qua đó nắm bắt được tiến độ công việc của bất kỳ cá nhân nào</p>
+
+                            <div class="tm-author">
+                                <div class="tm-author-avatar">
+                                    <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="24" cy="24" r="24" fill="#FCE7D5"/>
+                                        <path d="M 8 48 Q 8 32 24 32 Q 40 32 40 48 Z" fill="#fff"/>
+                                        <path d="M 12 38 L 16 48 M 20 36 L 22 48 M 28 36 L 26 48 M 36 38 L 32 48" stroke="#1D232E" stroke-width="0.4" opacity="0.5"/>
+                                        <ellipse cx="24" cy="22" rx="9" ry="11" fill="#E8C19E"/>
+                                        <path d="M 15 16 Q 16 10 24 9 Q 32 10 33 16 Q 33 21 31 22 Q 30 14 24 13 Q 18 14 17 22 Q 15 21 15 16 Z" fill="#1D232E"/>
+                                        <ellipse cx="21" cy="21" rx="0.8" ry="1" fill="#1D232E"/>
+                                        <ellipse cx="27" cy="21" rx="0.8" ry="1" fill="#1D232E"/>
+                                        <path d="M 21 27 Q 24 29 27 27" fill="none" stroke="#8B4A3A" stroke-width="0.6" stroke-linecap="round"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <div class="tm-author-name">Bà <strong>Phạm Thị Thu Hương</strong></div>
+                                    <div class="tm-author-role">TP Nhân sự công ty CP tập đoàn MeeyLand</div>
+                                </div>
+                            </div>
+
+                            <div class="tm-results-title">Kết quả nổi bật</div>
+                            <ul class="tm-results-list">
+                                <li>
+                                    <span class="check-icon">
+                                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+                                    </span>
+                                    Cập nhật và theo dõi tiến độ công việc dễ dàng
+                                </li>
+                                <li>
+                                    <span class="check-icon">
+                                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+                                    </span>
+                                    Nhân viên chủ động, giảm thiểu trễ hạn
+                                </li>
+                                <li>
+                                    <span class="check-icon">
+                                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+                                    </span>
+                                    Nắm bắt từng bước trong quy trình công việc
+                                </li>
+                                <li>
+                                    <span class="check-icon">
+                                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+                                    </span>
+                                    Đánh giá hiệu suất chính xác, minh bạch hơn
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ========== Slide 2: MathExpress ========== -->
+                <div class="tm-slide">
+                    <div class="tm-card">
+                        <div class="tm-video" data-video-id="BIEon3nAEyY">
+                            <!-- YouTube thumbnail -->
+                            <div class="tm-video-thumb">
+                                <img src="https://img.youtube.com/vi/BIEon3nAEyY/maxresdefault.jpg"
+                                     onerror="this.src='https://img.youtube.com/vi/BIEon3nAEyY/hqdefault.jpg'"
+                                     alt="MathExpress testimonial video">
+                            </div>
+                            <!-- Logo bar top-left -->
+                            <div class="tm-logo-bar">
+                                <span class="logo-1office">
+                                    <span class="one-badge">1</span>Office
+                                </span>
+                                <span class="divider"></span>
+                                <!-- MathExpress logo: orange ME badge + text -->
+                                <svg width="78" height="14" viewBox="0 0 120 22" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="9" cy="11" r="9" fill="#F0500A"/>
+                                    <text x="9" y="15" text-anchor="middle" font-family="Inter Tight, sans-serif" font-size="9" font-weight="800" fill="#fff">ME</text>
+                                    <text x="22" y="15" font-family="Inter Tight, sans-serif" font-size="12" font-weight="800" fill="#1B4FA0">Math<tspan fill="#F0500A">Express</tspan></text>
+                                </svg>
+                            </div>
+                            <!-- Decorative orange blocks right -->
+                            <div class="tm-deco-small"></div>
+                            <div class="tm-deco-arrow">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                            </div>
+                            <!-- Play button -->
+                            <button class="tm-play" aria-label="Play video">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 21 12 6 21 6 3"/></svg>
+                            </button>
+                        </div>
+
+                        <div class="tm-content">
+                            <div class="tm-stats-row">
+                                <div class="tm-company-logo">
+                                    <!-- MathExpress full logo: orange circle badge with ME, "MathExpress" text + tagline -->
+                                    <svg viewBox="0 0 180 40" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="16" cy="18" r="15" fill="#F0500A"/>
+                                        <text x="16" y="23" text-anchor="middle" font-family="Inter Tight, sans-serif" font-size="14" font-weight="800" fill="#fff">ME</text>
+                                        <text x="38" y="22" font-family="Inter Tight, sans-serif" font-size="18" font-weight="800" fill="#1B4FA0">Math<tspan fill="#F0500A">Express</tspan></text>
+                                        <text x="38" y="34" font-family="Inter Tight, sans-serif" font-size="7" font-weight="600" fill="#676D78">cùng học, học là vui</text>
+                                    </svg>
+                                </div>
+                                <div class="tm-stat-col">
+                                    <span class="tm-stat-label">LĨNH VỰC</span>
+                                    <span class="tm-stat-value">Giáo dục</span>
+                                </div>
+                                <div class="tm-stat-col">
+                                    <span class="tm-stat-label">QUY MÔ</span>
+                                    <span class="tm-stat-value">600+ Users</span>
+                                </div>
+                                <div class="tm-stat-col">
+                                    <span class="tm-stat-label">GIẢI PHÁP</span>
+                                    <span class="tm-stat-value">Quản lý công việc &amp; nhân sự</span>
+                                </div>
+                            </div>
+
+                            <p class="tm-quote">Chuyển đổi số là một điều tất yếu. Điều đầu tiên, chuyển đổi số sẽ giúp doanh nghiệp vận hành tốt hơn. Điều thứ hai, chuyển đổi số sẽ mang lại trải nghiệm tốt cho nhân viên. Và muốn có trải nghiệm khách hàng tốt thì phải có trải nghiệm nhân viên tốt</p>
+
+                            <div class="tm-author">
+                                <div class="tm-author-avatar">
+                                    <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="24" cy="24" r="24" fill="#F5DDC9"/>
+                                        <path d="M 6 48 Q 6 32 24 32 Q 42 32 42 48 Z" fill="#5C5C5C"/>
+                                        <path d="M 21 32 L 24 38 L 27 32 L 26 48 L 24 42 L 22 48 Z" fill="#fff"/>
+                                        <path d="M 23 38 L 25 38 L 24 48 Z" fill="#F0500A"/>
+                                        <ellipse cx="24" cy="22" rx="8" ry="10" fill="#D9A37C"/>
+                                        <path d="M 16 16 Q 17 10 24 9 Q 31 10 32 16 Q 32 12 24 11 Q 16 12 16 16 Z" fill="#1D232E"/>
+                                        <circle cx="20" cy="21" r="2" fill="none" stroke="#1D232E" stroke-width="0.5"/>
+                                        <circle cx="28" cy="21" r="2" fill="none" stroke="#1D232E" stroke-width="0.5"/>
+                                        <line x1="22" y1="21" x2="26" y2="21" stroke="#1D232E" stroke-width="0.4"/>
+                                        <ellipse cx="20" cy="21" rx="0.6" ry="0.8" fill="#1D232E"/>
+                                        <ellipse cx="28" cy="21" rx="0.6" ry="0.8" fill="#1D232E"/>
+                                        <path d="M 21 27 Q 24 29 27 27" fill="none" stroke="#8B4A3A" stroke-width="0.6" stroke-linecap="round"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <div class="tm-author-name">Ông <strong>Trần Trọng Nam</strong></div>
+                                    <div class="tm-author-role">PGĐ Công ty TNHH MathExpress</div>
+                                </div>
+                            </div>
+
+                            <div class="tm-results-title">Kết quả nổi bật</div>
+                            <ul class="tm-results-list">
+                                <li>
+                                    <span class="check-icon">
+                                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+                                    </span>
+                                    Quản lý nhiệm vụ, kế hoạch, tiến độ công việc rõ ràng
+                                </li>
+                                <li>
+                                    <span class="check-icon">
+                                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+                                    </span>
+                                    Giúp hạn chế chồng chéo, theo dõi hiệu suất hiệu quả
+                                </li>
+                                <li>
+                                    <span class="check-icon">
+                                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+                                    </span>
+                                    Xây dựng một nền tảng thông tin thống nhất, dễ tiếp cận
+                                </li>
+                                <li>
+                                    <span class="check-icon">
+                                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+                                    </span>
+                                    Rút ngắn thời gian xử lý văn bản, giảm thiểu chi phí vận hành
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ========== Slide 3: TinHoldings ========== -->
+                <div class="tm-slide">
+                    <div class="tm-card">
+                        <div class="tm-video" data-video-id="BuQnrGjfHAg" data-start="42">
+                            <!-- YouTube thumbnail -->
+                            <div class="tm-video-thumb">
+                                <img src="https://img.youtube.com/vi/BuQnrGjfHAg/maxresdefault.jpg"
+                                     onerror="this.src='https://img.youtube.com/vi/BuQnrGjfHAg/hqdefault.jpg'"
+                                     alt="TinHoldings testimonial video">
+                            </div>
+                            <!-- Logo bar top-left -->
+                            <div class="tm-logo-bar">
+                                <span class="logo-1office">
+                                    <span class="one-badge">1</span>Office
+                                </span>
+                                <span class="divider"></span>
+                                <!-- TinHoldings logo: gold crest + text -->
+                                <svg width="80" height="14" viewBox="0 0 130 22" xmlns="http://www.w3.org/2000/svg">
+                                    <g transform="translate(0, 2)">
+                                        <path d="M 4 2 L 12 2 L 14 6 L 12 10 L 14 14 L 4 14 L 2 10 L 4 6 Z" fill="#C9A862"/>
+                                        <text x="8" y="11" text-anchor="middle" font-family="serif" font-size="6" font-weight="700" fill="#1D232E">T</text>
+                                    </g>
+                                    <text x="20" y="14" font-family="Inter Tight, sans-serif" font-size="11" font-weight="900" fill="#1D232E" letter-spacing="0.5">TINHOLDINGS</text>
+                                </svg>
+                            </div>
+                            <!-- Decorative orange blocks right -->
+                            <div class="tm-deco-small"></div>
+                            <div class="tm-deco-arrow">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                            </div>
+                            <!-- Play button -->
+                            <button class="tm-play" aria-label="Play video">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 21 12 6 21 6 3"/></svg>
+                            </button>
+                        </div>
+
+                        <div class="tm-content">
+                            <div class="tm-stats-row">
+                                <div class="tm-company-logo">
+                                    <!-- TinHoldings full logo: gold crest + TINHOLDINGS text -->
+                                    <svg viewBox="0 0 170 40" xmlns="http://www.w3.org/2000/svg">
+                                        <g transform="translate(0, 2)">
+                                            <path d="M 6 2 L 22 2 L 26 10 L 22 18 L 26 26 L 6 26 L 2 18 L 6 10 Z" fill="#C9A862"/>
+                                            <path d="M 6 2 L 22 2 L 26 10 L 22 18 L 26 26 L 6 26 L 2 18 L 6 10 Z" fill="none" stroke="#9C7E3F" stroke-width="0.5"/>
+                                            <text x="14" y="18" text-anchor="middle" font-family="Times, serif" font-size="11" font-weight="700" fill="#1D232E">T</text>
+                                        </g>
+                                        <text x="34" y="22" font-family="Inter Tight, sans-serif" font-size="16" font-weight="900" fill="#1D232E" letter-spacing="1">TINHOLDINGS</text>
+                                        <text x="146" y="14" font-family="Inter Tight, sans-serif" font-size="6" fill="#676D78">®</text>
+                                    </svg>
+                                </div>
+                                <div class="tm-stat-col">
+                                    <span class="tm-stat-label">LĨNH VỰC</span>
+                                    <span class="tm-stat-value">Bán lẻ</span>
+                                </div>
+                                <div class="tm-stat-col">
+                                    <span class="tm-stat-label">QUY MÔ</span>
+                                    <span class="tm-stat-value">200+ Users</span>
+                                </div>
+                                <div class="tm-stat-col">
+                                    <span class="tm-stat-label">GIẢI PHÁP</span>
+                                    <span class="tm-stat-value">Quản lý tổng thể</span>
+                                </div>
+                            </div>
+
+                            <p class="tm-quote">Từ khi triển khai phần mềm này tới toàn bộ nhân viên trong công ty, nhân viên có thể làm việc tại bất cứ đâu, bất cứ lúc nào vẫn có thể truy cập để nhận phân công công việc và báo cáo công việc</p>
+
+                            <div class="tm-author">
+                                <div class="tm-author-avatar">
+                                    <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="24" cy="24" r="24" fill="#FCE9D5"/>
+                                        <path d="M 6 48 Q 6 32 24 32 Q 42 32 42 48 Z" fill="#1D232E"/>
+                                        <path d="M 22 32 L 24 38 L 26 32 L 26 48 L 24 42 L 22 48 Z" fill="#fff"/>
+                                        <ellipse cx="24" cy="22" rx="8" ry="10" fill="#E8C19E"/>
+                                        <path d="M 16 16 Q 17 8 24 7 Q 31 8 32 16 Q 32 11 24 10 Q 16 11 16 16 Z" fill="#1D232E"/>
+                                        <ellipse cx="21" cy="22" rx="0.7" ry="0.9" fill="#1D232E"/>
+                                        <ellipse cx="27" cy="22" rx="0.7" ry="0.9" fill="#1D232E"/>
+                                        <path d="M 21 28 Q 24 30 27 28" fill="none" stroke="#8B4A3A" stroke-width="0.6" stroke-linecap="round"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <div class="tm-author-name">Ông <strong>Nguyễn Văn Khải</strong></div>
+                                    <div class="tm-author-role">Tổng giám đốc CTCP TinHoldings</div>
+                                </div>
+                            </div>
+
+                            <div class="tm-results-title">Kết quả nổi bật</div>
+                            <ul class="tm-results-list">
+                                <li>
+                                    <span class="check-icon">
+                                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+                                    </span>
+                                    Quản lý trên 1 nền tảng, dễ theo dõi và vận hành
+                                </li>
+                                <li>
+                                    <span class="check-icon">
+                                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+                                    </span>
+                                    Các luồng công việc vận hành trơn tru hơn
+                                </li>
+                                <li>
+                                    <span class="check-icon">
+                                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+                                    </span>
+                                    Số hoá được toàn bộ quy trình trong công ty
+                                </li>
+                                <li>
+                                    <span class="check-icon">
+                                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+                                    </span>
+                                    Xử lý công việc quy trình linh hoạt, kể cả quy trình rẽ nhánh
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Carousel dots -->
+            <div class="tm-dots" id="tmDots">
+                <button class="tm-dot active" data-slide="0" aria-label="Slide 1"></button>
+                <button class="tm-dot" data-slide="1" aria-label="Slide 2"></button>
+                <button class="tm-dot" data-slide="2" aria-label="Slide 3"></button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================
+     SECTION 10 — Final CTA
+     ============================================================ -->
+<section id="final-cta" class="final-cta">
+    <div class="container">
+        <div class="cta-inner aos-item">
+            <div class="cta-content">
+                <span class="section-label">Sẵn sàng bứt phá</span>
+                <h2 class="cta-title">Vận hành liền mạch — Tự động hoá hàng trăm quy trình với một nền tảng.</h2>
+                <p class="cta-desc">Đặt lịch demo với chuyên gia 1Office.</p>
+                <ul class="cta-benefits">
+                    <li>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+                        Dựng demo quy trình theo đúng đặc thù công ty bạn
+                    </li>
+                    <li>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+                        Tư vấn chuẩn hoá vận hành bởi chuyên gia nhiều năm kinh nghiệm
+                    </li>
+                    <li>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+                        Lộ trình triển khai rõ ràng, có mốc vận hành chính thức cụ thể
+                    </li>
+                </ul>
+            </div>
+            <form class="cta-form" onsubmit="handleForm(event)">
+                <div class="form-title">Nhận tư vấn miễn phí</div>
+                <div class="form-subtitle">Chuyên gia 1Office sẽ liên hệ tới bạn trong thời gian sớm nhất.</div>
+                <div class="form-group">
+                    <label class="form-label">Họ và tên <span class="req">*</span></label>
+                    <input type="text" class="form-input" placeholder="Nguyễn Văn A" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Số điện thoại <span class="req">*</span></label>
+                        <input type="tel" class="form-input" placeholder="09xx xxx xxx" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email công ty <span class="req">*</span></label>
+                        <input type="email" class="form-input" placeholder="email@congty.vn" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Quy mô</label>
+                        <select class="form-select">
+                            <option>20 – 50 nhân viên</option>
+                            <option selected>50 – 100 nhân viên</option>
+                            <option>100 – 300 nhân viên</option>
+                            <option>300 – 500 nhân viên</option>
+                            <option>500 – 1000 nhân viên</option>
+                            <option>Trên 1000 nhân viên</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Chức vụ</label>
+                        <select class="form-select">
+                            <option>Lãnh đạo (Chủ tịch, CEO, C-level...)</option>
+                            <option>Quản lý nhân sự</option>
+                            <option>Quản lý CNTT</option>
+                            <option>Quản lý cấp trung</option>
+                            <option>Nhân viên</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg form-submit">
+                    Đăng ký nhận demo ngay
+                    <svg class="arrow-bounce" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div>
+                <div class="footer-brand">
+                    <a href="#" class="logo">
+                        <img src="1office-logo.png" alt="1Office"/>
+                    </a>
+                </div>
+                <p class="footer-about">Nền tảng quản trị doanh nghiệp toàn diện đầu tiên &amp; duy nhất tại Việt Nam — được 6.000+ doanh nghiệp tin dùng.</p>
+                <div class="footer-contact">
+                    <div><strong>Hotline</strong></div>
+                    <div><a href="tel:0834838888">083 483 8888</a></div>
+                    <div style="margin-top: 12px;"><strong>Trụ sở Hà Nội</strong></div>
+                    <div>Tầng 3, Tòa G2 Five Star Garden, số 02 Kim Giang</div>
+                    <div style="margin-top: 8px;"><strong>VP TP. HCM</strong></div>
+                    <div>Lầu 3, số 222 Hoàng Hoa Thám, Q. Tân Bình</div>
+                </div>
+            </div>
+            <div>
+                <h4>Sản phẩm</h4>
+                <ul class="footer-links">
+                    <li><a href="#">1Office — Quy trình</a></li>
+                    <li><a href="#">1Sign — Ký số</a></li>
+                    <li><a href="#">1HRM — Nhân sự</a></li>
+                    <li><a href="#">1CRM — Khách hàng</a></li>
+                    <li><a href="#">1AI Process (Add-on)</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Công ty</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Giới thiệu</a></li>
+                    <li><a href="#">Khách hàng</a></li>
+                    <li><a href="#">Đối tác</a></li>
+                    <li><a href="#">Tuyển dụng</a></li>
+                    <li><a href="#">Truyền thông</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Tài nguyên</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Ebook &amp; Biểu mẫu</a></li>
+                    <li><a href="#">Hướng dẫn sử dụng</a></li>
+                    <li><a href="#">Cam kết SLA</a></li>
+                    <li><a href="#">Chính sách bảo mật</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">© 2015 - 2026 1Office Software. All Rights Reserved.</div>
+    </div>
+</footer>
+
+<button class="scroll-top" aria-label="Về đầu trang" id="scrollTop">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+</button>
+
+<script>
+// Testimonial: Click play button to embed YouTube iframe
+document.querySelectorAll('.tm-video[data-video-id]').forEach(function (video) {
+    video.addEventListener('click', function () {
+        if (video.classList.contains('playing')) return;
+        var id = video.dataset.videoId;
+        var start = video.dataset.start ? '&start=' + video.dataset.start : '';
+        var iframe = document.createElement('iframe');
+        iframe.className = 'tm-iframe';
+        
+        // Fix 153 error: youtube configuration
+        iframe.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0' + start;
+        iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin')
+        
+        iframe.setAttribute('allow', 'autoplay; encrypted-media; fullscreen');
+        iframe.setAttribute('allowfullscreen', '');
+        iframe.setAttribute('frameborder', '0');
+        video.appendChild(iframe);
+        video.classList.add('playing');
+    });
+});
+
+// Testimonial carousel
+(function () {
+    const track = document.getElementById('tmTrack');
+    const dots = document.querySelectorAll('#tmDots .tm-dot');
+    if (!track || !dots.length) return;
+    let current = 0;
+    let timer = null;
+    const total = dots.length;
+
+    function resetAllVideos() {
+        // Stop any playing iframe by removing it
+        track.querySelectorAll('.tm-video.playing').forEach(function (v) {
+            const ifr = v.querySelector('.tm-iframe');
+            if (ifr) ifr.remove();
+            v.classList.remove('playing');
+        });
+    }
+    function anyPlaying() {
+        return !!track.querySelector('.tm-video.playing');
+    }
+
+    function goTo(idx) {
+        current = (idx + total) % total;
+        track.style.transform = `translateX(-${current * 100}%)`;
+        dots.forEach((d, i) => d.classList.toggle('active', i === current));
+        resetAllVideos();
+    }
+    function next() { goTo(current + 1); }
+    function startAuto() {
+        stopAuto();
+        timer = setInterval(function () {
+            // Don't auto-advance if user is watching a video
+            if (!anyPlaying()) next();
+        }, 7000);
+    }
+    function stopAuto() {
+        if (timer) { clearInterval(timer); timer = null; }
+    }
+
+    dots.forEach((dot) => {
+        dot.addEventListener('click', () => {
+            goTo(parseInt(dot.dataset.slide, 10));
+            startAuto();
+        });
+    });
+
+    // Pause on hover
+    track.addEventListener('mouseenter', stopAuto);
+    track.addEventListener('mouseleave', startAuto);
+
+    startAuto();
+})();
+
+// Tab switcher
+document.querySelectorAll('.uc-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+        const target = tab.dataset.tab;
+        document.querySelectorAll('.uc-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.uc-panel').forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        document.querySelector(`.uc-panel[data-panel="${target}"]`).classList.add('active');
+    });
+});
+
+// Scroll-to-top
+const scrollTopBtn = document.getElementById('scrollTop');
+window.addEventListener('scroll', () => {
+    scrollTopBtn.classList.toggle('visible', window.scrollY > 300);
+});
+scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+// Animate on scroll + count up
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            const counts = entry.target.querySelectorAll('.count-up');
+            counts.forEach(el => {
+                if (!el.dataset.counted) {
+                    countUp(el);
+                    el.dataset.counted = '1';
+                }
+            });
+            observer.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.15 });
+document.querySelectorAll('.aos-item').forEach(el => observer.observe(el));
+
+function countUp(el) {
+    const target = parseFloat(el.dataset.target);
+    const suffix = el.dataset.suffix || '';
+    const duration = 1800;
+    const start = performance.now();
+    function update(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const ease = 1 - (1 - progress) * (1 - progress);
+        el.textContent = Math.round(target * ease) + suffix;
+        if (progress < 1) requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+}
+
+function handleForm(e) {
+    e.preventDefault();
+    alert('Cảm ơn! Chuyên gia 1Office sẽ liên hệ với bạn trong thời gian sớm nhất.\n\n(Demo mode)');
+}
+</script>
+
+</body>
+</html>
