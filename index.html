@@ -4138,41 +4138,37 @@ body.modal-open::after {
             <p class="form-subtitle">Chuyên gia 1Office sẽ liên hệ tới bạn trong thời gian sớm nhất.</p>
           </div>
 
-          <div class="form-rows">
+         <div class="form-rows">
 
-            <!-- Row 1: Họ tên + SĐT -->
             <div class="form-row cols-2">
               <div class="form-group">
                 <label class="form-label">Họ và tên <span class="required">*</span></label>
-                <input class="form-input" type="text" placeholder="Nguyễn Văn A">
+                <input class="form-input" type="text" name="fullname" placeholder="Nguyễn Văn A" required>
               </div>
               <div class="form-group">
                 <label class="form-label">Số điện thoại <span class="required">*</span></label>
-                <input class="form-input" type="tel" placeholder="09xx xxx xxx">
+                <input class="form-input" type="tel" name="phone" placeholder="09xx xxx xxx" required>
               </div>
             </div>
 
-            <!-- Row 2: Email -->
             <div class="form-row">
               <div class="form-group">
                 <label class="form-label">Email công ty <span class="required">*</span></label>
-                <input class="form-input" type="email" placeholder="email@congty.vn">
+                <input class="form-input" type="email" name="email" placeholder="email@congty.vn" required>
               </div>
             </div>
 
-            <!-- Row 3: Tên công ty -->
             <div class="form-row">
               <div class="form-group">
                 <label class="form-label">Tên công ty <span class="required">*</span></label>
-                <input class="form-input" type="text">
+                <input class="form-input" type="text" name="company" required>
               </div>
             </div>
 
-            <!-- Row 4: Quy mô + Khu vực -->
             <div class="form-row cols-2">
               <div class="form-group">
                 <label class="form-label">Quy mô</label>
-                <select class="form-select">
+                <select class="form-select" name="size">
                   <option>20 – 50 nhân viên</option>
                   <option selected>50 – 100 nhân viên</option>
                   <option>100 – 300 nhân viên</option>
@@ -4183,18 +4179,17 @@ body.modal-open::after {
               </div>
               <div class="form-group">
                 <label class="form-label">Khu vực</label>
-                <select class="form-select">
+                <select class="form-select" name="region">
                   <option>Khu vực miền Bắc</option>
                   <option>Khu vực miền Nam</option>
                 </select>
               </div>
             </div>
 
-            <!-- Row 5: Chức vụ -->
             <div class="form-row">
               <div class="form-group">
                 <label class="form-label">Chức vụ</label>
-                <select class="form-select">
+                <select class="form-select" name="position">
                   <option selected>Lãnh đạo (Chủ tịch, CEO, C-level...)</option>
                   <option>Quản lý nhân sự</option>
                   <option>Quản lý CNTT</option>
@@ -4205,7 +4200,6 @@ body.modal-open::after {
             </div>
 
           </div>
-
           <button class="form-submit btn-primary">
             Đăng ký nhận demo ngay
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
@@ -4419,7 +4413,38 @@ function countUp(el) {
 
 function handleForm(e) {
     e.preventDefault();
-    alert('Cảm ơn! Chuyên gia 1Office sẽ liên hệ với bạn trong thời gian sớm nhất.\n\n(Demo mode)');
+    
+    // Lấy đúng form đang được submit (form gốc hoặc form popup)
+    const form = e.target; 
+    const btn = form.querySelector('.form-submit');
+    const originalBtnContent = btn.innerHTML;
+
+    // Đổi giao diện nút bấm sang trạng thái chờ
+    btn.innerHTML = 'Đang xử lý...';
+    btn.disabled = true;
+
+    // Gắn Link Web App URL vào đây
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyPZOISxWxhDV9DPvt04mTSbO1pPXS4zrQ5g74TinQJAhlqzqvnzifjiQbRCWt1ohG8Kw/exec';
+    const formData = new FormData(form);
+
+    fetch(scriptURL, { method: 'POST', body: formData })
+        .then(response => {
+            alert('Cảm ơn! Chuyên gia 1Office sẽ liên hệ với bạn trong thời gian sớm nhất.');
+            form.reset(); // Xóa trắng form
+            btn.innerHTML = originalBtnContent;
+            btn.disabled = false;
+            
+            // Nếu người dùng đang dùng form popup, tự động đóng nó lại
+            if (form.classList.contains('is-popup')) {
+                closeFormPopup();
+            }
+        })
+        .catch(error => {
+            console.error('Lỗi!', error.message);
+            alert('Có lỗi xảy ra, vui lòng thử lại sau.');
+            btn.innerHTML = originalBtnContent;
+            btn.disabled = false;
+        });
 }
 
 function openDemoFormPop() {
